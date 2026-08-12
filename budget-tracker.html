@@ -355,17 +355,18 @@ let ui = { tab:'vandaag', openWeek:null, chosenCat:null };
 
 async function loadData(){
   try{
-    const res = await window.storage.get('budget-tracker-data');
-    if(res && res.value){ return JSON.parse(res.value); }
+    const raw = localStorage.getItem('budget-tracker-data');
+    if(raw){ return JSON.parse(raw); }
   }catch(e){ /* not found or error -> fresh start */ }
   return defaultData();
 }
 async function saveData(){
   try{
-    await window.storage.set('budget-tracker-data', JSON.stringify(DATA), false);
+    localStorage.setItem('budget-tracker-data', JSON.stringify(DATA));
     showToast('Opgeslagen');
   }catch(e){
     console.error('Opslaan mislukt', e);
+    showToast('Opslaan mislukt');
   }
 }
 let toastTimer=null;
