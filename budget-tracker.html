@@ -705,7 +705,12 @@ function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;'
 /* ============ EVENTS ============ */
 function attachEvents(m){
   document.querySelectorAll('.tab-btn').forEach(btn=>{
-    btn.onclick = ()=>{ ui.tab = btn.dataset.tab; render(); };
+    btn.onclick = ()=>{
+      // Force any pending edit (e.g. a date picker that hasn't fired
+      // "change" yet) to commit before we tear down and rebuild the DOM.
+      if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      ui.tab = btn.dataset.tab; render();
+    };
   });
   const fab = document.getElementById('fabAdd');
   if(fab) fab.onclick = openAddSheet;
@@ -730,11 +735,18 @@ function attachEvents(m){
 
   // settings inputs
   document.querySelectorAll('[data-setting]').forEach(inp=>{
-    inp.onchange = ()=>{
+    const commit = ()=>{
       const key = inp.dataset.setting;
-      DATA.settings[key] = inp.type==='date' ? inp.value : Number(inp.value);
+      const val = inp.type==='date' ? inp.value : Number(inp.value);
+      if(inp.type==='date' && !val) return; // ignore an incomplete/cleared date
+      if(DATA.settings[key] === val) return; // nothing changed, skip a redundant render
+      DATA.settings[key] = val;
       saveData(); render();
     };
+    inp.onchange = commit;
+    // Date pickers (esp. on iOS) fire "input" reliably the moment a date is
+    // picked, but may delay or skip "change" if focus moves away quickly.
+    if(inp.type==='date') inp.oninput = commit;
   });
   document.querySelectorAll('[data-cat-pct]').forEach(inp=>{
     inp.onchange = ()=>{
