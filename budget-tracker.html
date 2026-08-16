@@ -3,826 +3,6347 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>Budget • Vrij te besteden</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --bg:#0B0E14;
-    --surface:#141924;
-    --surface2:#1C2330;
-    --surface3:#242D3D;
-    --line:#242C3A;
-    --text:#F2F4F7;
-    --text-dim:#8891A6;
-    --text-faint:#5B6478;
-    --mint:#3FE0B0;
-    --mint-dim:#1E5B49;
-    --coral:#FF6B6B;
-    --coral-dim:#5A2A2E;
-    --amber:#FFB65C;
-    --gold:#E8B368;
-    --radius:20px;
+
+:root{
+  --bg:#0B0E14;
+  --surface:#141924;
+  --surface2:#1C2330;
+  --surface3:#242D3D;
+  --line:#242C3A;
+
+  --text:#F2F4F7;
+  --text-dim:#8891A6;
+  --text-faint:#5B6478;
+
+  --mint:#3FE0B0;
+  --mint-dim:#1E5B49;
+
+  --coral:#FF6B6B;
+  --coral-dim:#5A2A2E;
+
+  --amber:#FFB65C;
+  --blue:#5CA8FF;
+
+  --radius:20px;
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+
+  -webkit-font-smoothing:antialiased;
+}
+
+.num{
+  font-family:'Space Grotesk',sans-serif;
+  font-feature-settings:"tnum";
+  font-variant-numeric:tabular-nums;
+}
+
+#app{
+  width:100%;
+  max-width:440px;
+  min-height:100vh;
+
+  position:relative;
+
+  background:
+    radial-gradient(
+      120% 60% at 50% -10%,
+      #16324A22 0%,
+      transparent 60%
+    ),
+    var(--bg);
+
+  padding-bottom:100px;
+}
+
+header.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+
+  padding:
+    calc(env(safe-area-inset-top,0px) + 16px)
+    20px
+    12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--bg) 80%,
+      transparent
+    );
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.eyebrow{
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+
+  color:var(--text-faint);
+
+  font-weight:600;
+}
+
+.cycle-label{
+  font-size:13px;
+  color:var(--text-dim);
+  margin-top:2px;
+}
+
+.month-total{
+  text-align:right;
+  font-size:11px;
+  color:var(--text-faint);
+}
+
+.month-total .amt{
+  font-size:15px;
+  color:var(--mint);
+  font-weight:600;
+
+  display:block;
+}
+
+main{
+  padding:4px 20px 20px;
+}
+
+section.tab{
+  display:none;
+  animation:fadein .25s ease;
+}
+
+section.tab.active{
+  display:block;
+}
+
+@keyframes fadein{
+  from{
+    opacity:0;
+    transform:translateY(6px);
   }
-  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter',system-ui,sans-serif;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    -webkit-font-smoothing:antialiased;
+
+  to{
+    opacity:1;
+    transform:translateY(0);
   }
-  .num{font-family:'Space Grotesk',sans-serif; font-feature-settings:"tnum"; font-variant-numeric:tabular-nums;}
-  #app{
-    width:100%;
-    max-width:440px;
-    min-height:100vh;
-    position:relative;
-    background:
-      radial-gradient(120% 60% at 50% -10%, #16324A22 0%, transparent 60%),
-      var(--bg);
-    padding-bottom:96px;
+}
+
+
+/* =====================================================
+   VANDAAG
+===================================================== */
+
+.hero{
+  background:
+    linear-gradient(
+      160deg,
+      var(--surface2),
+      var(--surface)
+    );
+
+  border:1px solid var(--line);
+
+  border-radius:28px;
+
+  padding:22px 18px 20px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  margin-top:8px;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.hero::before{
+  content:'';
+
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      60% 50% at 50% 0%,
+      rgba(63,224,176,.10),
+      transparent 70%
+    );
+
+  pointer-events:none;
+}
+
+.ring-wrap{
+  position:relative;
+
+  width:185px;
+  height:185px;
+
+  margin-bottom:0;
+}
+
+.ring-wrap svg{
+  transform:rotate(-90deg);
+}
+
+.ring-center{
+  position:absolute;
+  inset:0;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.ring-center .label{
+  font-size:10px;
+  color:var(--text-faint);
+
+  letter-spacing:.08em;
+  text-transform:uppercase;
+
+  margin-bottom:5px;
+}
+
+.ring-center .amt{
+  font-size:34px;
+  font-weight:700;
+  line-height:1;
+}
+
+.ring-center .sub{
+  font-size:11px;
+  color:var(--text-dim);
+
+  margin-top:7px;
+}
+
+
+/* WEEK OVERZICHT */
+
+.week-highlight{
+  width:100%;
+
+  background:var(--surface3);
+
+  border:1px solid var(--line);
+
+  border-radius:16px;
+
+  padding:13px 14px;
+
+  margin-top:12px;
+}
+
+.week-highlight-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:10px;
+}
+
+.week-highlight-label{
+  font-size:10px;
+  color:var(--text-faint);
+
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+
+.week-highlight-value{
+  font-size:22px;
+  font-weight:700;
+
+  margin-top:3px;
+}
+
+.week-highlight-sub{
+  font-size:11px;
+  color:var(--text-dim);
+
+  margin-top:2px;
+}
+
+.week-progress{
+  margin-top:10px;
+}
+
+
+/* DAGBUDGET KLEIN */
+
+.daily-budget-small{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-top:10px;
+
+  padding:0 3px;
+}
+
+.daily-budget-small .label{
+  font-size:11px;
+  color:var(--text-faint);
+}
+
+.daily-budget-small .value{
+  font-size:14px;
+  font-weight:600;
+  color:var(--text-dim);
+}
+
+
+/* STATS */
+
+.hero-stats{
+  display:flex;
+  gap:10px;
+
+  width:100%;
+
+  margin-top:12px;
+}
+
+.stat-chip{
+  flex:1;
+
+  background:var(--surface3);
+
+  border-radius:16px;
+
+  padding:11px 13px;
+
+  border:1px solid var(--line);
+}
+
+.stat-chip .t{
+  font-size:10px;
+
+  color:var(--text-faint);
+
+  text-transform:uppercase;
+
+  letter-spacing:.06em;
+}
+
+.stat-chip .v{
+  font-size:16px;
+
+  font-weight:600;
+
+  margin-top:4px;
+}
+
+.stat-chip .v.pos{
+  color:var(--mint);
+}
+
+.stat-chip .v.neg{
+  color:var(--coral);
+}
+
+
+/* ALGEMENE BAR */
+
+.bar-track{
+  height:5px;
+
+  background:var(--surface);
+
+  border-radius:4px;
+
+  overflow:hidden;
+}
+
+.bar-fill{
+  height:100%;
+
+  border-radius:4px;
+
+  transition:width .4s ease;
+}
+
+
+.section-title{
+  font-size:13px;
+
+  font-weight:600;
+
+  color:var(--text-dim);
+
+  text-transform:uppercase;
+
+  letter-spacing:.06em;
+
+  margin:26px 2px 10px;
+}
+
+
+/* UITGAVEN */
+
+.tx-item{
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+
+  background:var(--surface);
+
+  border:1px solid var(--line);
+
+  border-radius:16px;
+
+  padding:12px 14px;
+
+  margin-bottom:8px;
+}
+
+.tx-icon{
+  width:36px;
+  height:36px;
+
+  border-radius:10px;
+
+  flex:none;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:16px;
+}
+
+.tx-body{
+  flex:1;
+  min-width:0;
+}
+
+.tx-cat{
+  font-size:13.5px;
+  font-weight:600;
+}
+
+.tx-meta{
+  font-size:11.5px;
+
+  color:var(--text-faint);
+
+  margin-top:1px;
+}
+
+.tx-amt{
+  font-size:15px;
+  font-weight:600;
+}
+
+.tx-del{
+  background:none;
+  border:none;
+
+  color:var(--text-faint);
+
+  font-size:18px;
+
+  padding:4px 2px;
+
+  cursor:pointer;
+
+  line-height:1;
+}
+
+.empty{
+  text-align:center;
+
+  color:var(--text-faint);
+
+  font-size:13px;
+
+  padding:26px 10px;
+
+  background:var(--surface);
+
+  border:1px dashed var(--line);
+
+  border-radius:16px;
+}
+
+
+/* =====================================================
+   WEKEN
+===================================================== */
+
+.week-flow{
+  display:flex;
+  flex-direction:column;
+}
+
+.week-card{
+  background:var(--surface);
+
+  border:1px solid var(--line);
+
+  border-radius:20px;
+
+  padding:16px 16px 14px;
+
+  margin-bottom:2px;
+}
+
+.week-card.current{
+  border-color:#2E5A4C;
+
+  box-shadow:
+    0 0 0 1px #2E5A4C inset;
+}
+
+.week-top{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-start;
+}
+
+.week-name{
+  font-size:14.5px;
+  font-weight:600;
+}
+
+.week-period{
+  font-size:11.5px;
+
+  color:var(--text-faint);
+
+  margin-top:2px;
+}
+
+.week-remaining{
+  text-align:right;
+}
+
+.week-remaining .v{
+  font-size:19px;
+  font-weight:700;
+}
+
+.week-remaining .l{
+  font-size:10px;
+
+  color:var(--text-faint);
+
+  text-transform:uppercase;
+
+  letter-spacing:.05em;
+}
+
+.week-detail{
+  display:flex;
+
+  gap:16px;
+
+  margin-top:12px;
+
+  font-size:11.5px;
+
+  color:var(--text-dim);
+}
+
+.week-detail b{
+  color:var(--text);
+
+  font-family:'Space Grotesk',sans-serif;
+}
+
+.flow-connector{
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:6px 4px 6px 30px;
+
+  margin-left:2px;
+}
+
+.flow-line{
+  width:1px;
+  height:18px;
+
+  background:var(--line);
+}
+
+.flow-badge{
+  font-size:11px;
+
+  font-weight:600;
+
+  padding:2px 9px;
+
+  border-radius:20px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:4px;
+}
+
+.flow-badge.pos{
+  background:var(--mint-dim);
+  color:var(--mint);
+}
+
+.flow-badge.neg{
+  background:var(--coral-dim);
+  color:var(--coral);
+}
+
+.expand-list{
+  margin-top:12px;
+
+  padding-top:12px;
+
+  border-top:1px solid var(--line);
+}
+
+.chev{
+  transition:transform .2s ease;
+
+  color:var(--text-faint);
+}
+
+.chev.open{
+  transform:rotate(180deg);
+}
+
+
+/* =====================================================
+   CATEGORIEEN
+===================================================== */
+
+.cat-card{
+  background:var(--surface);
+
+  border:1px solid var(--line);
+
+  border-radius:18px;
+
+  padding:14px 16px;
+
+  margin-bottom:10px;
+}
+
+.cat-top{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:baseline;
+
+  margin-bottom:8px;
+}
+
+.cat-name{
+  font-size:14px;
+
+  font-weight:600;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+}
+
+.cat-dot{
+  width:9px;
+  height:9px;
+
+  border-radius:50%;
+}
+
+.cat-nums{
+  font-size:12.5px;
+
+  color:var(--text-dim);
+}
+
+.cat-nums b{
+  color:var(--text);
+
+  font-family:'Space Grotesk',sans-serif;
+}
+
+
+/* =====================================================
+   GESCHIEDENIS
+===================================================== */
+
+.history-summary{
+  background:
+    linear-gradient(
+      160deg,
+      var(--surface2),
+      var(--surface)
+    );
+
+  border:1px solid var(--line);
+
+  border-radius:22px;
+
+  padding:18px;
+
+  margin-top:8px;
+}
+
+.history-summary-title{
+  font-size:11px;
+
+  color:var(--text-faint);
+
+  text-transform:uppercase;
+
+  letter-spacing:.07em;
+}
+
+.history-summary-total{
+  font-size:30px;
+
+  font-weight:700;
+
+  margin-top:4px;
+}
+
+.history-summary-sub{
+  font-size:12px;
+
+  color:var(--text-dim);
+
+  margin-top:4px;
+}
+
+.history-rank{
+  display:flex;
+
+  align-items:center;
+
+  gap:11px;
+
+  background:var(--surface);
+
+  border:1px solid var(--line);
+
+  border-radius:16px;
+
+  padding:13px 14px;
+
+  margin-bottom:8px;
+}
+
+.rank-number{
+  width:26px;
+  height:26px;
+
+  border-radius:9px;
+
+  background:var(--surface3);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  color:var(--text-dim);
+
+  flex:none;
+}
+
+.rank-info{
+  flex:1;
+
+  min-width:0;
+}
+
+.rank-name{
+  font-size:13.5px;
+
+  font-weight:600;
+}
+
+.rank-bar{
+  margin-top:7px;
+
+  height:5px;
+
+  background:var(--surface3);
+
+  border-radius:5px;
+
+  overflow:hidden;
+}
+
+.rank-amount{
+  text-align:right;
+
+  font-size:14px;
+
+  font-weight:700;
+}
+
+.rank-percent{
+  font-size:10.5px;
+
+  color:var(--text-faint);
+
+  margin-top:2px;
+
+  text-align:right;
+}
+
+.history-filter{
+  display:flex;
+
+  gap:8px;
+
+  margin-bottom:12px;
+}
+
+.history-filter button{
+  flex:1;
+
+  background:var(--surface3);
+
+  border:1px solid var(--line);
+
+  color:var(--text-dim);
+
+  border-radius:12px;
+
+  padding:9px 8px;
+
+  font-size:11.5px;
+
+  font-weight:600;
+
+  cursor:pointer;
+}
+
+.history-filter button.active{
+  background:var(--mint);
+
+  color:#04241B;
+
+  border-color:var(--mint);
+}
+
+
+/* =====================================================
+   INSTELLINGEN
+===================================================== */
+
+.field-group{
+  background:var(--surface);
+
+  border:1px solid var(--line);
+
+  border-radius:18px;
+
+  padding:14px 16px;
+
+  margin-bottom:14px;
+}
+
+.field-group h3{
+  font-size:12.5px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.06em;
+
+  color:var(--text-faint);
+
+  margin:0 0 10px;
+}
+
+.field-row{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:8px 0;
+
+  border-bottom:1px solid var(--line);
+
+  gap:10px;
+}
+
+.field-row:last-child{
+  border-bottom:none;
+}
+
+.field-row label{
+  font-size:13.5px;
+
+  color:var(--text);
+}
+
+.field-row input{
+  background:var(--surface3);
+
+  border:1px solid var(--line);
+
+  color:var(--text);
+
+  border-radius:10px;
+
+  padding:8px 10px;
+
+  font-size:14px;
+
+  width:120px;
+
+  text-align:right;
+
+  font-family:'Space Grotesk',sans-serif;
+}
+
+.field-row input[type="date"]{
+  width:150px;
+
+  text-align:left;
+
+  font-family:'Inter',sans-serif;
+}
+
+.field-row input:focus{
+  outline:2px solid var(--mint);
+
+  outline-offset:0;
+}
+
+
+/* =====================================================
+   SPAARDOEL
+===================================================== */
+
+.savings-box{
+  margin-top:12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(63,224,176,.10),
+      rgba(63,224,176,.03)
+    );
+
+  border:1px solid #285B4D;
+
+  border-radius:15px;
+
+  padding:13px;
+}
+
+.savings-box-top{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:10px;
+}
+
+.savings-box-label{
+  font-size:11px;
+
+  color:var(--text-faint);
+
+  text-transform:uppercase;
+
+  letter-spacing:.06em;
+}
+
+.savings-box-value{
+  font-size:20px;
+
+  font-weight:700;
+
+  color:var(--mint);
+}
+
+.savings-box-sub{
+  font-size:11px;
+
+  color:var(--text-dim);
+
+  margin-top:3px;
+}
+
+.savings-progress{
+  height:7px;
+
+  background:var(--surface3);
+
+  border-radius:7px;
+
+  overflow:hidden;
+
+  margin-top:11px;
+}
+
+.savings-progress-fill{
+  height:100%;
+
+  background:var(--mint);
+
+  border-radius:7px;
+
+  transition:width .35s ease;
+}
+
+.savings-numbers{
+  display:flex;
+
+  justify-content:space-between;
+
+  margin-top:7px;
+
+  font-size:10.5px;
+
+  color:var(--text-faint);
+}
+
+.savings-actions{
+  display:flex;
+
+  gap:8px;
+
+  margin-top:12px;
+}
+
+.savings-action-btn{
+  flex:1;
+
+  border:none;
+
+  border-radius:11px;
+
+  padding:10px 8px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+.savings-action-btn.primary{
+  background:var(--mint);
+
+  color:#04241B;
+}
+
+.savings-action-btn.secondary{
+  background:var(--surface3);
+
+  color:var(--text-dim);
+
+  border:1px solid var(--line);
+}
+
+
+/* SPAAR HISTORIE */
+
+.savings-history{
+  margin-top:13px;
+
+  border-top:1px solid var(--line);
+
+  padding-top:10px;
+}
+
+.savings-history-title{
+  font-size:10.5px;
+
+  color:var(--text-faint);
+
+  text-transform:uppercase;
+
+  letter-spacing:.06em;
+
+  margin-bottom:7px;
+}
+
+.saving-row{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:8px 0;
+
+  border-bottom:1px solid var(--line);
+
+  gap:8px;
+}
+
+.saving-row:last-child{
+  border-bottom:none;
+}
+
+.saving-row-left{
+  min-width:0;
+}
+
+.saving-row-date{
+  font-size:11px;
+
+  color:var(--text-faint);
+}
+
+.saving-row-note{
+  font-size:12px;
+
+  color:var(--text);
+
+  margin-top:2px;
+}
+
+.saving-row-amount{
+  font-size:13px;
+
+  color:var(--mint);
+
+  font-weight:700;
+}
+
+.saving-delete{
+  background:none;
+
+  border:none;
+
+  color:var(--text-faint);
+
+  font-size:15px;
+
+  cursor:pointer;
+
+  padding:2px;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.primary-btn{
+  width:100%;
+
+  background:var(--mint);
+
+  color:#04241B;
+
+  border:none;
+
+  border-radius:14px;
+
+  padding:15px;
+
+  font-size:15px;
+
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+.primary-btn:disabled{
+  opacity:.4;
+}
+
+.ghost-btn{
+  width:100%;
+
+  background:none;
+
+  color:var(--text-faint);
+
+  border:none;
+
+  padding:12px;
+
+  font-size:13.5px;
+
+  margin-top:4px;
+
+  cursor:pointer;
+}
+
+.danger-btn{
+  width:100%;
+
+  background:var(--coral-dim);
+
+  color:var(--coral);
+
+  border:1px solid #5A2A2E;
+
+  border-radius:12px;
+
+  padding:12px;
+
+  font-size:14px;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  margin-top:4px;
+}
+
+
+/* =====================================================
+   NAV
+===================================================== */
+
+nav.tabbar{
+  position:fixed;
+
+  bottom:0;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:100%;
+
+  max-width:440px;
+
+  background:rgba(20,25,36,.94);
+
+  backdrop-filter:blur(14px);
+
+  border-top:1px solid var(--line);
+
+  display:flex;
+
+  padding:
+    8px
+    4px
+    calc(env(safe-area-inset-bottom,0px) + 8px);
+
+  z-index:50;
+}
+
+.tab-btn{
+  flex:1;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  gap:3px;
+
+  background:none;
+
+  border:none;
+
+  color:var(--text-faint);
+
+  padding:6px 0;
+
+  cursor:pointer;
+
+  font-family:'Inter',sans-serif;
+
+  font-size:9.5px;
+
+  font-weight:600;
+}
+
+.tab-btn.active{
+  color:var(--mint);
+}
+
+.tab-btn svg{
+  width:21px;
+  height:21px;
+}
+
+
+/* FAB */
+
+.fab{
+  position:fixed;
+
+  right:20px;
+
+  bottom:78px;
+
+  z-index:55;
+
+  width:56px;
+  height:56px;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      150deg,
+      var(--mint),
+      #26B98C
+    );
+
+  color:#04241B;
+
+  border:none;
+
+  font-size:28px;
+
+  font-weight:600;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  box-shadow:
+    0 8px 20px
+    rgba(63,224,176,.35);
+
+  cursor:pointer;
+}
+
+
+/* =====================================================
+   MODALS
+===================================================== */
+
+.sheet-backdrop{
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(0,0,0,.55);
+
+  z-index:70;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  transition:opacity .25s ease;
+}
+
+.sheet-backdrop.show{
+  opacity:1;
+
+  pointer-events:auto;
+}
+
+.sheet{
+  position:fixed;
+
+  left:50%;
+  bottom:0;
+
+  transform:translate(-50%,100%);
+
+  width:100%;
+
+  max-width:440px;
+
+  background:var(--surface2);
+
+  border-radius:26px 26px 0 0;
+
+  border:1px solid var(--line);
+
+  border-bottom:none;
+
+  padding:
+    14px
+    20px
+    calc(env(safe-area-inset-bottom,0px) + 22px);
+
+  z-index:71;
+
+  transition:
+    transform .3s
+    cubic-bezier(.32,.72,0,1);
+
+  max-height:88vh;
+
+  overflow-y:auto;
+}
+
+.sheet-backdrop.show .sheet{
+  transform:translate(-50%,0);
+}
+
+.sheet-handle{
+  width:36px;
+  height:4px;
+
+  background:var(--line);
+
+  border-radius:3px;
+
+  margin:0 auto 16px;
+}
+
+.sheet h2{
+  font-size:17px;
+
+  margin:0 0 16px;
+}
+
+
+/* BEDRAG INPUT */
+
+.amount-input-wrap{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:6px;
+
+  margin:10px 0 20px;
+}
+
+.amount-input-wrap span{
+  font-size:30px;
+
+  color:var(--text-faint);
+
+  font-family:'Space Grotesk',sans-serif;
+}
+
+.amount-input-wrap input{
+  background:none;
+
+  border:none;
+
+  color:var(--text);
+
+  font-size:44px;
+
+  font-weight:700;
+
+  width:200px;
+
+  text-align:center;
+
+  font-family:'Space Grotesk',sans-serif;
+}
+
+.amount-input-wrap input:focus{
+  outline:none;
+}
+
+
+/* CHIPS */
+
+.chip-row{
+  display:flex;
+
+  gap:8px;
+
+  flex-wrap:wrap;
+
+  margin-bottom:16px;
+}
+
+.chip{
+  padding:9px 15px;
+
+  border-radius:20px;
+
+  border:1px solid var(--line);
+
+  background:var(--surface3);
+
+  color:var(--text-dim);
+
+  font-size:13px;
+
+  font-weight:600;
+
+  cursor:pointer;
+}
+
+.chip.active{
+  background:var(--mint);
+
+  color:#04241B;
+
+  border-color:var(--mint);
+}
+
+
+/* INPUT */
+
+.text-input{
+  width:100%;
+
+  background:var(--surface3);
+
+  border:1px solid var(--line);
+
+  color:var(--text);
+
+  border-radius:12px;
+
+  padding:12px 14px;
+
+  font-size:14px;
+
+  margin-bottom:12px;
+
+  font-family:'Inter',sans-serif;
+}
+
+
+/* TOAST */
+
+.save-toast{
+  position:fixed;
+
+  bottom:100px;
+
+  left:50%;
+
+  transform:
+    translateX(-50%)
+    translateY(20px);
+
+  background:var(--surface3);
+
+  border:1px solid var(--line);
+
+  color:var(--mint);
+
+  padding:9px 18px;
+
+  border-radius:30px;
+
+  font-size:13px;
+
+  font-weight:600;
+
+  opacity:0;
+
+  transition:all .25s ease;
+
+  z-index:100;
+
+  pointer-events:none;
+
+  max-width:80%;
+}
+
+.save-toast.show{
+  opacity:1;
+
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+.loading{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  height:70vh;
+
+  color:var(--text-faint);
+}
+
+
+/* KLEINE SCHERMEN */
+
+@media(max-width:380px){
+
+  main{
+    padding-left:15px;
+    padding-right:15px;
   }
+
   header.topbar{
-    position:sticky; top:0; z-index:20;
-    padding:calc(env(safe-area-inset-top,0px) + 16px) 20px 12px;
-    background:linear-gradient(180deg, var(--bg) 80%, transparent);
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .eyebrow{
-    font-size:11px; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--text-faint); font-weight:600;
-  }
-  .cycle-label{font-size:13px; color:var(--text-dim); margin-top:2px;}
-  .month-total{
-    text-align:right; font-size:11px; color:var(--text-faint);
-  }
-  .month-total .amt{font-size:15px; color:var(--mint); font-weight:600; display:block;}
-
-  main{padding:4px 20px 20px;}
-  section.tab{display:none; animation:fadein .25s ease;}
-  section.tab.active{display:block;}
-  @keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
-
-  /* ---------- HERO (Vandaag) ---------- */
-  .hero{
-    background:linear-gradient(160deg, var(--surface2), var(--surface));
-    border:1px solid var(--line);
-    border-radius:28px;
-    padding:28px 20px 24px;
-    display:flex; flex-direction:column; align-items:center;
-    margin-top:8px;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero::before{
-    content:''; position:absolute; inset:0;
-    background:radial-gradient(60% 50% at 50% 0%, rgba(63,224,176,.10), transparent 70%);
-    pointer-events:none;
-  }
-  .ring-wrap{position:relative; width:200px; height:200px; margin-bottom:6px;}
-  .ring-wrap svg{transform:rotate(-90deg);}
-  .ring-center{
-    position:absolute; inset:0; display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-  }
-  .ring-center .label{font-size:11px; color:var(--text-faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px;}
-  .ring-center .amt{font-size:38px; font-weight:700; line-height:1;}
-  .ring-center .sub{font-size:12px; color:var(--text-dim); margin-top:8px;}
-
-  .hero-stats{display:flex; gap:10px; width:100%; margin-top:18px;}
-  .stat-chip{
-    flex:1; background:var(--surface3); border-radius:16px; padding:12px 14px;
-    border:1px solid var(--line);
-  }
-  .stat-chip .t{font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.06em;}
-  .stat-chip .v{font-size:17px; font-weight:600; margin-top:4px;}
-  .stat-chip .v.pos{color:var(--mint);}
-  .stat-chip .v.neg{color:var(--coral);}
-  .bar-track{height:5px; background:var(--surface); border-radius:4px; margin-top:8px; overflow:hidden;}
-  .bar-fill{height:100%; border-radius:4px; transition:width .4s ease;}
-
-  .section-title{
-    font-size:13px; font-weight:600; color:var(--text-dim); text-transform:uppercase;
-    letter-spacing:.06em; margin:26px 2px 10px;
-  }
-  .row-between{display:flex; align-items:center; justify-content:space-between;}
-
-  .tx-item{
-    display:flex; align-items:center; gap:12px;
-    background:var(--surface); border:1px solid var(--line);
-    border-radius:16px; padding:12px 14px; margin-bottom:8px;
-  }
-  .tx-icon{
-    width:36px; height:36px; border-radius:10px; flex:none;
-    display:flex; align-items:center; justify-content:center; font-size:16px;
-  }
-  .tx-body{flex:1; min-width:0;}
-  .tx-cat{font-size:13.5px; font-weight:600;}
-  .tx-meta{font-size:11.5px; color:var(--text-faint); margin-top:1px;}
-  .tx-amt{font-size:15px; font-weight:600;}
-  .tx-del{
-    background:none; border:none; color:var(--text-faint); font-size:18px;
-    padding:4px 2px; cursor:pointer; line-height:1;
-  }
-  .empty{
-    text-align:center; color:var(--text-faint); font-size:13px;
-    padding:26px 10px; background:var(--surface); border:1px dashed var(--line);
-    border-radius:16px;
+    padding-left:15px;
+    padding-right:15px;
   }
 
-  /* ---------- WEKEN ---------- */
-  .week-flow{display:flex; flex-direction:column;}
-  .week-card{
-    background:var(--surface); border:1px solid var(--line);
-    border-radius:20px; padding:16px 16px 14px; margin-bottom:2px;
+  .ring-wrap{
+    width:170px;
+    height:170px;
   }
-  .week-card.current{border-color:#2E5A4C; box-shadow:0 0 0 1px #2E5A4C inset;}
-  .week-top{display:flex; justify-content:space-between; align-items:flex-start;}
-  .week-name{font-size:14.5px; font-weight:600;}
-  .week-period{font-size:11.5px; color:var(--text-faint); margin-top:2px;}
-  .week-remaining{text-align:right;}
-  .week-remaining .v{font-size:19px; font-weight:700;}
-  .week-remaining .l{font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.05em;}
-  .week-detail{display:flex; gap:16px; margin-top:12px; font-size:11.5px; color:var(--text-dim);}
-  .week-detail b{color:var(--text); font-family:'Space Grotesk',sans-serif;}
-  .flow-connector{
-    display:flex; align-items:center; gap:8px;
-    padding:6px 4px 6px 30px; margin-left:2px;
-  }
-  .flow-line{width:1px; height:18px; background:var(--line);}
-  .flow-badge{
-    font-size:11px; font-weight:600; padding:2px 9px; border-radius:20px;
-    display:flex; align-items:center; gap:4px;
-  }
-  .flow-badge.pos{background:var(--mint-dim); color:var(--mint);}
-  .flow-badge.neg{background:var(--coral-dim); color:var(--coral);}
-  .expand-list{margin-top:12px; padding-top:12px; border-top:1px solid var(--line);}
-  .chev{transition:transform .2s ease; color:var(--text-faint);}
-  .chev.open{transform:rotate(180deg);}
 
-  /* ---------- CATEGORIEEN ---------- */
-  .cat-card{
-    background:var(--surface); border:1px solid var(--line); border-radius:18px;
-    padding:14px 16px; margin-bottom:10px;
+  .ring-wrap svg{
+    width:170px;
+    height:170px;
   }
-  .cat-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
-  .cat-name{font-size:14px; font-weight:600; display:flex; align-items:center; gap:8px;}
-  .cat-dot{width:9px; height:9px; border-radius:50%;}
-  .cat-nums{font-size:12.5px; color:var(--text-dim);}
-  .cat-nums b{color:var(--text); font-family:'Space Grotesk',sans-serif;}
 
-  /* ---------- INSTELLINGEN ---------- */
-  .field-group{
-    background:var(--surface); border:1px solid var(--line); border-radius:18px;
-    padding:14px 16px; margin-bottom:14px;
+  .ring-center .amt{
+    font-size:30px;
   }
-  .field-group h3{font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-faint); margin:0 0 10px;}
-  .field-row{display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--line);}
-  .field-row:last-child{border-bottom:none;}
-  .field-row label{font-size:13.5px; color:var(--text);}
-  .field-row input{
-    background:var(--surface3); border:1px solid var(--line); color:var(--text);
-    border-radius:10px; padding:8px 10px; font-size:14px; width:120px; text-align:right;
-    font-family:'Space Grotesk',sans-serif;
-  }
-  .field-row input[type="date"]{width:150px; text-align:left; font-family:'Inter',sans-serif;}
-  .field-row input:focus{outline:2px solid var(--mint); outline-offset:0;}
-  .pct-warn{font-size:11.5px; margin-top:6px; text-align:right;}
-  .pct-warn.ok{color:var(--mint);}
-  .pct-warn.bad{color:var(--coral);}
-  .danger-btn{
-    width:100%; background:var(--coral-dim); color:var(--coral); border:1px solid #5A2A2E;
-    border-radius:12px; padding:12px; font-size:14px; font-weight:600; cursor:pointer; margin-top:4px;
-  }
-  .save-toast{
-    position:fixed; bottom:100px; left:50%; transform:translateX(-50%) translateY(20px);
-    background:var(--surface3); border:1px solid var(--line); color:var(--mint);
-    padding:9px 18px; border-radius:30px; font-size:13px; font-weight:600;
-    opacity:0; transition:all .25s ease; z-index:60; pointer-events:none;
-    max-width:80%;
-  }
-  .save-toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
 
-  /* ---------- NAV ---------- */
-  nav.tabbar{
-    position:fixed; bottom:0; left:50%; transform:translateX(-50%);
-    width:100%; max-width:440px;
-    background:rgba(20,25,36,.92); backdrop-filter:blur(14px);
-    border-top:1px solid var(--line);
-    display:flex; padding:8px 6px calc(env(safe-area-inset-bottom,0px) + 8px);
-    z-index:50;
+  .week-detail{
+    gap:10px;
+    font-size:10.5px;
   }
+
   .tab-btn{
-    flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
-    background:none; border:none; color:var(--text-faint); padding:6px 0; cursor:pointer;
-    font-family:'Inter',sans-serif; font-size:10.5px; font-weight:600;
+    font-size:9px;
   }
-  .tab-btn.active{color:var(--mint);}
-  .tab-btn svg{width:22px; height:22px;}
 
-  .fab{
-    position:fixed; right:20px; bottom:78px; z-index:55;
-    width:56px; height:56px; border-radius:50%;
-    background:linear-gradient(150deg, var(--mint), #26B98C);
-    color:#04241B; border:none; font-size:28px; font-weight:600;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 8px 20px rgba(63,224,176,.35);
-    cursor:pointer;
-  }
-  #app.fab-offset .fab{right:calc(50% - 200px);}
+}
 
-  /* ---------- MODAL ---------- */
-  .sheet-backdrop{
-    position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:70;
-    opacity:0; pointer-events:none; transition:opacity .25s ease;
-  }
-  .sheet-backdrop.show{opacity:1; pointer-events:auto;}
-  .sheet{
-    position:fixed; left:50%; bottom:0; transform:translate(-50%,100%);
-    width:100%; max-width:440px; background:var(--surface2);
-    border-radius:26px 26px 0 0; border:1px solid var(--line); border-bottom:none;
-    padding:14px 20px calc(env(safe-area-inset-bottom,0px) + 22px);
-    z-index:71; transition:transform .3s cubic-bezier(.32,.72,0,1);
-    max-height:88vh; overflow-y:auto;
-  }
-  .sheet-backdrop.show .sheet{transform:translate(-50%,0);}
-  .sheet-handle{width:36px; height:4px; background:var(--line); border-radius:3px; margin:0 auto 16px;}
-  .sheet h2{font-size:17px; margin:0 0 16px;}
-  .amount-input-wrap{
-    display:flex; align-items:center; justify-content:center; gap:6px;
-    margin:10px 0 20px;
-  }
-  .amount-input-wrap span{font-size:30px; color:var(--text-faint); font-family:'Space Grotesk',sans-serif;}
-  .amount-input-wrap input{
-    background:none; border:none; color:var(--text); font-size:44px; font-weight:700;
-    width:200px; text-align:center; font-family:'Space Grotesk',sans-serif;
-  }
-  .amount-input-wrap input:focus{outline:none;}
-  .chip-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
-  .chip{
-    padding:9px 15px; border-radius:20px; border:1px solid var(--line);
-    background:var(--surface3); color:var(--text-dim); font-size:13px; font-weight:600;
-    cursor:pointer;
-  }
-  .chip.active{background:var(--mint); color:#04241B; border-color:var(--mint);}
-  .text-input{
-    width:100%; background:var(--surface3); border:1px solid var(--line); color:var(--text);
-    border-radius:12px; padding:12px 14px; font-size:14px; margin-bottom:12px; font-family:'Inter',sans-serif;
-  }
-  .primary-btn{
-    width:100%; background:var(--mint); color:#04241B; border:none;
-    border-radius:14px; padding:15px; font-size:15px; font-weight:700; cursor:pointer;
-  }
-  .primary-btn:disabled{opacity:.4;}
-  .ghost-btn{
-    width:100%; background:none; color:var(--text-faint); border:none;
-    padding:12px; font-size:13.5px; margin-top:4px; cursor:pointer;
-  }
-  .loading{display:flex; align-items:center; justify-content:center; height:70vh; color:var(--text-faint);}
 </style>
 </head>
+
+
 <body>
+
 <div id="app">
-  <div class="loading" id="loadingScreen">Budget laden…</div>
-</div>
 
-<div class="sheet-backdrop" id="addBackdrop">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <h2>Nieuwe uitgave</h2>
-    <div class="amount-input-wrap">
-      <span>€</span>
-      <input type="text" inputmode="decimal" id="amountInput" placeholder="0,00" autocomplete="off">
-    </div>
-    <div class="chip-row" id="catChipRow"></div>
-    <input type="text" class="text-input" id="noteInput" placeholder="Notitie (optioneel)">
-    <input type="date" class="text-input" id="dateInput">
-    <button class="primary-btn" id="saveExpenseBtn">Toevoegen</button>
-    <button class="ghost-btn" id="cancelExpenseBtn">Annuleren</button>
+  <div
+    class="loading"
+    id="loadingScreen"
+  >
+    Budget laden…
   </div>
+
 </div>
 
-<div class="save-toast" id="saveToast">Opgeslagen</div>
+
+<!-- =====================================================
+     UITGAVE MODAL
+===================================================== -->
+
+<div
+  class="sheet-backdrop"
+  id="addBackdrop"
+>
+
+  <div class="sheet">
+
+    <div class="sheet-handle"></div>
+
+    <h2>
+      Nieuwe uitgave
+    </h2>
+
+
+    <div class="amount-input-wrap">
+
+      <span>
+        €
+      </span>
+
+      <input
+        type="text"
+        inputmode="decimal"
+        id="amountInput"
+        placeholder="0,00"
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <div
+      class="chip-row"
+      id="catChipRow"
+    ></div>
+
+
+    <input
+      type="text"
+      class="text-input"
+      id="noteInput"
+      placeholder="Notitie (optioneel)"
+    >
+
+
+    <input
+      type="date"
+      class="text-input"
+      id="dateInput"
+    >
+
+
+    <button
+      class="primary-btn"
+      id="saveExpenseBtn"
+    >
+      Toevoegen
+    </button>
+
+
+    <button
+      class="ghost-btn"
+      id="cancelExpenseBtn"
+    >
+      Annuleren
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     SPAAR MODAL
+===================================================== -->
+
+<div
+  class="sheet-backdrop"
+  id="savingBackdrop"
+>
+
+  <div class="sheet">
+
+    <div class="sheet-handle"></div>
+
+    <h2>
+      Geld naar spaardoel
+    </h2>
+
+
+    <div
+      style="
+        font-size:12px;
+        color:var(--text-dim);
+        text-align:center;
+        margin-bottom:12px;
+      "
+    >
+      Voer het bedrag in dat je daadwerkelijk
+      hebt overgemaakt naar je spaarrekening.
+    </div>
+
+
+    <div class="amount-input-wrap">
+
+      <span>
+        €
+      </span>
+
+      <input
+        type="text"
+        inputmode="decimal"
+        id="savingAmountInput"
+        placeholder="0,00"
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <input
+      type="text"
+      class="text-input"
+      id="savingNoteInput"
+      placeholder="Notitie (optioneel)"
+    >
+
+
+    <input
+      type="date"
+      class="text-input"
+      id="savingDateInput"
+    >
+
+
+    <button
+      class="primary-btn"
+      id="saveSavingBtn"
+    >
+      Sparing opslaan
+    </button>
+
+
+    <button
+      class="ghost-btn"
+      id="cancelSavingBtn"
+    >
+      Annuleren
+    </button>
+
+  </div>
+
+</div>
+
+
+<div
+  class="save-toast"
+  id="saveToast"
+>
+  Opgeslagen
+</div>
+
 
 <script>
+
 (function(){
 
-/* ============ DEFAULTS (uit jouw spreadsheet) ============ */
+
+/* =====================================================
+   DEFAULTS
+===================================================== */
+
 function defaultCycleStart(){
-  const t = new Date(); t.setHours(0,0,0,0);
+
+  const t = new Date();
+
+  t.setHours(0,0,0,0);
+
   const d = t.getDate();
-  const start = new Date(t.getFullYear(), t.getMonth(), 25);
-  if (d < 25) start.setMonth(start.getMonth()-1);
+
+  const start =
+    new Date(
+      t.getFullYear(),
+      t.getMonth(),
+      25
+    );
+
+  if(d < 25){
+
+    start.setMonth(
+      start.getMonth()-1
+    );
+
+  }
+
   return isoDate(start);
+
 }
+
+
 function defaultData(){
+
   return {
+
     settings:{
-      salary1:3500, salary2:1300,
-      fixed1:1800, fixed2:550, invest:600, savingsGoal:500,
-      cycleStart: defaultCycleStart(),
+
+      salary1:3500,
+
+      salary2:1300,
+
+      fixed1:1800,
+
+      fixed2:550,
+
+      invest:600,
+
+      savingsGoal:500,
+
+      cycleStart:
+        defaultCycleStart(),
+
       cycleLength:31
+
     },
+
+
     categories:[
-      {id:'boodschappen', name:'Boodschappen', pct:50, color:'#3FE0B0', emoji:'🛒'},
-      {id:'vervoer', name:'Benzine / Vervoer', pct:30, color:'#5CA8FF', emoji:'⛽'},
-      {id:'extra', name:'Leuke dingen / Extra', pct:20, color:'#FFB65C', emoji:'✨'}
+
+      {
+        id:'boodschappen',
+        name:'Boodschappen',
+        pct:50,
+        color:'#3FE0B0',
+        emoji:'🛒'
+      },
+
+      {
+        id:'vervoer',
+        name:'Benzine / Vervoer',
+        pct:30,
+        color:'#5CA8FF',
+        emoji:'⛽'
+      },
+
+      {
+        id:'extra',
+        name:'Leuke dingen / Extra',
+        pct:20,
+        color:'#FFB65C',
+        emoji:'✨'
+      }
+
     ],
-    expenses:[]
+
+
+    expenses:[],
+
+
+    /*
+      NIEUW:
+      echte spaartransacties
+    */
+
+    savings:[]
+
   };
+
 }
 
-/* ============ DATE HELPERS ============ */
-function isoDate(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-function parseISO(s){ const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
-function addDays(d,n){ const r=new Date(d); r.setDate(r.getDate()+n); return r; }
-function todayDate(){ const t=new Date(); t.setHours(0,0,0,0); return t; }
-function fmtShort(d){ return d.toLocaleDateString('nl-NL',{day:'numeric',month:'short'}); }
-function fmtLong(d){ return d.toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'}); }
+
+/* =====================================================
+   DATUM FUNCTIES
+===================================================== */
+
+function isoDate(d){
+
+  return d.getFullYear()
+    +'-'
+    +String(
+      d.getMonth()+1
+    ).padStart(2,'0')
+    +'-'
+    +String(
+      d.getDate()
+    ).padStart(2,'0');
+
+}
+
+
+function parseISO(s){
+
+  const [
+    y,
+    m,
+    d
+  ] =
+    s.split('-').map(Number);
+
+  return new Date(
+    y,
+    m-1,
+    d
+  );
+
+}
+
+
+function addDays(d,n){
+
+  const r =
+    new Date(d);
+
+  r.setDate(
+    r.getDate()+n
+  );
+
+  return r;
+
+}
+
+
+function todayDate(){
+
+  const t =
+    new Date();
+
+  t.setHours(
+    0,0,0,0
+  );
+
+  return t;
+
+}
+
+
+function fmtShort(d){
+
+  return d.toLocaleDateString(
+    'nl-NL',
+    {
+      day:'numeric',
+      month:'short'
+    }
+  );
+
+}
+
+
+function fmtLong(d){
+
+  return d.toLocaleDateString(
+    'nl-NL',
+    {
+      day:'numeric',
+      month:'long',
+      year:'numeric'
+    }
+  );
+
+}
+
+
 function euro(n){
-  const sign = n<0?'-':'';
-  return sign + '€' + Math.abs(n).toLocaleString('nl-NL',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+  const sign =
+    n < 0
+      ? '-'
+      : '';
+
+  return sign
+    + '€'
+    + Math.abs(n).toLocaleString(
+      'nl-NL',
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    );
+
 }
 
-/* ============ STATE ============ */
+
+/* =====================================================
+   DATA
+===================================================== */
+
 let DATA = null;
-let ui = { tab:'vandaag', openWeek:null, chosenCat:null };
+
+
+let ui = {
+
+  tab:'vandaag',
+
+  openWeek:null,
+
+  chosenCat:null,
+
+  historyPeriod:'cycle'
+
+};
+
+
+/* =====================================================
+   DATA LADEN
+===================================================== */
 
 async function loadData(){
+
   try{
-    const raw = localStorage.getItem('budget-tracker-data');
-    if(raw){ return JSON.parse(raw); }
-  }catch(e){ /* not found or error -> fresh start */ }
-  return defaultData();
-}
-async function saveData(){
-  try{
-    localStorage.setItem('budget-tracker-data', JSON.stringify(DATA));
-    showToast('Opgeslagen');
+
+    const raw =
+      localStorage.getItem(
+        'budget-tracker-data'
+      );
+
+
+    if(raw){
+
+      const data =
+        JSON.parse(raw);
+
+
+      const defaults =
+        defaultData();
+
+
+      if(!data.settings){
+
+        data.settings =
+          defaults.settings;
+
+      }
+
+
+      if(
+        typeof data.settings.savingsGoal
+        !== 'number'
+      ){
+
+        data.settings.savingsGoal =
+          500;
+
+      }
+
+
+      if(
+        !Array.isArray(
+          data.categories
+        )
+      ){
+
+        data.categories =
+          defaults.categories;
+
+      }
+
+
+      if(
+        !Array.isArray(
+          data.expenses
+        )
+      ){
+
+        data.expenses = [];
+
+      }
+
+
+      /*
+        BELANGRIJK:
+        oude versie had nog geen savings-array.
+      */
+
+      if(
+        !Array.isArray(
+          data.savings
+        )
+      ){
+
+        data.savings = [];
+
+      }
+
+
+      return data;
+
+    }
+
   }catch(e){
-    console.error('Opslaan mislukt', e);
-    showToast('Opslaan mislukt');
+
+    console.error(
+      'Laden mislukt',
+      e
+    );
+
   }
+
+
+  return defaultData();
+
 }
-let toastTimer=null;
+
+
+/* =====================================================
+   OPSLAAN
+===================================================== */
+
+async function saveData(){
+
+  try{
+
+    localStorage.setItem(
+      'budget-tracker-data',
+      JSON.stringify(DATA)
+    );
+
+    showToast(
+      'Opgeslagen'
+    );
+
+  }catch(e){
+
+    console.error(
+      'Opslaan mislukt',
+      e
+    );
+
+    showToast(
+      'Opslaan mislukt'
+    );
+
+  }
+
+}
+
+
+let toastTimer = null;
+
+
 function showToast(msg){
-  const el = document.getElementById('saveToast');
-  el.textContent = msg;
-  el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>el.classList.remove('show'), 1600);
+
+  const el =
+    document.getElementById(
+      'saveToast'
+    );
+
+  el.textContent =
+    msg;
+
+  el.classList.add(
+    'show'
+  );
+
+  clearTimeout(
+    toastTimer
+  );
+
+  toastTimer =
+    setTimeout(
+      ()=>{
+        el.classList.remove(
+          'show'
+        );
+      },
+      1600
+    );
+
 }
 
-/* ============ MODEL / CASCADE LOGIC ============ */
+
+/* =====================================================
+   SPAAR BEDRAG VAN HUIDIGE CYCLUS
+===================================================== */
+
+function getSavingsForCycle(
+  cycleStart,
+  cycleEnd
+){
+
+  return DATA.savings
+    .filter(s=>{
+
+      const d =
+        parseISO(s.date);
+
+      return (
+        d >= cycleStart &&
+        d <= cycleEnd
+      );
+
+    })
+    .reduce(
+      (sum,s)=>
+        sum +
+        Number(
+          s.amount || 0
+        ),
+      0
+    );
+
+}
+
+
+/* =====================================================
+   MODEL
+===================================================== */
+
 function computeModel(){
-  const s = DATA.settings;
-  const income = s.salary1 + s.salary2;
-  const fixedTotal = s.fixed1 + s.fixed2 + s.invest + s.savingsGoal;
-  const freeBudget = income - fixedTotal;
-  const cycleLength = Math.max(1, s.cycleLength);
-  const dayBudgetBase = freeBudget / cycleLength;
-  const cycleStart = parseISO(s.cycleStart);
 
-  // build weeks: chunks of 7, last chunk = remainder
-  const fullWeeks = Math.floor(cycleLength/7);
-  const remainder = cycleLength - fullWeeks*7;
+  const s =
+    DATA.settings;
+
+
+  const income =
+    Number(s.salary1 || 0)
+    +
+    Number(s.salary2 || 0);
+
+
+  const fixedTotal =
+    Number(s.fixed1 || 0)
+    +
+    Number(s.fixed2 || 0)
+    +
+    Number(s.invest || 0)
+    +
+    Number(s.savingsGoal || 0);
+
+
+  const freeBudget =
+    income -
+    fixedTotal;
+
+
+  const cycleLength =
+    Math.max(
+      1,
+      Number(
+        s.cycleLength || 31
+      )
+    );
+
+
+  const dayBudgetBase =
+    freeBudget /
+    cycleLength;
+
+
+  const cycleStart =
+    parseISO(
+      s.cycleStart
+    );
+
+
+  const fullWeeks =
+    Math.floor(
+      cycleLength/7
+    );
+
+
+  const remainder =
+    cycleLength -
+    fullWeeks*7;
+
+
   const weekLens = [];
-  for(let i=0;i<fullWeeks;i++) weekLens.push(7);
-  if(remainder>0) weekLens.push(remainder);
 
-  let cursor = cycleStart;
-  const weeks = weekLens.map((len,i)=>{
-    const start = cursor;
-    const end = addDays(start, len-1);
-    cursor = addDays(end,1);
-    const base = dayBudgetBase*len;
-    return { index:i, start, end, days:len, base, dayBudgetBase: base/len };
-  });
 
-  // assign expenses
-  const today = todayDate();
-  weeks.forEach(w=>{
-    w.expenses = DATA.expenses.filter(e=>{
-      const d = parseISO(e.date);
-      return d>=w.start && d<=w.end;
-    }).sort((a,b)=> b.date.localeCompare(a.date));
-    w.spent = w.expenses.reduce((sum,e)=>sum+e.amount,0);
-  });
+  for(
+    let i=0;
+    i<fullWeeks;
+    i++
+  ){
 
-  // cascade rollover
-  let rollIn = 0;
-  weeks.forEach(w=>{
-    w.rolloverIn = rollIn;
-    w.available = w.base + rollIn;
-    w.remaining = w.available - w.spent;
-    rollIn = w.remaining;
-    w.rolloverOut = w.remaining;
-  });
+    weekLens.push(7);
 
-  // find current week
-  let currentWeekIdx = weeks.findIndex(w=> today>=w.start && today<=w.end);
-  if(currentWeekIdx===-1){
-    currentWeekIdx = today < weeks[0].start ? 0 : weeks.length-1;
   }
-  const cw = weeks[currentWeekIdx];
 
-  const spentBeforeToday = cw.expenses.filter(e=>parseISO(e.date)<today).reduce((s,e)=>s+e.amount,0);
-  const spentToday = cw.expenses.filter(e=>parseISO(e.date).getTime()===today.getTime()).reduce((s,e)=>s+e.amount,0);
-  const remainingWeekBeforeToday = cw.available - spentBeforeToday;
-  let daysLeftIncl = Math.round((cw.end - today)/86400000) + 1;
-  if(daysLeftIncl < 1) daysLeftIncl = 1;
-  const dayBudgetToday = remainingWeekBeforeToday / daysLeftIncl;
-  const remainingToday = dayBudgetToday - spentToday;
 
-  // category spend this week (informational, non-cascading)
-  const catStats = DATA.categories.map(c=>{
-    const budget = cw.base * (c.pct/100);
-    const spent = cw.expenses.filter(e=>e.catId===c.id).reduce((s,e)=>s+e.amount,0);
-    return { ...c, budget, spent, remaining: budget-spent };
+  if(remainder > 0){
+
+    weekLens.push(
+      remainder
+    );
+
+  }
+
+
+  let cursor =
+    cycleStart;
+
+
+  const weeks =
+    weekLens.map(
+      (len,i)=>{
+
+        const start =
+          cursor;
+
+
+        const end =
+          addDays(
+            start,
+            len-1
+          );
+
+
+        cursor =
+          addDays(
+            end,
+            1
+          );
+
+
+        const base =
+          dayBudgetBase *
+          len;
+
+
+        return {
+
+          index:i,
+
+          start,
+
+          end,
+
+          days:len,
+
+          base,
+
+          dayBudgetBase:
+            base/len
+
+        };
+
+      }
+    );
+
+
+  const today =
+    todayDate();
+
+
+  weeks.forEach(w=>{
+
+    w.expenses =
+      DATA.expenses
+        .filter(e=>{
+
+          const d =
+            parseISO(
+              e.date
+            );
+
+          return (
+            d >= w.start &&
+            d <= w.end
+          );
+
+        })
+        .sort(
+          (a,b)=>
+            b.date.localeCompare(
+              a.date
+            )
+        );
+
+
+    w.spent =
+      w.expenses.reduce(
+        (sum,e)=>
+          sum +
+          Number(
+            e.amount || 0
+          ),
+        0
+      );
+
   });
+
+
+  /* ROLLOVER */
+
+  let rollIn = 0;
+
+
+  weeks.forEach(w=>{
+
+    w.rolloverIn =
+      rollIn;
+
+
+    w.available =
+      w.base +
+      rollIn;
+
+
+    w.remaining =
+      w.available -
+      w.spent;
+
+
+    rollIn =
+      w.remaining;
+
+
+    w.rolloverOut =
+      w.remaining;
+
+  });
+
+
+  /* HUIDIGE WEEK */
+
+  let currentWeekIdx =
+    weeks.findIndex(
+      w=>
+        today >= w.start &&
+        today <= w.end
+    );
+
+
+  if(
+    currentWeekIdx === -1
+  ){
+
+    currentWeekIdx =
+      today < weeks[0].start
+        ? 0
+        : weeks.length-1;
+
+  }
+
+
+  const cw =
+    weeks[currentWeekIdx];
+
+
+  const spentBeforeToday =
+    cw.expenses
+      .filter(
+        e=>
+          parseISO(
+            e.date
+          ) < today
+      )
+      .reduce(
+        (s,e)=>
+          s +
+          Number(
+            e.amount || 0
+          ),
+        0
+      );
+
+
+  const spentToday =
+    cw.expenses
+      .filter(
+        e=>
+          parseISO(
+            e.date
+          ).getTime()
+          ===
+          today.getTime()
+      )
+      .reduce(
+        (s,e)=>
+          s +
+          Number(
+            e.amount || 0
+          ),
+        0
+      );
+
+
+  const remainingWeekBeforeToday =
+    cw.available -
+    spentBeforeToday;
+
+
+  let daysLeftIncl =
+    Math.round(
+      (cw.end - today) /
+      86400000
+    ) + 1;
+
+
+  if(daysLeftIncl < 1){
+
+    daysLeftIncl = 1;
+
+  }
+
+
+  const dayBudgetToday =
+    remainingWeekBeforeToday /
+    daysLeftIncl;
+
+
+  const remainingToday =
+    dayBudgetToday -
+    spentToday;
+
+
+  /* CATEGORIEËN */
+
+  const catStats =
+    DATA.categories.map(
+      c=>{
+
+        const budget =
+          cw.base *
+          (
+            Number(c.pct) /
+            100
+          );
+
+
+        const spent =
+          cw.expenses
+            .filter(
+              e=>
+                e.catId ===
+                c.id
+            )
+            .reduce(
+              (s,e)=>
+                s +
+                Number(
+                  e.amount || 0
+                ),
+              0
+            );
+
+
+        return {
+
+          ...c,
+
+          budget,
+
+          spent,
+
+          remaining:
+            budget-spent
+
+        };
+
+      }
+    );
+
+
+  /* SPAARSTATUS */
+
+  const cycleEnd =
+    weeks[
+      weeks.length-1
+    ].end;
+
+
+  const savingsGoal =
+    Number(
+      s.savingsGoal || 0
+    );
+
+
+  const savedThisCycle =
+    getSavingsForCycle(
+      cycleStart,
+      cycleEnd
+    );
+
+
+  const savingsRemaining =
+    Math.max(
+      0,
+      savingsGoal -
+      savedThisCycle
+    );
+
+
+  const savingsProgress =
+    savingsGoal > 0
+      ? Math.min(
+          100,
+          (
+            savedThisCycle /
+            savingsGoal
+          ) * 100
+        )
+      : 0;
+
 
   return {
-    income, fixedTotal, freeBudget, dayBudgetBase, cycleStart, cycleLength,
-    weeks, currentWeekIdx, cw, spentToday, dayBudgetToday, remainingToday,
-    remainingWeekBeforeToday, catStats, today
+
+    income,
+
+    fixedTotal,
+
+    freeBudget,
+
+    dayBudgetBase,
+
+    cycleStart,
+
+    cycleLength,
+
+    weeks,
+
+    currentWeekIdx,
+
+    cw,
+
+    spentToday,
+
+    dayBudgetToday,
+
+    remainingToday,
+
+    remainingWeekBeforeToday,
+
+    catStats,
+
+    today,
+
+    cycleEnd,
+
+    savingsGoal,
+
+    savedThisCycle,
+
+    savingsRemaining,
+
+    savingsProgress
+
   };
+
 }
 
-/* ============ RENDER ============ */
-function pctClamped(spent, total){
-  if(total<=0) return spent>0?100:0;
-  return Math.max(0, Math.min(100, (spent/total)*100));
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function pctClamped(
+  spent,
+  total
+){
+
+  if(total <= 0){
+
+    return spent > 0
+      ? 100
+      : 0;
+
+  }
+
+
+  return Math.max(
+    0,
+    Math.min(
+      100,
+      (spent/total)*100
+    )
+  );
+
 }
-function ringColor(usedPct){
-  if(usedPct>100) return 'var(--coral)';
-  if(usedPct>80) return 'var(--amber)';
+
+
+function ringColor(
+  usedPct
+){
+
+  if(usedPct > 100){
+
+    return 'var(--coral)';
+
+  }
+
+
+  if(usedPct > 80){
+
+    return 'var(--amber)';
+
+  }
+
+
   return 'var(--mint)';
+
 }
 
-function renderRing(remaining, total){
-  const usedPct = total>0 ? Math.max(0, Math.min(1, (total-remaining)/total)) : (remaining<0?1:0);
-  const r=84, c=2*Math.PI*r;
-  const dash = c*usedPct;
-  const color = ringColor(usedPct*100);
-  return `
-  <div class="ring-wrap">
-    <svg width="200" height="200" viewBox="0 0 200 200">
-      <circle cx="100" cy="100" r="${r}" fill="none" stroke="var(--surface3)" stroke-width="14"/>
-      <circle cx="100" cy="100" r="${r}" fill="none" stroke="${color}" stroke-width="14"
-        stroke-linecap="round" stroke-dasharray="${dash} ${c}"/>
-    </svg>
-    <div class="ring-center">
-      <div class="label">Nog te besteden vandaag</div>
-      <div class="amt num" style="color:${remaining<0?'var(--coral)':'var(--text)'}">${euro(remaining)}</div>
-      <div class="sub">van ${euro(total)} dagbudget</div>
-    </div>
-  </div>`;
+
+function escapeHtml(s){
+
+  return String(s).replace(
+    /[&<>"']/g,
+    c=>({
+
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+
+    }[c])
+  );
+
 }
+
+
+/* =====================================================
+   RING
+===================================================== */
+
+function renderRing(
+  remaining,
+  total
+){
+
+  const usedPct =
+    total > 0
+      ? Math.max(
+          0,
+          Math.min(
+            1,
+            (total-remaining) /
+            total
+          )
+        )
+      : (
+          remaining < 0
+            ? 1
+            : 0
+        );
+
+
+  const r = 77;
+
+  const c =
+    2*Math.PI*r;
+
+
+  const dash =
+    c*usedPct;
+
+
+  const color =
+    ringColor(
+      usedPct*100
+    );
+
+
+  return `
+
+    <div class="ring-wrap">
+
+      <svg
+        width="185"
+        height="185"
+        viewBox="0 0 185 185"
+      >
+
+        <circle
+          cx="92.5"
+          cy="92.5"
+          r="${r}"
+          fill="none"
+          stroke="var(--surface3)"
+          stroke-width="13"
+        />
+
+        <circle
+          cx="92.5"
+          cy="92.5"
+          r="${r}"
+          fill="none"
+          stroke="${color}"
+          stroke-width="13"
+          stroke-linecap="round"
+          stroke-dasharray="${dash} ${c}"
+        />
+
+      </svg>
+
+
+      <div class="ring-center">
+
+        <div class="label">
+          Vandaag over
+        </div>
+
+        <div
+          class="amt num"
+          style="
+            color:${
+              remaining < 0
+                ? 'var(--coral)'
+                : 'var(--text)'
+            }
+          "
+        >
+          ${euro(remaining)}
+        </div>
+
+        <div class="sub">
+          vandaag beschikbaar
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   VANDAAG
+===================================================== */
 
 function renderVandaag(m){
-  const weekPct = pctClamped(m.cw.spent, m.cw.available);
-  const weekColor = ringColor(weekPct);
-  const recent = [...DATA.expenses].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).slice(0,6);
+
+  const weekPct =
+    pctClamped(
+      m.cw.spent,
+      m.cw.available
+    );
+
+
+  const weekColor =
+    ringColor(
+      weekPct
+    );
+
+
+  const recent =
+    [...DATA.expenses]
+      .sort(
+        (a,b)=>
+          b.date.localeCompare(
+            a.date
+          )
+          ||
+          b.id-a.id
+      )
+      .slice(0,6);
+
 
   return `
-  <div class="hero">
-    ${renderRing(m.remainingToday, m.dayBudgetToday)}
-    <div class="hero-stats">
-      <div class="stat-chip">
-        <div class="t">Deze week over</div>
-        <div class="v ${m.cw.remaining<0?'neg':'pos'} num">${euro(m.cw.remaining)}</div>
-        <div class="bar-track"><div class="bar-fill" style="width:${weekPct}%; background:${weekColor}"></div></div>
-      </div>
-      <div class="stat-chip">
-        <div class="t">Rollover vorige week</div>
-        <div class="v ${m.cw.rolloverIn<0?'neg':'pos'} num">${m.cw.rolloverIn>=0?'+':''}${euro(m.cw.rolloverIn)}</div>
-        <div style="font-size:11px;color:var(--text-faint); margin-top:8px;">${m.cw.rolloverIn<0?'Vorige week te veel uitgegeven':'Extra ruimte deze week'}</div>
-      </div>
-    </div>
-  </div>
 
-  <div class="section-title">Laatste uitgaven</div>
-  ${recent.length===0 ? `<div class="empty">Nog geen uitgaven gelogd.<br>Tik op + om te beginnen.</div>` :
-    recent.map(e=>{
-      const cat = DATA.categories.find(c=>c.id===e.catId);
-      return `<div class="tx-item">
-        <div class="tx-icon" style="background:${cat?cat.color+'22':'#8891A622'}; color:${cat?cat.color:'#8891A6'}">${cat?cat.emoji:'💸'}</div>
-        <div class="tx-body">
-          <div class="tx-cat">${cat?cat.name:'Overig'}</div>
-          <div class="tx-meta">${fmtShort(parseISO(e.date))}${e.note?' · '+escapeHtml(e.note):''}</div>
+    <div class="hero">
+
+      ${renderRing(
+        m.remainingToday,
+        m.dayBudgetToday
+      )}
+
+
+      <div class="week-highlight">
+
+        <div
+          class="week-highlight-top"
+        >
+
+          <div>
+
+            <div class="week-highlight-label">
+              Deze week over
+            </div>
+
+
+            <div
+              class="week-highlight-value num"
+              style="
+                color:${
+                  m.cw.remaining < 0
+                    ? 'var(--coral)'
+                    : 'var(--mint)'
+                }
+              "
+            >
+              ${euro(
+                m.cw.remaining
+              )}
+            </div>
+
+
+            <div class="week-highlight-sub">
+
+              Week
+              ${m.currentWeekIdx+1}
+
+              ·
+
+              ${fmtShort(
+                m.cw.start
+              )}
+
+              –
+
+              ${fmtShort(
+                m.cw.end
+              )}
+
+            </div>
+
+          </div>
+
+
+          <div
+            style="
+              font-size:11px;
+              color:var(--text-faint);
+              text-align:right;
+            "
+          >
+
+            Uitgegeven
+
+            <br>
+
+            <strong
+              class="num"
+              style="
+                color:var(--text-dim);
+                font-size:13px;
+              "
+            >
+              ${euro(
+                m.cw.spent
+              )}
+            </strong>
+
+          </div>
+
         </div>
-        <div class="tx-amt num">${euro(e.amount)}</div>
-        <button class="tx-del" data-del="${e.id}">✕</button>
-      </div>`;
-    }).join('')
-  }`;
+
+
+        <div class="week-progress">
+
+          <div class="bar-track">
+
+            <div
+              class="bar-fill"
+              style="
+                width:${weekPct}%;
+                background:${weekColor};
+              "
+            ></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="daily-budget-small">
+
+        <div class="label">
+          Richtlijn per dag
+        </div>
+
+        <div class="value num">
+          ${euro(
+            m.dayBudgetToday
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="hero-stats">
+
+        <div class="stat-chip">
+
+          <div class="t">
+            Vandaag uitgegeven
+          </div>
+
+          <div
+            class="v num"
+            style="
+              color:${
+                m.spentToday > 0
+                  ? 'var(--coral)'
+                  : 'var(--text)'
+              };
+            "
+          >
+            ${euro(
+              m.spentToday
+            )}
+          </div>
+
+        </div>
+
+
+        <div class="stat-chip">
+
+          <div class="t">
+            Vorige week
+          </div>
+
+          <div
+            class="
+              v
+              ${
+                m.cw.rolloverIn < 0
+                  ? 'neg'
+                  : 'pos'
+              }
+              num
+            "
+          >
+
+            ${
+              m.cw.rolloverIn >= 0
+                ? '+'
+                : ''
+            }
+
+            ${euro(
+              m.cw.rolloverIn
+            )}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="section-title">
+      Laatste uitgaven
+    </div>
+
+
+    ${
+      recent.length === 0
+
+        ?
+
+        `
+          <div class="empty">
+
+            Nog geen uitgaven gelogd.
+
+            <br>
+
+            Tik op + om te beginnen.
+
+          </div>
+        `
+
+        :
+
+        recent.map(
+          e=>{
+
+            const cat =
+              DATA.categories.find(
+                c=>
+                  c.id ===
+                  e.catId
+              );
+
+
+            return `
+
+              <div class="tx-item">
+
+                <div
+                  class="tx-icon"
+                  style="
+                    background:${
+                      cat
+                        ? cat.color+'22'
+                        : '#8891A622'
+                    };
+
+                    color:${
+                      cat
+                        ? cat.color
+                        : '#8891A6'
+                    };
+                  "
+                >
+                  ${
+                    cat
+                      ? cat.emoji
+                      : '💸'
+                  }
+                </div>
+
+
+                <div class="tx-body">
+
+                  <div class="tx-cat">
+                    ${
+                      cat
+                        ? cat.name
+                        : 'Overig'
+                    }
+                  </div>
+
+
+                  <div class="tx-meta">
+
+                    ${fmtShort(
+                      parseISO(
+                        e.date
+                      )
+                    )}
+
+                    ${
+                      e.note
+                        ? ' · ' +
+                          escapeHtml(
+                            e.note
+                          )
+                        : ''
+                    }
+
+                  </div>
+
+                </div>
+
+
+                <div class="tx-amt num">
+                  ${euro(
+                    e.amount
+                  )}
+                </div>
+
+
+                <button
+                  class="tx-del"
+                  data-del="${e.id}"
+                >
+                  ✕
+                </button>
+
+              </div>
+
+            `;
+
+          }
+        ).join('')
+    }
+
+  `;
+
 }
+
+
+/* =====================================================
+   WEKEN
+===================================================== */
 
 function renderWeken(m){
-  return `
-  <div class="section-title">Budgetweken</div>
-  <div class="week-flow">
-    ${m.weeks.map((w,i)=>{
-      const isCurrent = i===m.currentWeekIdx;
-      const isOpen = ui.openWeek===i;
-      const pct = pctClamped(w.spent, w.available);
-      let html = `
-      <div class="week-card ${isCurrent?'current':''}" data-week="${i}">
-        <div class="week-top" style="cursor:pointer">
-          <div>
-            <div class="week-name">Week ${i+1} ${isCurrent?'· nu':''}</div>
-            <div class="week-period">${fmtShort(w.start)} – ${fmtShort(w.end)} · ${w.days} dagen</div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <div class="week-remaining">
-              <div class="v num" style="color:${w.remaining<0?'var(--coral)':'var(--text)'}">${euro(w.remaining)}</div>
-              <div class="l">over</div>
-            </div>
-            <svg class="chev ${isOpen?'open':''}" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#8891A6" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-        </div>
-        <div class="bar-track"><div class="bar-fill" style="width:${pct}%; background:${ringColor(pct)}"></div></div>
-        <div class="week-detail">
-          <span>Basis <b class="num">${euro(w.base)}</b></span>
-          <span>Uitgegeven <b class="num">${euro(w.spent)}</b></span>
-          <span>Per dag <b class="num">${euro(w.dayBudgetBase)}</b></span>
-        </div>
-        ${isOpen ? `<div class="expand-list">
-          ${w.expenses.length===0 ? `<div class="empty" style="padding:16px;">Geen uitgaven deze week.</div>` :
-            w.expenses.map(e=>{
-              const cat = DATA.categories.find(c=>c.id===e.catId);
-              return `<div class="tx-item">
-                <div class="tx-icon" style="background:${cat?cat.color+'22':'#8891A622'}; color:${cat?cat.color:'#8891A6'}">${cat?cat.emoji:'💸'}</div>
-                <div class="tx-body">
-                  <div class="tx-cat">${cat?cat.name:'Overig'}</div>
-                  <div class="tx-meta">${fmtShort(parseISO(e.date))}${e.note?' · '+escapeHtml(e.note):''}</div>
-                </div>
-                <div class="tx-amt num">${euro(e.amount)}</div>
-                <button class="tx-del" data-del="${e.id}">✕</button>
-              </div>`;
-            }).join('')
-          }
-        </div>` : ''}
-      </div>`;
 
-      if(i < m.weeks.length-1){
-        const flow = w.rolloverOut;
-        html += `<div class="flow-connector">
-          <div class="flow-line"></div>
-          <div class="flow-badge ${flow<0?'neg':'pos'}">
-            ${flow<0?'↓':'↑'} ${flow>=0?'+':''}${euro(flow)} naar week ${i+2}
-          </div>
-        </div>`;
+  return `
+
+    <div class="section-title">
+      Budgetweken
+    </div>
+
+
+    <div class="week-flow">
+
+      ${
+        m.weeks.map(
+          (w,i)=>{
+
+            const isCurrent =
+              i ===
+              m.currentWeekIdx;
+
+
+            const isOpen =
+              ui.openWeek === i;
+
+
+            const pct =
+              pctClamped(
+                w.spent,
+                w.available
+              );
+
+
+            let html = `
+
+              <div
+                class="
+                  week-card
+                  ${
+                    isCurrent
+                      ? 'current'
+                      : ''
+                  }
+                "
+                data-week="${i}"
+              >
+
+                <div
+                  class="week-top"
+                  style="cursor:pointer"
+                >
+
+                  <div>
+
+                    <div class="week-name">
+
+                      Week ${i+1}
+
+                      ${
+                        isCurrent
+                          ? ' · nu'
+                          : ''
+                      }
+
+                    </div>
+
+
+                    <div class="week-period">
+
+                      ${fmtShort(
+                        w.start
+                      )}
+
+                      –
+
+                      ${fmtShort(
+                        w.end
+                      )}
+
+                      ·
+
+                      ${w.days}
+                      dagen
+
+                    </div>
+
+                  </div>
+
+
+                  <div
+                    style="
+                      display:flex;
+                      align-items:center;
+                      gap:8px;
+                    "
+                  >
+
+                    <div
+                      class="week-remaining"
+                    >
+
+                      <div
+                        class="v num"
+                        style="
+                          color:${
+                            w.remaining < 0
+                              ? 'var(--coral)'
+                              : 'var(--text)'
+                          }
+                        "
+                      >
+                        ${euro(
+                          w.remaining
+                        )}
+                      </div>
+
+                      <div class="l">
+                        over
+                      </div>
+
+                    </div>
+
+
+                    <svg
+                      class="
+                        chev
+                        ${
+                          isOpen
+                            ? 'open'
+                            : ''
+                        }
+                      "
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+
+                      <path
+                        d="M6 9l6 6 6-6"
+                        stroke="#8891A6"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+
+                    </svg>
+
+                  </div>
+
+                </div>
+
+
+                <div class="bar-track">
+
+                  <div
+                    class="bar-fill"
+                    style="
+                      width:${pct}%;
+                      background:${ringColor(
+                        pct
+                      )}
+                    "
+                  ></div>
+
+                </div>
+
+
+                <div class="week-detail">
+
+                  <span>
+                    Basis
+
+                    <b class="num">
+                      ${euro(
+                        w.base
+                      )}
+                    </b>
+                  </span>
+
+
+                  <span>
+                    Uitgegeven
+
+                    <b class="num">
+                      ${euro(
+                        w.spent
+                      )}
+                    </b>
+                  </span>
+
+
+                  <span>
+                    Per dag
+
+                    <b class="num">
+                      ${euro(
+                        w.dayBudgetBase
+                      )}
+                    </b>
+                  </span>
+
+                </div>
+
+
+                ${
+                  isOpen
+
+                    ?
+
+                    `
+                      <div class="expand-list">
+
+                        ${
+                          w.expenses.length === 0
+
+                            ?
+
+                            `
+                              <div
+                                class="empty"
+                                style="
+                                  padding:16px;
+                                "
+                              >
+                                Geen uitgaven
+                                deze week.
+                              </div>
+                            `
+
+                            :
+
+                            w.expenses
+                              .map(
+                                e=>{
+
+                                  const cat =
+                                    DATA.categories.find(
+                                      c=>
+                                        c.id ===
+                                        e.catId
+                                    );
+
+
+                                  return `
+
+                                    <div class="tx-item">
+
+                                      <div
+                                        class="tx-icon"
+                                        style="
+                                          background:${
+                                            cat
+                                              ? cat.color+'22'
+                                              : '#8891A622'
+                                          };
+
+                                          color:${
+                                            cat
+                                              ? cat.color
+                                              : '#8891A6'
+                                          };
+                                        "
+                                      >
+                                        ${
+                                          cat
+                                            ? cat.emoji
+                                            : '💸'
+                                        }
+                                      </div>
+
+
+                                      <div class="tx-body">
+
+                                        <div class="tx-cat">
+                                          ${
+                                            cat
+                                              ? cat.name
+                                              : 'Overig'
+                                          }
+                                        </div>
+
+
+                                        <div class="tx-meta">
+
+                                          ${fmtShort(
+                                            parseISO(
+                                              e.date
+                                            )
+                                          )}
+
+                                          ${
+                                            e.note
+                                              ? ' · ' +
+                                                escapeHtml(
+                                                  e.note
+                                                )
+                                              : ''
+                                          }
+
+                                        </div>
+
+                                      </div>
+
+
+                                      <div class="tx-amt num">
+                                        ${euro(
+                                          e.amount
+                                        )}
+                                      </div>
+
+
+                                      <button
+                                        class="tx-del"
+                                        data-del="${e.id}"
+                                      >
+                                        ✕
+                                      </button>
+
+                                    </div>
+
+                                  `;
+
+                                }
+                              )
+                              .join('')
+                        }
+
+                      </div>
+                    `
+
+                    :
+
+                    ''
+                }
+
+              </div>
+
+            `;
+
+
+            if(
+              i <
+              m.weeks.length-1
+            ){
+
+              const flow =
+                w.rolloverOut;
+
+
+              html += `
+
+                <div
+                  class="flow-connector"
+                >
+
+                  <div
+                    class="flow-line"
+                  ></div>
+
+
+                  <div
+                    class="
+                      flow-badge
+                      ${
+                        flow < 0
+                          ? 'neg'
+                          : 'pos'
+                      }
+                    "
+                  >
+
+                    ${
+                      flow < 0
+                        ? '↓'
+                        : '↑'
+                    }
+
+                    ${
+                      flow >= 0
+                        ? '+'
+                        : ''
+                    }
+
+                    ${euro(
+                      flow
+                    )}
+
+                    naar week
+                    ${i+2}
+
+                  </div>
+
+                </div>
+
+              `;
+
+            }
+
+
+            return html;
+
+          }
+        ).join('')
       }
-      return html;
-    }).join('')}
-  </div>`;
+
+    </div>
+
+  `;
+
 }
+
+
+/* =====================================================
+   CATEGORIEËN
+===================================================== */
 
 function renderCategorieen(m){
-  const monthTotals = DATA.categories.map(c=>{
-    const spent = DATA.expenses.filter(e=>e.catId===c.id).reduce((s,e)=>s+e.amount,0);
-    return {...c, spent};
-  });
-  const maxMonth = Math.max(1, ...monthTotals.map(c=>c.spent));
+
+  const monthTotals =
+    DATA.categories.map(
+      c=>{
+
+        const spent =
+          DATA.expenses
+            .filter(
+              e=>
+                e.catId ===
+                c.id
+            )
+            .reduce(
+              (s,e)=>
+                s +
+                Number(
+                  e.amount || 0
+                ),
+              0
+            );
+
+
+        return {
+          ...c,
+          spent
+        };
+
+      }
+    );
+
+
+  const maxMonth =
+    Math.max(
+      1,
+      ...monthTotals.map(
+        c=>c.spent
+      )
+    );
+
 
   return `
-  <div class="section-title">Deze week</div>
-  ${m.catStats.map(c=>{
-    const pct = pctClamped(c.spent, c.budget);
-    return `<div class="cat-card">
-      <div class="cat-top">
-        <div class="cat-name"><span class="cat-dot" style="background:${c.color}"></span>${c.emoji} ${c.name}</div>
-        <div class="cat-nums">${c.pct}%</div>
-      </div>
-      <div class="cat-nums">Uitgegeven <b>${euro(c.spent)}</b> van <b>${euro(c.budget)}</b> · nog <b style="color:${c.remaining<0?'var(--coral)':'var(--mint)'}">${euro(c.remaining)}</b></div>
-      <div class="bar-track" style="margin-top:8px;"><div class="bar-fill" style="width:${pct}%; background:${c.color}"></div></div>
-    </div>`;
-  }).join('')}
 
-  <div class="section-title">Deze cyclus totaal</div>
-  ${monthTotals.map(c=>`
-    <div class="cat-card" style="padding:12px 16px;">
-      <div class="cat-top" style="margin-bottom:6px;">
-        <div class="cat-name" style="font-size:13px;"><span class="cat-dot" style="background:${c.color}"></span>${c.emoji} ${c.name}</div>
-        <div class="cat-nums num">${euro(c.spent)}</div>
-      </div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(c.spent/maxMonth)*100}%; background:${c.color}"></div></div>
+    <div class="section-title">
+      Deze week
     </div>
-  `).join('')}
+
+
+    ${
+      m.catStats.map(
+        c=>{
+
+          const pct =
+            pctClamped(
+              c.spent,
+              c.budget
+            );
+
+
+          return `
+
+            <div class="cat-card">
+
+              <div class="cat-top">
+
+                <div class="cat-name">
+
+                  <span
+                    class="cat-dot"
+                    style="
+                      background:${c.color}
+                    "
+                  ></span>
+
+                  ${c.emoji}
+                  ${c.name}
+
+                </div>
+
+
+                <div class="cat-nums">
+                  ${c.pct}%
+                </div>
+
+              </div>
+
+
+              <div class="cat-nums">
+
+                Uitgegeven
+
+                <b>
+                  ${euro(
+                    c.spent
+                  )}
+                </b>
+
+                van
+
+                <b>
+                  ${euro(
+                    c.budget
+                  )}
+                </b>
+
+                · nog
+
+                <b
+                  style="
+                    color:${
+                      c.remaining < 0
+                        ? 'var(--coral)'
+                        : 'var(--mint)'
+                    }
+                  "
+                >
+                  ${euro(
+                    c.remaining
+                  )}
+                </b>
+
+              </div>
+
+
+              <div
+                class="bar-track"
+                style="
+                  margin-top:8px;
+                "
+              >
+
+                <div
+                  class="bar-fill"
+                  style="
+                    width:${pct}%;
+                    background:${c.color}
+                  "
+                ></div>
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      ).join('')
+    }
+
+
+    <div class="section-title">
+      Deze cyclus totaal
+    </div>
+
+
+    ${
+      monthTotals.map(
+        c=>`
+
+          <div
+            class="cat-card"
+            style="
+              padding:12px 16px;
+            "
+          >
+
+            <div
+              class="cat-top"
+              style="
+                margin-bottom:6px;
+              "
+            >
+
+              <div
+                class="cat-name"
+                style="
+                  font-size:13px;
+                "
+              >
+
+                <span
+                  class="cat-dot"
+                  style="
+                    background:${c.color}
+                  "
+                ></span>
+
+                ${c.emoji}
+                ${c.name}
+
+              </div>
+
+
+              <div
+                class="cat-nums num"
+              >
+                ${euro(
+                  c.spent
+                )}
+              </div>
+
+            </div>
+
+
+            <div class="bar-track">
+
+              <div
+                class="bar-fill"
+                style="
+                  width:${
+                    (
+                      c.spent /
+                      maxMonth
+                    )*100
+                  }%;
+
+                  background:${c.color}
+                "
+              ></div>
+
+            </div>
+
+          </div>
+
+        `
+      ).join('')
+    }
+
   `;
+
 }
+
+
+/* =====================================================
+   GESCHIEDENIS
+===================================================== */
+
+function renderGeschiedenis(m){
+
+  let expenses = [];
+
+
+  if(
+    ui.historyPeriod ===
+    'cycle'
+  ){
+
+    expenses =
+      DATA.expenses.filter(
+        e=>{
+
+          const d =
+            parseISO(
+              e.date
+            );
+
+
+          return (
+            d >=
+            m.cycleStart
+            &&
+            d <=
+            m.cycleEnd
+          );
+
+        }
+      );
+
+  }else{
+
+    expenses =
+      [
+        ...DATA.expenses
+      ];
+
+  }
+
+
+  const totalSpent =
+    expenses.reduce(
+      (sum,e)=>
+        sum +
+        Number(
+          e.amount || 0
+        ),
+      0
+    );
+
+
+  const categoryTotals =
+    DATA.categories.map(
+      c=>{
+
+        const spent =
+          expenses
+            .filter(
+              e=>
+                e.catId ===
+                c.id
+            )
+            .reduce(
+              (s,e)=>
+                s +
+                Number(
+                  e.amount || 0
+                ),
+              0
+            );
+
+
+        return {
+          ...c,
+          spent
+        };
+
+      }
+    );
+
+
+  const otherSpent =
+    expenses
+      .filter(
+        e=>
+          !e.catId
+      )
+      .reduce(
+        (s,e)=>
+          s +
+          Number(
+            e.amount || 0
+          ),
+        0
+      );
+
+
+  if(
+    otherSpent > 0
+  ){
+
+    categoryTotals.push({
+
+      id:'__other__',
+
+      name:'Overig',
+
+      pct:0,
+
+      color:'#8891A6',
+
+      emoji:'💸',
+
+      spent:otherSpent
+
+    });
+
+  }
+
+
+  categoryTotals.sort(
+    (a,b)=>
+      b.spent -
+      a.spent
+  );
+
+
+  const maxCategory =
+    Math.max(
+      1,
+      ...categoryTotals.map(
+        c=>
+          c.spent
+      )
+    );
+
+
+  const sortedExpenses =
+    [...expenses]
+      .sort(
+        (a,b)=>
+          b.date.localeCompare(
+            a.date
+          )
+          ||
+          b.id-a.id
+      );
+
+
+  return `
+
+    <div class="history-summary">
+
+      <div class="history-summary-title">
+
+        ${
+          ui.historyPeriod ===
+          'cycle'
+
+            ? 'Deze budgetcyclus'
+
+            : 'Alle opgeslagen uitgaven'
+
+        }
+
+      </div>
+
+
+      <div
+        class="
+          history-summary-total
+          num
+        "
+      >
+        ${euro(
+          totalSpent
+        )}
+      </div>
+
+
+      <div
+        class="history-summary-sub"
+      >
+
+        ${expenses.length}
+
+        ${
+          expenses.length === 1
+            ? 'uitgave'
+            : 'uitgaven'
+        }
+
+      </div>
+
+    </div>
+
+
+    <div class="section-title">
+      Waar geef je het meeste aan uit?
+    </div>
+
+
+    ${
+      categoryTotals.length === 0
+
+        ?
+
+        `
+          <div class="empty">
+
+            Nog geen uitgaven
+            om te analyseren.
+
+          </div>
+        `
+
+        :
+
+        categoryTotals.map(
+          (c,i)=>{
+
+            const percentage =
+              totalSpent > 0
+                ?
+                (
+                  c.spent /
+                  totalSpent
+                ) * 100
+                :
+                0;
+
+
+            return `
+
+              <div class="history-rank">
+
+                <div class="rank-number">
+                  ${i+1}
+                </div>
+
+
+                <div class="rank-info">
+
+                  <div class="rank-name">
+
+                    <span
+                      style="
+                        color:${c.color};
+                        margin-right:5px;
+                      "
+                    >
+                      ${c.emoji}
+                    </span>
+
+                    ${c.name}
+
+                  </div>
+
+
+                  <div class="rank-bar">
+
+                    <div
+                      class="bar-fill"
+                      style="
+                        width:${
+                          (
+                            c.spent /
+                            maxCategory
+                          )*100
+                        }%;
+
+                        background:${c.color};
+                      "
+                    ></div>
+
+                  </div>
+
+                </div>
+
+
+                <div>
+
+                  <div
+                    class="
+                      rank-amount
+                      num
+                    "
+                  >
+                    ${euro(
+                      c.spent
+                    )}
+                  </div>
+
+
+                  <div
+                    class="rank-percent"
+                  >
+                    ${percentage.toFixed(0)}%
+                  </div>
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        ).join('')
+    }
+
+
+    <div class="section-title">
+      Alle uitgaven
+    </div>
+
+
+    <div class="history-filter">
+
+      <button
+        class="${
+          ui.historyPeriod ===
+          'cycle'
+            ? 'active'
+            : ''
+        }"
+        data-history="cycle"
+      >
+        Deze cyclus
+      </button>
+
+
+      <button
+        class="${
+          ui.historyPeriod ===
+          'all'
+            ? 'active'
+            : ''
+        }"
+        data-history="all"
+      >
+        Alles
+      </button>
+
+    </div>
+
+
+    ${
+      sortedExpenses.length === 0
+
+        ?
+
+        `
+          <div class="empty">
+            Geen uitgaven gevonden.
+          </div>
+        `
+
+        :
+
+        sortedExpenses.map(
+          e=>{
+
+            const cat =
+              DATA.categories.find(
+                c=>
+                  c.id ===
+                  e.catId
+              );
+
+
+            return `
+
+              <div class="tx-item">
+
+                <div
+                  class="tx-icon"
+                  style="
+                    background:${
+                      cat
+                        ? cat.color+'22'
+                        : '#8891A622'
+                    };
+
+                    color:${
+                      cat
+                        ? cat.color
+                        : '#8891A6'
+                    };
+                  "
+                >
+                  ${
+                    cat
+                      ? cat.emoji
+                      : '💸'
+                  }
+                </div>
+
+
+                <div class="tx-body">
+
+                  <div class="tx-cat">
+
+                    ${
+                      cat
+                        ? cat.name
+                        : 'Overig'
+                    }
+
+                  </div>
+
+
+                  <div class="tx-meta">
+
+                    ${fmtLong(
+                      parseISO(
+                        e.date
+                      )
+                    )}
+
+                    ${
+                      e.note
+                        ? ' · ' +
+                          escapeHtml(
+                            e.note
+                          )
+                        : ''
+                    }
+
+                  </div>
+
+                </div>
+
+
+                <div
+                  class="
+                    tx-amt
+                    num
+                  "
+                >
+                  ${euro(
+                    e.amount
+                  )}
+                </div>
+
+
+                <button
+                  class="tx-del"
+                  data-del="${e.id}"
+                >
+                  ✕
+                </button>
+
+              </div>
+
+            `;
+
+          }
+        ).join('')
+    }
+
+  `;
+
+}
+
+
+/* =====================================================
+   SPAAR HISTORIE
+===================================================== */
+
+function renderSavingsHistory(
+  m
+){
+
+  const currentSavings =
+    DATA.savings
+      .filter(s=>{
+
+        const d =
+          parseISO(
+            s.date
+          );
+
+        return (
+          d >= m.cycleStart &&
+          d <= m.cycleEnd
+        );
+
+      })
+      .sort(
+        (a,b)=>
+          b.date.localeCompare(
+            a.date
+          )
+          ||
+          b.id-a.id
+      );
+
+
+  if(
+    currentSavings.length === 0
+  ){
+
+    return `
+
+      <div
+        style="
+          font-size:11.5px;
+          color:var(--text-faint);
+          padding:7px 0;
+        "
+      >
+        Nog geen spaargeld toegevoegd
+        deze cyclus.
+      </div>
+
+    `;
+
+  }
+
+
+  return `
+
+    <div class="savings-history-title">
+      Spaargeld deze cyclus
+    </div>
+
+
+    ${
+      currentSavings.map(
+        s=>`
+
+          <div class="saving-row">
+
+            <div
+              class="saving-row-left"
+            >
+
+              <div
+                class="saving-row-date"
+              >
+                ${fmtLong(
+                  parseISO(
+                    s.date
+                  )
+                )}
+              </div>
+
+
+              <div
+                class="saving-row-note"
+              >
+                ${
+                  s.note
+                    ? escapeHtml(
+                        s.note
+                      )
+                    : 'Spaardoel'
+                }
+              </div>
+
+            </div>
+
+
+            <div
+              style="
+                display:flex;
+                align-items:center;
+                gap:5px;
+              "
+            >
+
+              <div
+                class="
+                  saving-row-amount
+                  num
+                "
+              >
+                +${euro(
+                  s.amount
+                )}
+              </div>
+
+
+              <button
+                class="saving-delete"
+                data-saving-del="${s.id}"
+              >
+                ✕
+              </button>
+
+            </div>
+
+          </div>
+
+        `
+      ).join('')
+    }
+
+  `;
+
+}
+
+
+/* =====================================================
+   INSTELLINGEN
+===================================================== */
 
 function renderInstellingen(m){
-  const s = DATA.settings;
-  const pctTotal = DATA.categories.reduce((sum,c)=>sum+Number(c.pct),0);
+
+  const s =
+    DATA.settings;
+
+
+  const pctTotal =
+    DATA.categories.reduce(
+      (sum,c)=>
+        sum +
+        Number(
+          c.pct
+        ),
+      0
+    );
+
+
   return `
-  <div class="field-group">
-    <h3>Inkomen</h3>
-    <div class="field-row"><label>Salaris partner 1</label><input type="number" step="0.01" data-setting="salary1" value="${s.salary1}"></div>
-    <div class="field-row"><label>Salaris partner 2</label><input type="number" step="0.01" data-setting="salary2" value="${s.salary2}"></div>
-    <div class="field-row"><label>Totaal inkomen</label><span class="num" style="color:var(--text-dim)">${euro(m.income)}</span></div>
-  </div>
 
-  <div class="field-group">
-    <h3>Vaste lasten & sparen</h3>
-    <div class="field-row"><label>Vaste lasten 1</label><input type="number" step="0.01" data-setting="fixed1" value="${s.fixed1}"></div>
-    <div class="field-row"><label>Vaste lasten 2</label><input type="number" step="0.01" data-setting="fixed2" value="${s.fixed2}"></div>
-    <div class="field-row"><label>Beleggen</label><input type="number" step="0.01" data-setting="invest" value="${s.invest}"></div>
-    <div class="field-row"><label>Extra spaardoel</label><input type="number" step="0.01" data-setting="savingsGoal" value="${s.savingsGoal}"></div>
-    <div class="field-row"><label>Vrij te besteden</label><span class="num" style="color:var(--mint); font-weight:600;">${euro(m.freeBudget)}</span></div>
-  </div>
+    <div class="field-group">
 
-  <div class="field-group">
-    <h3>Budgetcyclus</h3>
-    <div class="field-row"><label>Startdatum cyclus</label><input type="date" data-setting="cycleStart" value="${s.cycleStart}"></div>
-    <div class="field-row"><label>Aantal dagen</label><input type="number" data-setting="cycleLength" value="${s.cycleLength}"></div>
-    <div class="field-row"><label>Eindigt op</label><span style="color:var(--text-dim); font-size:13px;">${fmtLong(m.weeks[m.weeks.length-1].end)}</span></div>
-  </div>
+      <h3>
+        Inkomen
+      </h3>
 
-  <div class="field-group">
-    <h3>Categorieën (% van weekbudget)</h3>
-    ${DATA.categories.map((c,i)=>`
-      <div class="field-row"><label>${c.emoji} ${c.name}</label><input type="number" data-cat-pct="${i}" value="${c.pct}"></div>
-    `).join('')}
-    <div class="pct-warn ${pctTotal===100?'ok':'bad'}">Totaal: ${pctTotal}% ${pctTotal===100?'✓':'— moet 100% zijn'}</div>
-  </div>
 
-  <div class="field-group">
-    <h3>Gegevens</h3>
-    <div style="font-size:12.5px; color:var(--text-faint); margin-bottom:10px;">${DATA.expenses.length} uitgaven opgeslagen op dit toestel.</div>
-    <button class="danger-btn" id="resetBtn">Alle uitgaven wissen</button>
-  </div>
+      <div class="field-row">
+
+        <label>
+          Salaris partner 1
+        </label>
+
+        <input
+          type="number"
+          step="0.01"
+          data-setting="salary1"
+          value="${s.salary1}"
+        >
+
+      </div>
+
+
+      <div class="field-row">
+
+        <label>
+          Salaris partner 2
+        </label>
+
+        <input
+          type="number"
+          step="0.01"
+          data-setting="salary2"
+          value="${s.salary2}"
+        >
+
+      </div>
+
+
+      <div class="field-row">
+
+        <label>
+          Totaal inkomen
+        </label>
+
+        <span
+          class="num"
+          style="
+            color:var(--text-dim)
+          "
+        >
+          ${euro(
+            m.income
+          )}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="field-group">
+
+      <h3>
+        Vaste lasten & sparen
+      </h3>
+
+
+      <div class="field-row">
+
+        <label>
+          Vaste lasten 1
+        </label>
+
+        <input
+          type="number"
+          step="0.01"
+          data-setting="fixed1"
+          value="${s.fixed1}"
+        >
+
+      </div>
+
+
+      <div class="field-row">
+
+        <label>
+          Vaste lasten 2
+        </label>
+
+        <input
+          type="number"
+          step="0.01"
+          data-setting="fixed2"
+          value="${s.fixed2}"
+        >
+
+      </div>
+
+
+      <div class="field-row">
+
+        <label>
+          Beleggen
+        </label>
+
+        <input
+          type="number"
+          step="0.01"
+          data-setting="invest"
+          value="${s.invest}"
+        >
+
+      </div>
+
+
+      <div class="field-row">
+
+        <label>
+          Extra spaardoel
+        </label>
+
+        <input
+          type="number"
+          step="0.01"
+          data-setting="savingsGoal"
+          value="${s.savingsGoal}"
+        >
+
+      </div>
+
+
+      <!-- SPAAROVERZICHT -->
+
+      <div class="savings-box">
+
+        <div class="savings-box-top">
+
+          <div>
+
+            <div class="savings-box-label">
+              Spaardoel deze cyclus
+            </div>
+
+            <div class="savings-box-sub">
+              Echt overgemaakt naar sparen
+            </div>
+
+          </div>
+
+
+          <div
+            class="
+              savings-box-value
+              num
+            "
+          >
+            ${euro(
+              m.savedThisCycle
+            )}
+          </div>
+
+        </div>
+
+
+        <div
+          class="savings-progress"
+        >
+
+          <div
+            class="savings-progress-fill"
+            style="
+              width:${
+                m.savingsProgress
+              }%;
+            "
+          ></div>
+
+        </div>
+
+
+        <div class="savings-numbers">
+
+          <span>
+            Gespaard:
+            <strong
+              class="num"
+              style="color:var(--mint)"
+            >
+              ${euro(
+                m.savedThisCycle
+              )}
+            </strong>
+          </span>
+
+
+          <span>
+            Doel:
+            <strong
+              class="num"
+              style="color:var(--text)"
+            >
+              ${euro(
+                m.savingsGoal
+              )}
+            </strong>
+          </span>
+
+        </div>
+
+
+        <div class="savings-numbers">
+
+          <span>
+            Nog te sparen
+          </span>
+
+          <strong
+            class="num"
+            style="
+              color:${
+                m.savingsRemaining > 0
+                  ? 'var(--amber)'
+                  : 'var(--mint)'
+              }
+            "
+          >
+            ${
+              m.savingsRemaining > 0
+                ? euro(
+                    m.savingsRemaining
+                  )
+                : 'Doel behaald ✓'
+            }
+          </strong>
+
+        </div>
+
+
+        <div
+          class="savings-actions"
+        >
+
+          <button
+            class="
+              savings-action-btn
+              primary
+            "
+            id="addSavingBtn"
+          >
+            + Geld sparen
+          </button>
+
+
+          <button
+            class="
+              savings-action-btn
+              secondary
+            "
+            id="removeSavingBtn"
+          >
+            Correctie
+          </button>
+
+        </div>
+
+
+        <div class="savings-history">
+
+          ${renderSavingsHistory(m)}
+
+        </div>
+
+      </div>
+
+
+      <div class="field-row">
+
+        <label>
+          Vrij te besteden
+        </label>
+
+        <span
+          class="num"
+          style="
+            color:var(--mint);
+            font-weight:600;
+          "
+        >
+          ${euro(
+            m.freeBudget
+          )}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="field-group">
+
+      <h3>
+        Budgetcyclus
+      </h3>
+
+
+      <div class="field-row">
+
+        <label>
+          Startdatum cyclus
+        </label>
+
+        <input
+          type="date"
+          data-setting="cycleStart"
+          value="${s.cycleStart}"
+        >
+
+      </div>
+
+
+      <div class="field-row">
+
+        <label>
+          Aantal dagen
+        </label>
+
+        <input
+          type="number"
+          data-setting="cycleLength"
+          value="${s.cycleLength}"
+        >
+
+      </div>
+
+
+      <div class="field-row">
+
+        <label>
+          Eindigt op
+        </label>
+
+        <span
+          style="
+            color:var(--text-dim);
+            font-size:13px;
+          "
+        >
+          ${fmtLong(
+            m.cycleEnd
+          )}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="field-group">
+
+      <h3>
+        Categorieën
+        (% van weekbudget)
+      </h3>
+
+
+      ${
+        DATA.categories.map(
+          (c,i)=>`
+
+            <div
+              class="field-row"
+            >
+
+              <label>
+                ${c.emoji}
+                ${c.name}
+              </label>
+
+              <input
+                type="number"
+                data-cat-pct="${i}"
+                value="${c.pct}"
+              >
+
+            </div>
+
+          `
+        ).join('')
+      }
+
+
+      <div
+        class="
+          pct-warn
+          ${
+            pctTotal === 100
+              ? 'ok'
+              : 'bad'
+          }
+        "
+      >
+
+        Totaal:
+        ${pctTotal}%
+
+        ${
+          pctTotal === 100
+            ? '✓'
+            : '— moet 100% zijn'
+        }
+
+      </div>
+
+    </div>
+
+
+    <div class="field-group">
+
+      <h3>
+        Gegevens
+      </h3>
+
+
+      <div
+        style="
+          font-size:12.5px;
+          color:var(--text-faint);
+          margin-bottom:10px;
+        "
+      >
+
+        ${DATA.expenses.length}
+
+        ${
+          DATA.expenses.length === 1
+            ? 'uitgave'
+            : 'uitgaven'
+        }
+
+        en
+
+        ${DATA.savings.length}
+
+        ${
+          DATA.savings.length === 1
+            ? 'spaartransactie'
+            : 'spaartransacties'
+        }
+
+        opgeslagen op dit toestel.
+
+      </div>
+
+
+      <button
+        class="danger-btn"
+        id="resetBtn"
+      >
+        Alle uitgaven wissen
+      </button>
+
+    </div>
+
   `;
+
 }
 
-/* ============ MAIN RENDER ============ */
+
+/* =====================================================
+   RENDER
+===================================================== */
+
 function render(){
-  const m = computeModel();
-  const app = document.getElementById('app');
+
+  const m =
+    computeModel();
+
+
+  const app =
+    document.getElementById(
+      'app'
+    );
+
+
   app.innerHTML = `
+
     <header class="topbar">
+
       <div>
-        <div class="eyebrow">Budget</div>
-        <div class="cycle-label">${fmtShort(m.cycleStart)} – ${fmtShort(m.weeks[m.weeks.length-1].end)}</div>
+
+        <div class="eyebrow">
+          Budget
+        </div>
+
+
+        <div class="cycle-label">
+
+          ${fmtShort(
+            m.cycleStart
+          )}
+
+          –
+
+          ${fmtShort(
+            m.cycleEnd
+          )}
+
+        </div>
+
       </div>
+
+
       <div class="month-total">
+
         vrij budget
-        <span class="amt num">${euro(m.freeBudget)}</span>
+
+        <span
+          class="
+            amt
+            num
+          "
+        >
+          ${euro(
+            m.freeBudget
+          )}
+        </span>
+
       </div>
+
     </header>
+
+
     <main>
-      <section class="tab ${ui.tab==='vandaag'?'active':''}" id="tab-vandaag">${renderVandaag(m)}</section>
-      <section class="tab ${ui.tab==='weken'?'active':''}" id="tab-weken">${renderWeken(m)}</section>
-      <section class="tab ${ui.tab==='categorieen'?'active':''}" id="tab-categorieen">${renderCategorieen(m)}</section>
-      <section class="tab ${ui.tab==='instellingen'?'active':''}" id="tab-instellingen">${renderInstellingen(m)}</section>
+
+      <section
+        class="
+          tab
+          ${
+            ui.tab ===
+            'vandaag'
+              ? 'active'
+              : ''
+          }
+        "
+      >
+
+        ${renderVandaag(m)}
+
+      </section>
+
+
+      <section
+        class="
+          tab
+          ${
+            ui.tab ===
+            'weken'
+              ? 'active'
+              : ''
+          }
+        "
+      >
+
+        ${renderWeken(m)}
+
+      </section>
+
+
+      <section
+        class="
+          tab
+          ${
+            ui.tab ===
+            'categorieen'
+              ? 'active'
+              : ''
+          }
+        "
+      >
+
+        ${renderCategorieen(m)}
+
+      </section>
+
+
+      <section
+        class="
+          tab
+          ${
+            ui.tab ===
+            'geschiedenis'
+              ? 'active'
+              : ''
+          }
+        "
+      >
+
+        ${renderGeschiedenis(m)}
+
+      </section>
+
+
+      <section
+        class="
+          tab
+          ${
+            ui.tab ===
+            'instellingen'
+              ? 'active'
+              : ''
+          }
+        "
+      >
+
+        ${renderInstellingen(m)}
+
+      </section>
+
     </main>
-    <button class="fab" id="fabAdd" aria-label="Uitgave toevoegen">+</button>
+
+
+    <button
+      class="fab"
+      id="fabAdd"
+      aria-label="Uitgave toevoegen"
+    >
+      +
+    </button>
+
+
     <nav class="tabbar">
-      ${tabBtn('vandaag','Vandaag', iconHome())}
-      ${tabBtn('weken','Weken', iconCalendar())}
-      ${tabBtn('categorieen','Categorieën', iconPie())}
-      ${tabBtn('instellingen','Instellingen', iconGear())}
+
+      ${tabBtn(
+        'vandaag',
+        'Vandaag',
+        iconHome()
+      )}
+
+
+      ${tabBtn(
+        'weken',
+        'Weken',
+        iconCalendar()
+      )}
+
+
+      ${tabBtn(
+        'categorieen',
+        'Categorieën',
+        iconPie()
+      )}
+
+
+      ${tabBtn(
+        'geschiedenis',
+        'Geschiedenis',
+        iconHistory()
+      )}
+
+
+      ${tabBtn(
+        'instellingen',
+        'Instellingen',
+        iconGear()
+      )}
+
     </nav>
+
   `;
+
+
   attachEvents(m);
+
 }
 
-function tabBtn(key,label,icon){
-  return `<button class="tab-btn ${ui.tab===key?'active':''}" data-tab="${key}">${icon}<span>${label}</span></button>`;
+
+/* =====================================================
+   TAB BUTTON
+===================================================== */
+
+function tabBtn(
+  key,
+  label,
+  icon
+){
+
+  return `
+
+    <button
+      class="
+        tab-btn
+        ${
+          ui.tab === key
+            ? 'active'
+            : ''
+        }
+      "
+      data-tab="${key}"
+    >
+
+      ${icon}
+
+      <span>
+        ${label}
+      </span>
+
+    </button>
+
+  `;
+
 }
-function iconHome(){return `<svg viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 5l8 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9h12v-9" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;}
-function iconCalendar(){return `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M4 9.5h16M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;}
-function iconPie(){return `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v9l7.5 4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/></svg>`;}
-function iconGear(){return `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.8"/><path d="M19 12a7 7 0 00-.15-1.4l2-1.5-1.5-2.6-2.3.9a7 7 0 00-2.4-1.4L14.2 3H9.8l-.45 2.6a7 7 0 00-2.4 1.4l-2.3-.9-1.5 2.6 2 1.5A7 7 0 005 12c0 .47.05.94.15 1.4l-2 1.5 1.5 2.6 2.3-.9c.7.62 1.5 1.1 2.4 1.4L9.8 21h4.4l.45-2.6c.9-.3 1.7-.78 2.4-1.4l2.3.9 1.5-2.6-2-1.5c.1-.46.15-.93.15-1.4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>`;}
 
-function escapeHtml(s){ return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-/* ============ EVENTS ============ */
+/* =====================================================
+   ICONS
+===================================================== */
+
+function iconHome(){
+
+  return `
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+
+      <path
+        d="M4 11.5L12 5l8 6.5"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <path
+        d="M6 10v9h12v-9"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linejoin="round"
+      />
+
+    </svg>
+
+  `;
+
+}
+
+
+function iconCalendar(){
+
+  return `
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+
+      <rect
+        x="4"
+        y="5"
+        width="16"
+        height="15"
+        rx="2.5"
+        stroke="currentColor"
+        stroke-width="1.8"
+      />
+
+      <path
+        d="
+          M4 9.5h16
+          M8 3v4
+          M16 3v4
+        "
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+      />
+
+    </svg>
+
+  `;
+
+}
+
+
+function iconPie(){
+
+  return `
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+
+      <path
+        d="M12 3v9l7.5 4.3"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+      />
+
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        stroke="currentColor"
+        stroke-width="1.8"
+      />
+
+    </svg>
+
+  `;
+
+}
+
+
+function iconHistory(){
+
+  return `
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+
+      <path
+        d="M4 12a8 8 0 108-8"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+      />
+
+      <path
+        d="M4 5v7h7"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <path
+        d="M12 7v5l3 2"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+    </svg>
+
+  `;
+
+}
+
+
+function iconGear(){
+
+  return `
+
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+
+      <circle
+        cx="12"
+        cy="12"
+        r="3.2"
+        stroke="currentColor"
+        stroke-width="1.8"
+      />
+
+      <path
+        d="
+          M19 12
+          a7 7 0 00-.15-1.4
+          l2-1.5
+          -1.5-2.6
+          -2.3.9
+          a7 7 0 00-2.4-1.4
+          L14.2 3
+          H9.8
+          l-.45 2.6
+          a7 7 0 00-2.4 1.4
+          l-2.3-.9
+          -1.5 2.6
+          2 1.5
+          A7 7 0 005 12
+          c0 .47.05.94.15 1.4
+          l-2 1.5
+          1.5 2.6
+          2.3-.9
+          c.7.62 1.5 1.1 2.4 1.4
+          L9.8 21
+          h4.4
+          l.45-2.6
+          c.9-.3 1.7-.78 2.4-1.4
+          l2.3.9
+          1.5-2.6
+          -2-1.5
+          c.1-.46.15-.93.15-1.4z
+        "
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+      />
+
+    </svg>
+
+  `;
+
+}
+
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
 function attachEvents(m){
-  document.querySelectorAll('.tab-btn').forEach(btn=>{
-    btn.onclick = ()=>{
-      // Force any pending edit (e.g. a date picker that hasn't fired
-      // "change" yet) to commit before we tear down and rebuild the DOM.
-      if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
-      ui.tab = btn.dataset.tab; render();
-    };
-  });
-  const fab = document.getElementById('fabAdd');
-  if(fab) fab.onclick = openAddSheet;
 
-  document.querySelectorAll('[data-del]').forEach(btn=>{
-    btn.onclick = (e)=>{
-      e.stopPropagation();
-      const id = Number(btn.dataset.del);
-      DATA.expenses = DATA.expenses.filter(x=>x.id!==id);
-      saveData(); render();
-    };
-  });
 
-  document.querySelectorAll('.week-top').forEach(top=>{
-    top.onclick = ()=>{
-      const card = top.closest('.week-card');
-      const idx = Number(card.dataset.week);
-      ui.openWeek = ui.openWeek===idx ? null : idx;
-      render();
-    };
-  });
+  /* TABS */
 
-  // settings inputs
-  document.querySelectorAll('[data-setting]').forEach(inp=>{
-    const commit = ()=>{
-      const key = inp.dataset.setting;
-      const val = inp.type==='date' ? inp.value : Number(inp.value);
-      if(inp.type==='date' && !val) return; // ignore an incomplete/cleared date
-      if(DATA.settings[key] === val) return; // nothing changed, skip a redundant render
-      DATA.settings[key] = val;
-      saveData(); render();
-    };
-    inp.onchange = commit;
-    // Date pickers (esp. on iOS) fire "input" reliably the moment a date is
-    // picked, but may delay or skip "change" if focus moves away quickly.
-    if(inp.type==='date') inp.oninput = commit;
-  });
-  document.querySelectorAll('[data-cat-pct]').forEach(inp=>{
-    inp.onchange = ()=>{
-      const idx = Number(inp.dataset.catPct);
-      DATA.categories[idx].pct = Number(inp.value);
-      saveData(); render();
-    };
-  });
-  const resetBtn = document.getElementById('resetBtn');
-  if(resetBtn) resetBtn.onclick = ()=>{
-    if(confirm('Alle uitgaven wissen? Dit kan niet ongedaan worden gemaakt.')){
-      DATA.expenses = [];
-      saveData(); render();
-    }
-  };
-}
+  document
+    .querySelectorAll(
+      '.tab-btn'
+    )
+    .forEach(btn=>{
 
-/* ============ ADD EXPENSE SHEET ============ */
-function openAddSheet(){
-  ui.chosenCat = DATA.categories[0].id;
-  const backdrop = document.getElementById('addBackdrop');
-  const chipRow = document.getElementById('catChipRow');
-  chipRow.innerHTML = DATA.categories.map(c=>
-    `<div class="chip ${c.id===ui.chosenCat?'active':''}" data-cat="${c.id}">${c.emoji} ${c.name}</div>`
-  ).join('') + `<div class="chip" data-cat="__other__">💸 Overig</div>`;
+      btn.onclick = ()=>{
 
-  chipRow.querySelectorAll('.chip').forEach(chip=>{
-    chip.onclick = ()=>{
-      chipRow.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-      chip.classList.add('active');
-      ui.chosenCat = chip.dataset.cat;
-    };
-  });
+        if(
+          document.activeElement &&
+          document.activeElement.blur
+        ){
 
-  document.getElementById('amountInput').value='';
-  document.getElementById('noteInput').value='';
-  document.getElementById('dateInput').value = isoDate(todayDate());
+          document
+            .activeElement
+            .blur();
 
-  backdrop.classList.add('show');
-  setTimeout(()=>document.getElementById('amountInput').focus(), 300);
+        }
 
-  document.getElementById('cancelExpenseBtn').onclick = closeAddSheet;
-  backdrop.onclick = (e)=>{ if(e.target===backdrop) closeAddSheet(); };
-  document.getElementById('saveExpenseBtn').onclick = submitExpense;
-}
-function closeAddSheet(){
-  document.getElementById('addBackdrop').classList.remove('show');
-}
-function submitExpense(){
-  const raw = document.getElementById('amountInput').value.replace(',', '.');
-  const amount = parseFloat(raw);
-  if(!amount || amount<=0){
-    document.getElementById('amountInput').focus();
-    return;
+
+        ui.tab =
+          btn.dataset.tab;
+
+
+        render();
+
+      };
+
+    });
+
+
+  /* FAB */
+
+  const fab =
+    document.getElementById(
+      'fabAdd'
+    );
+
+
+  if(fab){
+
+    fab.onclick =
+      openAddSheet;
+
   }
-  const date = document.getElementById('dateInput').value || isoDate(todayDate());
-  const note = document.getElementById('noteInput').value.trim();
-  const catId = ui.chosenCat==='__other__' ? null : ui.chosenCat;
+
+
+  /* VERWIJDER UITGAVING */
+
+  document
+    .querySelectorAll(
+      '[data-del]'
+    )
+    .forEach(btn=>{
+
+      btn.onclick = e=>{
+
+        e.stopPropagation();
+
+
+        const id =
+          Number(
+            btn.dataset.del
+          );
+
+
+        DATA.expenses =
+          DATA.expenses.filter(
+            x=>
+              x.id !== id
+          );
+
+
+        saveData();
+
+        render();
+
+      };
+
+    });
+
+
+  /* WEKEN */
+
+  document
+    .querySelectorAll(
+      '.week-top'
+    )
+    .forEach(top=>{
+
+      top.onclick = ()=>{
+
+        const card =
+          top.closest(
+            '.week-card'
+          );
+
+
+        const idx =
+          Number(
+            card.dataset.week
+          );
+
+
+        ui.openWeek =
+          ui.openWeek === idx
+            ? null
+            : idx;
+
+
+        render();
+
+      };
+
+    });
+
+
+  /* HISTORY FILTER */
+
+  document
+    .querySelectorAll(
+      '[data-history]'
+    )
+    .forEach(btn=>{
+
+      btn.onclick = ()=>{
+
+        ui.historyPeriod =
+          btn.dataset.history;
+
+
+        render();
+
+      };
+
+    });
+
+
+  /* SETTINGS */
+
+  document
+    .querySelectorAll(
+      '[data-setting]'
+    )
+    .forEach(inp=>{
+
+      const commit = ()=>{
+
+        const key =
+          inp.dataset.setting;
+
+
+        const val =
+          inp.type === 'date'
+            ? inp.value
+            : Number(
+                inp.value
+              );
+
+
+        if(
+          inp.type === 'date' &&
+          !val
+        ){
+
+          return;
+
+        }
+
+
+        if(
+          DATA.settings[key]
+          ===
+          val
+        ){
+
+          return;
+
+        }
+
+
+        DATA.settings[key] =
+          val;
+
+
+        saveData();
+
+        render();
+
+      };
+
+
+      inp.onchange =
+        commit;
+
+
+      if(
+        inp.type === 'date'
+      ){
+
+        inp.oninput =
+          commit;
+
+      }
+
+    });
+
+
+  /* CATEGORIE PERCENTAGES */
+
+  document
+    .querySelectorAll(
+      '[data-cat-pct]'
+    )
+    .forEach(inp=>{
+
+      inp.onchange = ()=>{
+
+        const idx =
+          Number(
+            inp.dataset.catPct
+          );
+
+
+        DATA.categories[idx].pct =
+          Number(
+            inp.value
+          );
+
+
+        saveData();
+
+        render();
+
+      };
+
+    });
+
+
+  /* RESET */
+
+  const resetBtn =
+    document.getElementById(
+      'resetBtn'
+    );
+
+
+  if(resetBtn){
+
+    resetBtn.onclick = ()=>{
+
+      if(
+        confirm(
+          'Alle uitgaven wissen? Dit kan niet ongedaan worden gemaakt.'
+        )
+      ){
+
+        DATA.expenses = [];
+
+        saveData();
+
+        render();
+
+      }
+
+    };
+
+  }
+
+
+  /* SPAARTRANSACTIES TOEVOEGEN */
+
+  const addSavingBtn =
+    document.getElementById(
+      'addSavingBtn'
+    );
+
+
+  if(addSavingBtn){
+
+    addSavingBtn.onclick =
+      openSavingSheet;
+
+  }
+
+
+  /* SPAAR CORRECTIE */
+
+  const removeSavingBtn =
+    document.getElementById(
+      'removeSavingBtn'
+    );
+
+
+  if(removeSavingBtn){
+
+    removeSavingBtn.onclick =
+      openSavingCorrection;
+
+  }
+
+
+  /* SPAARTRANSACTIES VERWIJDEREN */
+
+  document
+    .querySelectorAll(
+      '[data-saving-del]'
+    )
+    .forEach(btn=>{
+
+      btn.onclick = e=>{
+
+        e.stopPropagation();
+
+
+        const id =
+          Number(
+            btn.dataset.savingDel
+          );
+
+
+        DATA.savings =
+          DATA.savings.filter(
+            x=>
+              x.id !== id
+          );
+
+
+        saveData();
+
+        render();
+
+      };
+
+    });
+
+}
+
+
+/* =====================================================
+   UITGAVE MODAL
+===================================================== */
+
+function openAddSheet(){
+
+  ui.chosenCat =
+    DATA.categories[0].id;
+
+
+  const backdrop =
+    document.getElementById(
+      'addBackdrop'
+    );
+
+
+  const chipRow =
+    document.getElementById(
+      'catChipRow'
+    );
+
+
+  chipRow.innerHTML =
+
+    DATA.categories
+      .map(
+        c=>`
+
+          <div
+            class="
+              chip
+              ${
+                c.id ===
+                ui.chosenCat
+                  ? 'active'
+                  : ''
+              }
+            "
+            data-cat="${c.id}"
+          >
+
+            ${c.emoji}
+            ${c.name}
+
+          </div>
+
+        `
+      )
+      .join('')
+
+    +
+
+    `
+
+      <div
+        class="chip"
+        data-cat="__other__"
+      >
+        💸 Overig
+      </div>
+
+    `;
+
+
+  chipRow
+    .querySelectorAll(
+      '.chip'
+    )
+    .forEach(chip=>{
+
+      chip.onclick = ()=>{
+
+        chipRow
+          .querySelectorAll(
+            '.chip'
+          )
+          .forEach(
+            c=>
+              c.classList.remove(
+                'active'
+              )
+          );
+
+
+        chip.classList.add(
+          'active'
+        );
+
+
+        ui.chosenCat =
+          chip.dataset.cat;
+
+      };
+
+    });
+
+
+  document
+    .getElementById(
+      'amountInput'
+    )
+    .value='';
+
+
+  document
+    .getElementById(
+      'noteInput'
+    )
+    .value='';
+
+
+  document
+    .getElementById(
+      'dateInput'
+    )
+    .value =
+      isoDate(
+        todayDate()
+      );
+
+
+  backdrop.classList.add(
+    'show'
+  );
+
+
+  setTimeout(
+    ()=>{
+
+      document
+        .getElementById(
+          'amountInput'
+        )
+        .focus();
+
+    },
+    300
+  );
+
+
+  document
+    .getElementById(
+      'cancelExpenseBtn'
+    )
+    .onclick =
+      closeAddSheet;
+
+
+  backdrop.onclick = e=>{
+
+    if(
+      e.target ===
+      backdrop
+    ){
+
+      closeAddSheet();
+
+    }
+
+  };
+
+
+  document
+    .getElementById(
+      'saveExpenseBtn'
+    )
+    .onclick =
+      submitExpense;
+
+}
+
+
+function closeAddSheet(){
+
+  document
+    .getElementById(
+      'addBackdrop'
+    )
+    .classList.remove(
+      'show'
+    );
+
+}
+
+
+function submitExpense(){
+
+  const raw =
+    document
+      .getElementById(
+        'amountInput'
+      )
+      .value
+      .replace(
+        ',',
+        '.'
+      );
+
+
+  const amount =
+    parseFloat(
+      raw
+    );
+
+
+  if(
+    !amount ||
+    amount <= 0
+  ){
+
+    document
+      .getElementById(
+        'amountInput'
+      )
+      .focus();
+
+    return;
+
+  }
+
+
+  const date =
+    document
+      .getElementById(
+        'dateInput'
+      )
+      .value
+      ||
+      isoDate(
+        todayDate()
+      );
+
+
+  const note =
+    document
+      .getElementById(
+        'noteInput'
+      )
+      .value
+      .trim();
+
+
+  const catId =
+    ui.chosenCat ===
+    '__other__'
+      ? null
+      : ui.chosenCat;
+
 
   DATA.expenses.push({
-    id: Date.now(),
-    amount, date, note, catId
+
+    id:Date.now(),
+
+    amount,
+
+    date,
+
+    note,
+
+    catId
+
   });
+
+
   closeAddSheet();
+
   saveData();
+
   render();
+
 }
 
-/* ============ INIT ============ */
-(async function init(){
-  DATA = await loadData();
+
+/* =====================================================
+   SPAAR MODAL
+===================================================== */
+
+function openSavingSheet(){
+
+  const backdrop =
+    document.getElementById(
+      'savingBackdrop'
+    );
+
+
+  document
+    .getElementById(
+      'savingAmountInput'
+    )
+    .value='';
+
+
+  document
+    .getElementById(
+      'savingNoteInput'
+    )
+    .value='';
+
+
+  document
+    .getElementById(
+      'savingDateInput'
+    )
+    .value =
+      isoDate(
+        todayDate()
+      );
+
+
+  backdrop.classList.add(
+    'show'
+  );
+
+
+  setTimeout(
+    ()=>{
+
+      document
+        .getElementById(
+          'savingAmountInput'
+        )
+        .focus();
+
+    },
+    300
+  );
+
+
+  document
+    .getElementById(
+      'cancelSavingBtn'
+    )
+    .onclick =
+      closeSavingSheet;
+
+
+  backdrop.onclick = e=>{
+
+    if(
+      e.target ===
+      backdrop
+    ){
+
+      closeSavingSheet();
+
+    }
+
+  };
+
+
+  document
+    .getElementById(
+      'saveSavingBtn'
+    )
+    .onclick =
+      submitSaving;
+
+}
+
+
+function closeSavingSheet(){
+
+  document
+    .getElementById(
+      'savingBackdrop'
+    )
+    .classList.remove(
+      'show'
+    );
+
+}
+
+
+/* =====================================================
+   SPAARBEDRAG OPSLAAN
+===================================================== */
+
+function submitSaving(){
+
+  const raw =
+    document
+      .getElementById(
+        'savingAmountInput'
+      )
+      .value
+      .replace(
+        ',',
+        '.'
+      );
+
+
+  const amount =
+    parseFloat(
+      raw
+    );
+
+
+  if(
+    !amount ||
+    amount <= 0
+  ){
+
+    document
+      .getElementById(
+        'savingAmountInput'
+      )
+      .focus();
+
+    return;
+
+  }
+
+
+  const date =
+    document
+      .getElementById(
+        'savingDateInput'
+      )
+      .value
+      ||
+      isoDate(
+        todayDate()
+      );
+
+
+  const note =
+    document
+      .getElementById(
+        'savingNoteInput'
+      )
+      .value
+      .trim();
+
+
+  DATA.savings.push({
+
+    id:Date.now(),
+
+    amount,
+
+    date,
+
+    note
+
+  });
+
+
+  closeSavingSheet();
+
+  saveData();
+
   render();
-})();
+
+}
+
+
+/* =====================================================
+   SPAARCORRECTIE
+===================================================== */
+
+function openSavingCorrection(){
+
+  const amount =
+    prompt(
+      'Hoeveel wil je van je daadwerkelijk gespaarde bedrag afhalen?'
+    );
+
+
+  if(
+    amount === null
+  ){
+
+    return;
+
+  }
+
+
+  const value =
+    parseFloat(
+      amount.replace(
+        ',',
+        '.'
+      )
+    );
+
+
+  if(
+    !value ||
+    value <= 0
+  ){
+
+    alert(
+      'Vul een geldig bedrag in.'
+    );
+
+    return;
+
+  }
+
+
+  const m =
+    computeModel();
+
+
+  if(
+    value >
+    m.savedThisCycle
+  ){
+
+    alert(
+      'Je kunt niet meer corrigeren dan je deze cyclus hebt gespaard.'
+    );
+
+    return;
+
+  }
+
+
+  /*
+    We slaan een negatieve spaartransactie op.
+    Daardoor blijft de volledige geschiedenis
+    behouden.
+  */
+
+  DATA.savings.push({
+
+    id:Date.now(),
+
+    amount:-value,
+
+    date:isoDate(
+      todayDate()
+    ),
+
+    note:'Correctie'
+
+  });
+
+
+  saveData();
+
+  render();
+
+}
+
+
+/* =====================================================
+   INIT
+===================================================== */
+
+(async function init(){
+
+  DATA =
+    await loadData();
+
+
+  render();
 
 })();
+
+
+})();
+
 </script>
+
 </body>
 </html>
