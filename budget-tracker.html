@@ -3,37 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
 <title>Budget • Vrij te besteden</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
   --bg:#0B0E14;
   --surface:#141924;
   --surface2:#1C2330;
   --surface3:#242D3D;
   --line:#242C3A;
-
   --text:#F2F4F7;
   --text-dim:#8891A6;
   --text-faint:#5B6478;
-
   --mint:#3FE0B0;
   --mint-dim:#1E5B49;
-
   --coral:#FF6B6B;
   --coral-dim:#5A2A2E;
-
   --amber:#FFB65C;
   --blue:#5CA8FF;
-
-  --radius:20px;
 }
 
 *{
@@ -41,8 +32,7 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html,body{
   margin:0;
   padding:0;
 }
@@ -51,12 +41,9 @@ body{
   background:var(--bg);
   color:var(--text);
   font-family:'Inter',system-ui,sans-serif;
-
   min-height:100vh;
-
   display:flex;
   justify-content:center;
-
   -webkit-font-smoothing:antialiased;
 }
 
@@ -70,17 +57,10 @@ body{
   width:100%;
   max-width:440px;
   min-height:100vh;
-
   position:relative;
-
   background:
-    radial-gradient(
-      120% 60% at 50% -10%,
-      #16324A22 0%,
-      transparent 60%
-    ),
+    radial-gradient(120% 60% at 50% -10%,#16324A22 0%,transparent 60%),
     var(--bg);
-
   padding-bottom:100px;
 }
 
@@ -88,19 +68,8 @@ header.topbar{
   position:sticky;
   top:0;
   z-index:20;
-
-  padding:
-    calc(env(safe-area-inset-top,0px) + 16px)
-    20px
-    12px;
-
-  background:
-    linear-gradient(
-      180deg,
-      var(--bg) 80%,
-      transparent
-    );
-
+  padding:calc(env(safe-area-inset-top,0px) + 16px) 20px 12px;
+  background:linear-gradient(180deg,var(--bg) 80%,transparent);
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -110,9 +79,7 @@ header.topbar{
   font-size:11px;
   letter-spacing:.12em;
   text-transform:uppercase;
-
   color:var(--text-faint);
-
   font-weight:600;
 }
 
@@ -132,7 +99,6 @@ header.topbar{
   font-size:15px;
   color:var(--mint);
   font-weight:600;
-
   display:block;
 }
 
@@ -154,66 +120,41 @@ section.tab.active{
     opacity:0;
     transform:translateY(6px);
   }
-
   to{
     opacity:1;
     transform:translateY(0);
   }
 }
 
-
-/* =====================================================
+/* =========================
    VANDAAG
-===================================================== */
+========================= */
 
 .hero{
-  background:
-    linear-gradient(
-      160deg,
-      var(--surface2),
-      var(--surface)
-    );
-
+  background:linear-gradient(160deg,var(--surface2),var(--surface));
   border:1px solid var(--line);
-
   border-radius:28px;
-
   padding:22px 18px 20px;
-
   display:flex;
   flex-direction:column;
   align-items:center;
-
   margin-top:8px;
-
   position:relative;
-
   overflow:hidden;
 }
 
 .hero::before{
   content:'';
-
   position:absolute;
   inset:0;
-
-  background:
-    radial-gradient(
-      60% 50% at 50% 0%,
-      rgba(63,224,176,.10),
-      transparent 70%
-    );
-
+  background:radial-gradient(60% 50% at 50% 0%,rgba(63,224,176,.10),transparent 70%);
   pointer-events:none;
 }
 
 .ring-wrap{
   position:relative;
-
   width:185px;
   height:185px;
-
-  margin-bottom:0;
 }
 
 .ring-wrap svg{
@@ -223,7 +164,6 @@ section.tab.active{
 .ring-center{
   position:absolute;
   inset:0;
-
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -233,10 +173,8 @@ section.tab.active{
 .ring-center .label{
   font-size:10px;
   color:var(--text-faint);
-
   letter-spacing:.08em;
   text-transform:uppercase;
-
   margin-bottom:5px;
 }
 
@@ -249,24 +187,15 @@ section.tab.active{
 .ring-center .sub{
   font-size:11px;
   color:var(--text-dim);
-
   margin-top:7px;
 }
 
-
-/* WEEK OVERZICHT */
-
 .week-highlight{
   width:100%;
-
   background:var(--surface3);
-
   border:1px solid var(--line);
-
   border-radius:16px;
-
   padding:13px 14px;
-
   margin-top:12px;
 }
 
@@ -274,14 +203,12 @@ section.tab.active{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   gap:10px;
 }
 
 .week-highlight-label{
   font-size:10px;
   color:var(--text-faint);
-
   text-transform:uppercase;
   letter-spacing:.07em;
 }
@@ -289,14 +216,12 @@ section.tab.active{
 .week-highlight-value{
   font-size:22px;
   font-weight:700;
-
   margin-top:3px;
 }
 
 .week-highlight-sub{
   font-size:11px;
   color:var(--text-dim);
-
   margin-top:2px;
 }
 
@@ -304,18 +229,12 @@ section.tab.active{
   margin-top:10px;
 }
 
-
-/* DAGBUDGET KLEIN */
-
 .daily-budget-small{
   width:100%;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   margin-top:10px;
-
   padding:0 3px;
 }
 
@@ -330,45 +249,31 @@ section.tab.active{
   color:var(--text-dim);
 }
 
-
-/* STATS */
-
 .hero-stats{
   display:flex;
   gap:10px;
-
   width:100%;
-
   margin-top:12px;
 }
 
 .stat-chip{
   flex:1;
-
   background:var(--surface3);
-
   border-radius:16px;
-
   padding:11px 13px;
-
   border:1px solid var(--line);
 }
 
 .stat-chip .t{
   font-size:10px;
-
   color:var(--text-faint);
-
   text-transform:uppercase;
-
   letter-spacing:.06em;
 }
 
 .stat-chip .v{
   font-size:16px;
-
   font-weight:600;
-
   margin-top:4px;
 }
 
@@ -380,74 +285,51 @@ section.tab.active{
   color:var(--coral);
 }
 
-
-/* ALGEMENE BAR */
-
 .bar-track{
   height:5px;
-
   background:var(--surface);
-
   border-radius:4px;
-
   overflow:hidden;
 }
 
 .bar-fill{
   height:100%;
-
   border-radius:4px;
-
   transition:width .4s ease;
 }
 
-
 .section-title{
   font-size:13px;
-
   font-weight:600;
-
   color:var(--text-dim);
-
   text-transform:uppercase;
-
   letter-spacing:.06em;
-
   margin:26px 2px 10px;
 }
 
-
-/* UITGAVEN */
+/* =========================
+   UITGAVEN
+========================= */
 
 .tx-item{
   display:flex;
   align-items:center;
-
   gap:12px;
-
   background:var(--surface);
-
   border:1px solid var(--line);
-
   border-radius:16px;
-
   padding:12px 14px;
-
   margin-bottom:8px;
 }
 
 .tx-icon{
   width:36px;
   height:36px;
-
   border-radius:10px;
-
   flex:none;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-size:16px;
 }
 
@@ -463,9 +345,7 @@ section.tab.active{
 
 .tx-meta{
   font-size:11.5px;
-
   color:var(--text-faint);
-
   margin-top:1px;
 }
 
@@ -477,38 +357,26 @@ section.tab.active{
 .tx-del{
   background:none;
   border:none;
-
   color:var(--text-faint);
-
   font-size:18px;
-
   padding:4px 2px;
-
   cursor:pointer;
-
   line-height:1;
 }
 
 .empty{
   text-align:center;
-
   color:var(--text-faint);
-
   font-size:13px;
-
   padding:26px 10px;
-
   background:var(--surface);
-
   border:1px dashed var(--line);
-
   border-radius:16px;
 }
 
-
-/* =====================================================
+/* =========================
    WEKEN
-===================================================== */
+========================= */
 
 .week-flow{
   display:flex;
@@ -517,28 +385,20 @@ section.tab.active{
 
 .week-card{
   background:var(--surface);
-
   border:1px solid var(--line);
-
   border-radius:20px;
-
   padding:16px 16px 14px;
-
   margin-bottom:2px;
 }
 
 .week-card.current{
   border-color:#2E5A4C;
-
-  box-shadow:
-    0 0 0 1px #2E5A4C inset;
+  box-shadow:0 0 0 1px #2E5A4C inset;
 }
 
 .week-top{
   display:flex;
-
   justify-content:space-between;
-
   align-items:flex-start;
 }
 
@@ -549,9 +409,7 @@ section.tab.active{
 
 .week-period{
   font-size:11.5px;
-
   color:var(--text-faint);
-
   margin-top:2px;
 }
 
@@ -566,64 +424,45 @@ section.tab.active{
 
 .week-remaining .l{
   font-size:10px;
-
   color:var(--text-faint);
-
   text-transform:uppercase;
-
   letter-spacing:.05em;
 }
 
 .week-detail{
   display:flex;
-
   gap:16px;
-
   margin-top:12px;
-
   font-size:11.5px;
-
   color:var(--text-dim);
 }
 
 .week-detail b{
   color:var(--text);
-
   font-family:'Space Grotesk',sans-serif;
 }
 
 .flow-connector{
   display:flex;
-
   align-items:center;
-
   gap:8px;
-
   padding:6px 4px 6px 30px;
-
   margin-left:2px;
 }
 
 .flow-line{
   width:1px;
   height:18px;
-
   background:var(--line);
 }
 
 .flow-badge{
   font-size:11px;
-
   font-weight:600;
-
   padding:2px 9px;
-
   border-radius:20px;
-
   display:flex;
-
   align-items:center;
-
   gap:4px;
 }
 
@@ -639,15 +478,12 @@ section.tab.active{
 
 .expand-list{
   margin-top:12px;
-
   padding-top:12px;
-
   border-top:1px solid var(--line);
 }
 
 .chev{
   transition:transform .2s ease;
-
   color:var(--text-faint);
 }
 
@@ -655,270 +491,332 @@ section.tab.active{
   transform:rotate(180deg);
 }
 
-
-/* =====================================================
-   CATEGORIEEN
-===================================================== */
+/* =========================
+   CATEGORIEËN
+========================= */
 
 .cat-card{
   background:var(--surface);
-
   border:1px solid var(--line);
-
   border-radius:18px;
-
   padding:14px 16px;
-
   margin-bottom:10px;
 }
 
 .cat-top{
   display:flex;
-
   justify-content:space-between;
-
   align-items:baseline;
-
   margin-bottom:8px;
 }
 
 .cat-name{
   font-size:14px;
-
   font-weight:600;
-
   display:flex;
-
   align-items:center;
-
   gap:8px;
 }
 
 .cat-dot{
   width:9px;
   height:9px;
-
   border-radius:50%;
 }
 
 .cat-nums{
   font-size:12.5px;
-
   color:var(--text-dim);
 }
 
 .cat-nums b{
   color:var(--text);
-
   font-family:'Space Grotesk',sans-serif;
 }
 
-
-/* =====================================================
+/* =========================
    GESCHIEDENIS
-===================================================== */
+========================= */
 
 .history-summary{
-  background:
-    linear-gradient(
-      160deg,
-      var(--surface2),
-      var(--surface)
-    );
-
+  background:linear-gradient(160deg,var(--surface2),var(--surface));
   border:1px solid var(--line);
-
   border-radius:22px;
-
   padding:18px;
-
   margin-top:8px;
 }
 
 .history-summary-title{
   font-size:11px;
-
   color:var(--text-faint);
-
   text-transform:uppercase;
-
   letter-spacing:.07em;
 }
 
 .history-summary-total{
   font-size:30px;
-
   font-weight:700;
-
   margin-top:4px;
 }
 
 .history-summary-sub{
   font-size:12px;
-
   color:var(--text-dim);
-
   margin-top:4px;
 }
 
 .history-rank{
   display:flex;
-
   align-items:center;
-
   gap:11px;
-
   background:var(--surface);
-
   border:1px solid var(--line);
-
   border-radius:16px;
-
   padding:13px 14px;
-
   margin-bottom:8px;
 }
 
 .rank-number{
   width:26px;
   height:26px;
-
   border-radius:9px;
-
   background:var(--surface3);
-
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   font-size:12px;
-
   font-weight:700;
-
   color:var(--text-dim);
-
   flex:none;
 }
 
 .rank-info{
   flex:1;
-
   min-width:0;
 }
 
 .rank-name{
   font-size:13.5px;
-
   font-weight:600;
 }
 
 .rank-bar{
   margin-top:7px;
-
   height:5px;
-
   background:var(--surface3);
-
   border-radius:5px;
-
   overflow:hidden;
 }
 
 .rank-amount{
   text-align:right;
-
   font-size:14px;
-
   font-weight:700;
 }
 
 .rank-percent{
   font-size:10.5px;
-
   color:var(--text-faint);
-
   margin-top:2px;
-
   text-align:right;
 }
 
 .history-filter{
   display:flex;
-
   gap:8px;
-
   margin-bottom:12px;
 }
 
 .history-filter button{
   flex:1;
-
   background:var(--surface3);
-
   border:1px solid var(--line);
-
   color:var(--text-dim);
-
   border-radius:12px;
-
   padding:9px 8px;
-
   font-size:11.5px;
-
   font-weight:600;
-
   cursor:pointer;
 }
 
 .history-filter button.active{
   background:var(--mint);
-
   color:#04241B;
-
   border-color:var(--mint);
 }
 
+/* =========================
+   SPAARDOELEN
+========================= */
 
-/* =====================================================
+.savings-total{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(63,224,176,.13),
+      var(--surface)
+    );
+
+  border:1px solid #285B4D;
+  border-radius:24px;
+  padding:20px;
+  margin-top:8px;
+}
+
+.savings-total-label{
+  font-size:11px;
+  color:var(--text-faint);
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+
+.savings-total-value{
+  font-size:32px;
+  font-weight:700;
+  color:var(--mint);
+  margin-top:4px;
+}
+
+.savings-total-sub{
+  font-size:12px;
+  color:var(--text-dim);
+  margin-top:4px;
+}
+
+.savings-goal-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:16px;
+  margin-bottom:10px;
+}
+
+.savings-goal-top{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.savings-goal-icon{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  background:var(--surface3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  flex:none;
+}
+
+.savings-goal-info{
+  flex:1;
+  min-width:0;
+}
+
+.savings-goal-name{
+  font-size:15px;
+  font-weight:700;
+}
+
+.savings-goal-target{
+  font-size:11px;
+  color:var(--text-faint);
+  margin-top:3px;
+}
+
+.savings-goal-saved{
+  text-align:right;
+}
+
+.savings-goal-saved .value{
+  font-size:16px;
+  font-weight:700;
+  color:var(--mint);
+}
+
+.savings-goal-saved .label{
+  font-size:9px;
+  color:var(--text-faint);
+  text-transform:uppercase;
+}
+
+.savings-goal-progress{
+  height:7px;
+  background:var(--surface3);
+  border-radius:8px;
+  overflow:hidden;
+  margin-top:14px;
+}
+
+.savings-goal-progress-fill{
+  height:100%;
+  background:var(--mint);
+  border-radius:8px;
+}
+
+.savings-goal-numbers{
+  display:flex;
+  justify-content:space-between;
+  margin-top:7px;
+  font-size:10.5px;
+  color:var(--text-faint);
+}
+
+.savings-goal-actions{
+  display:flex;
+  gap:7px;
+  margin-top:13px;
+}
+
+.small-action{
+  flex:1;
+  border:1px solid var(--line);
+  background:var(--surface3);
+  color:var(--text-dim);
+  border-radius:11px;
+  padding:9px 5px;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.small-action.primary{
+  background:var(--mint);
+  color:#04241B;
+  border-color:var(--mint);
+}
+
+.small-action.danger{
+  color:var(--coral);
+}
+
+/* =========================
    INSTELLINGEN
-===================================================== */
+========================= */
 
 .field-group{
   background:var(--surface);
-
   border:1px solid var(--line);
-
   border-radius:18px;
-
   padding:14px 16px;
-
   margin-bottom:14px;
 }
 
 .field-group h3{
   font-size:12.5px;
-
   text-transform:uppercase;
-
   letter-spacing:.06em;
-
   color:var(--text-faint);
-
   margin:0 0 10px;
 }
 
 .field-row{
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   padding:8px 0;
-
   border-bottom:1px solid var(--line);
-
   gap:10px;
 }
 
@@ -928,383 +826,117 @@ section.tab.active{
 
 .field-row label{
   font-size:13.5px;
-
   color:var(--text);
 }
 
 .field-row input{
   background:var(--surface3);
-
   border:1px solid var(--line);
-
   color:var(--text);
-
   border-radius:10px;
-
   padding:8px 10px;
-
   font-size:14px;
-
   width:120px;
-
   text-align:right;
-
   font-family:'Space Grotesk',sans-serif;
 }
 
 .field-row input[type="date"]{
   width:150px;
-
   text-align:left;
-
   font-family:'Inter',sans-serif;
 }
 
 .field-row input:focus{
   outline:2px solid var(--mint);
-
   outline-offset:0;
 }
 
-
-/* =====================================================
-   SPAARDOEL
-===================================================== */
-
-.savings-box{
-  margin-top:12px;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(63,224,176,.10),
-      rgba(63,224,176,.03)
-    );
-
-  border:1px solid #285B4D;
-
-  border-radius:15px;
-
-  padding:13px;
+.pct-warn{
+  font-size:11.5px;
+  margin-top:6px;
+  text-align:right;
 }
 
-.savings-box-top{
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  gap:10px;
-}
-
-.savings-box-label{
-  font-size:11px;
-
-  color:var(--text-faint);
-
-  text-transform:uppercase;
-
-  letter-spacing:.06em;
-}
-
-.savings-box-value{
-  font-size:20px;
-
-  font-weight:700;
-
+.pct-warn.ok{
   color:var(--mint);
 }
 
-.savings-box-sub{
-  font-size:11px;
-
-  color:var(--text-dim);
-
-  margin-top:3px;
+.pct-warn.bad{
+  color:var(--coral);
 }
 
-.savings-progress{
-  height:7px;
-
-  background:var(--surface3);
-
-  border-radius:7px;
-
-  overflow:hidden;
-
-  margin-top:11px;
-}
-
-.savings-progress-fill{
-  height:100%;
-
-  background:var(--mint);
-
-  border-radius:7px;
-
-  transition:width .35s ease;
-}
-
-.savings-numbers{
-  display:flex;
-
-  justify-content:space-between;
-
-  margin-top:7px;
-
-  font-size:10.5px;
-
-  color:var(--text-faint);
-}
-
-.savings-actions{
-  display:flex;
-
-  gap:8px;
-
-  margin-top:12px;
-}
-
-.savings-action-btn{
-  flex:1;
-
-  border:none;
-
-  border-radius:11px;
-
-  padding:10px 8px;
-
-  font-size:12px;
-
-  font-weight:700;
-
-  cursor:pointer;
-}
-
-.savings-action-btn.primary{
-  background:var(--mint);
-
-  color:#04241B;
-}
-
-.savings-action-btn.secondary{
-  background:var(--surface3);
-
-  color:var(--text-dim);
-
-  border:1px solid var(--line);
-}
-
-
-/* SPAAR HISTORIE */
-
-.savings-history{
-  margin-top:13px;
-
-  border-top:1px solid var(--line);
-
-  padding-top:10px;
-}
-
-.savings-history-title{
-  font-size:10.5px;
-
-  color:var(--text-faint);
-
-  text-transform:uppercase;
-
-  letter-spacing:.06em;
-
-  margin-bottom:7px;
-}
-
-.saving-row{
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  padding:8px 0;
-
-  border-bottom:1px solid var(--line);
-
-  gap:8px;
-}
-
-.saving-row:last-child{
-  border-bottom:none;
-}
-
-.saving-row-left{
-  min-width:0;
-}
-
-.saving-row-date{
-  font-size:11px;
-
-  color:var(--text-faint);
-}
-
-.saving-row-note{
-  font-size:12px;
-
-  color:var(--text);
-
-  margin-top:2px;
-}
-
-.saving-row-amount{
-  font-size:13px;
-
-  color:var(--mint);
-
-  font-weight:700;
-}
-
-.saving-delete{
-  background:none;
-
-  border:none;
-
-  color:var(--text-faint);
-
-  font-size:15px;
-
-  cursor:pointer;
-
-  padding:2px;
-}
-
-
-/* =====================================================
+/* =========================
    BUTTONS
-===================================================== */
+========================= */
 
 .primary-btn{
   width:100%;
-
   background:var(--mint);
-
   color:#04241B;
-
   border:none;
-
   border-radius:14px;
-
   padding:15px;
-
   font-size:15px;
-
   font-weight:700;
-
   cursor:pointer;
-}
-
-.primary-btn:disabled{
-  opacity:.4;
 }
 
 .ghost-btn{
   width:100%;
-
   background:none;
-
   color:var(--text-faint);
-
   border:none;
-
   padding:12px;
-
   font-size:13.5px;
-
   margin-top:4px;
-
   cursor:pointer;
 }
 
 .danger-btn{
   width:100%;
-
   background:var(--coral-dim);
-
   color:var(--coral);
-
   border:1px solid #5A2A2E;
-
   border-radius:12px;
-
   padding:12px;
-
   font-size:14px;
-
   font-weight:600;
-
   cursor:pointer;
-
-  margin-top:4px;
 }
 
-
-/* =====================================================
+/* =========================
    NAV
-===================================================== */
+========================= */
 
 nav.tabbar{
   position:fixed;
-
   bottom:0;
-
   left:50%;
-
   transform:translateX(-50%);
-
   width:100%;
-
   max-width:440px;
-
   background:rgba(20,25,36,.94);
-
   backdrop-filter:blur(14px);
-
   border-top:1px solid var(--line);
-
   display:flex;
-
-  padding:
-    8px
-    4px
-    calc(env(safe-area-inset-bottom,0px) + 8px);
-
+  padding:8px 4px calc(env(safe-area-inset-bottom,0px) + 8px);
   z-index:50;
 }
 
 .tab-btn{
   flex:1;
-
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
-
   gap:3px;
-
   background:none;
-
   border:none;
-
   color:var(--text-faint);
-
   padding:6px 0;
-
   cursor:pointer;
-
   font-family:'Inter',sans-serif;
-
   font-size:9.5px;
-
   font-weight:600;
 }
 
@@ -1317,111 +949,60 @@ nav.tabbar{
   height:21px;
 }
 
-
-/* FAB */
-
 .fab{
   position:fixed;
-
   right:20px;
-
   bottom:78px;
-
   z-index:55;
-
   width:56px;
   height:56px;
-
   border-radius:50%;
-
-  background:
-    linear-gradient(
-      150deg,
-      var(--mint),
-      #26B98C
-    );
-
+  background:linear-gradient(150deg,var(--mint),#26B98C);
   color:#04241B;
-
   border:none;
-
   font-size:28px;
-
   font-weight:600;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
-  box-shadow:
-    0 8px 20px
-    rgba(63,224,176,.35);
-
+  box-shadow:0 8px 20px rgba(63,224,176,.35);
   cursor:pointer;
 }
 
-
-/* =====================================================
+/* =========================
    MODALS
-===================================================== */
+========================= */
 
 .sheet-backdrop{
   position:fixed;
-
   inset:0;
-
   background:rgba(0,0,0,.55);
-
   z-index:70;
-
   opacity:0;
-
   pointer-events:none;
-
   transition:opacity .25s ease;
 }
 
 .sheet-backdrop.show{
   opacity:1;
-
   pointer-events:auto;
 }
 
 .sheet{
   position:fixed;
-
   left:50%;
   bottom:0;
-
   transform:translate(-50%,100%);
-
   width:100%;
-
   max-width:440px;
-
   background:var(--surface2);
-
   border-radius:26px 26px 0 0;
-
   border:1px solid var(--line);
-
   border-bottom:none;
-
-  padding:
-    14px
-    20px
-    calc(env(safe-area-inset-bottom,0px) + 22px);
-
+  padding:14px 20px calc(env(safe-area-inset-bottom,0px) + 22px);
   z-index:71;
-
-  transition:
-    transform .3s
-    cubic-bezier(.32,.72,0,1);
-
+  transition:transform .3s cubic-bezier(.32,.72,0,1);
   max-height:88vh;
-
   overflow-y:auto;
 }
 
@@ -1432,58 +1013,38 @@ nav.tabbar{
 .sheet-handle{
   width:36px;
   height:4px;
-
   background:var(--line);
-
   border-radius:3px;
-
   margin:0 auto 16px;
 }
 
 .sheet h2{
   font-size:17px;
-
   margin:0 0 16px;
 }
 
-
-/* BEDRAG INPUT */
-
 .amount-input-wrap{
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   gap:6px;
-
   margin:10px 0 20px;
 }
 
 .amount-input-wrap span{
   font-size:30px;
-
   color:var(--text-faint);
-
   font-family:'Space Grotesk',sans-serif;
 }
 
 .amount-input-wrap input{
   background:none;
-
   border:none;
-
   color:var(--text);
-
   font-size:44px;
-
   font-weight:700;
-
   width:200px;
-
   text-align:center;
-
   font-family:'Space Grotesk',sans-serif;
 }
 
@@ -1491,132 +1052,74 @@ nav.tabbar{
   outline:none;
 }
 
-
-/* CHIPS */
-
 .chip-row{
   display:flex;
-
   gap:8px;
-
   flex-wrap:wrap;
-
   margin-bottom:16px;
 }
 
 .chip{
   padding:9px 15px;
-
   border-radius:20px;
-
   border:1px solid var(--line);
-
   background:var(--surface3);
-
   color:var(--text-dim);
-
   font-size:13px;
-
   font-weight:600;
-
   cursor:pointer;
 }
 
 .chip.active{
   background:var(--mint);
-
   color:#04241B;
-
   border-color:var(--mint);
 }
 
-
-/* INPUT */
-
 .text-input{
   width:100%;
-
   background:var(--surface3);
-
   border:1px solid var(--line);
-
   color:var(--text);
-
   border-radius:12px;
-
   padding:12px 14px;
-
   font-size:14px;
-
   margin-bottom:12px;
-
   font-family:'Inter',sans-serif;
 }
 
-
-/* TOAST */
-
 .save-toast{
   position:fixed;
-
   bottom:100px;
-
   left:50%;
-
-  transform:
-    translateX(-50%)
-    translateY(20px);
-
+  transform:translateX(-50%) translateY(20px);
   background:var(--surface3);
-
   border:1px solid var(--line);
-
   color:var(--mint);
-
   padding:9px 18px;
-
   border-radius:30px;
-
   font-size:13px;
-
   font-weight:600;
-
   opacity:0;
-
   transition:all .25s ease;
-
   z-index:100;
-
   pointer-events:none;
-
-  max-width:80%;
 }
 
 .save-toast.show{
   opacity:1;
-
-  transform:
-    translateX(-50%)
-    translateY(0);
+  transform:translateX(-50%) translateY(0);
 }
 
 .loading{
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   height:70vh;
-
   color:var(--text-faint);
 }
 
-
-/* KLEINE SCHERMEN */
-
 @media(max-width:380px){
-
   main{
     padding-left:15px;
     padding-right:15px;
@@ -1647,53 +1150,30 @@ nav.tabbar{
   }
 
   .tab-btn{
-    font-size:9px;
+    font-size:8.5px;
   }
-
 }
-
 </style>
 </head>
-
 
 <body>
 
 <div id="app">
-
-  <div
-    class="loading"
-    id="loadingScreen"
-  >
+  <div class="loading">
     Budget laden…
   </div>
-
 </div>
 
-
-<!-- =====================================================
-     UITGAVE MODAL
-===================================================== -->
-
-<div
-  class="sheet-backdrop"
-  id="addBackdrop"
->
-
+<!-- UITGAVE MODAL -->
+<div class="sheet-backdrop" id="addBackdrop">
   <div class="sheet">
 
     <div class="sheet-handle"></div>
 
-    <h2>
-      Nieuwe uitgave
-    </h2>
-
+    <h2>Nieuwe uitgave</h2>
 
     <div class="amount-input-wrap">
-
-      <span>
-        €
-      </span>
-
+      <span>€</span>
       <input
         type="text"
         inputmode="decimal"
@@ -1701,15 +1181,9 @@ nav.tabbar{
         placeholder="0,00"
         autocomplete="off"
       >
-
     </div>
 
-
-    <div
-      class="chip-row"
-      id="catChipRow"
-    ></div>
-
+    <div class="chip-row" id="catChipRow"></div>
 
     <input
       type="text"
@@ -1718,51 +1192,40 @@ nav.tabbar{
       placeholder="Notitie (optioneel)"
     >
 
-
     <input
       type="date"
       class="text-input"
       id="dateInput"
     >
 
-
-    <button
-      class="primary-btn"
-      id="saveExpenseBtn"
-    >
+    <button class="primary-btn" id="saveExpenseBtn">
       Toevoegen
     </button>
 
-
-    <button
-      class="ghost-btn"
-      id="cancelExpenseBtn"
-    >
+    <button class="ghost-btn" id="cancelExpenseBtn">
       Annuleren
     </button>
 
   </div>
-
 </div>
 
-
-<!-- =====================================================
-     SPAAR MODAL
-===================================================== -->
-
-<div
-  class="sheet-backdrop"
-  id="savingBackdrop"
->
-
+<!-- GELD SPAREN MODAL -->
+<div class="sheet-backdrop" id="savingBackdrop">
   <div class="sheet">
 
     <div class="sheet-handle"></div>
 
-    <h2>
-      Geld naar spaardoel
-    </h2>
+    <h2>Geld naar spaardoel</h2>
 
+    <div
+      id="savingGoalModalName"
+      style="
+        text-align:center;
+        color:var(--mint);
+        font-weight:600;
+        margin-bottom:8px;
+      "
+    ></div>
 
     <div
       style="
@@ -1772,17 +1235,11 @@ nav.tabbar{
         margin-bottom:12px;
       "
     >
-      Voer het bedrag in dat je daadwerkelijk
-      hebt overgemaakt naar je spaarrekening.
+      Vul in hoeveel je daadwerkelijk voor dit doel hebt gespaard.
     </div>
 
-
     <div class="amount-input-wrap">
-
-      <span>
-        €
-      </span>
-
+      <span>€</span>
       <input
         type="text"
         inputmode="decimal"
@@ -1790,9 +1247,7 @@ nav.tabbar{
         placeholder="0,00"
         autocomplete="off"
       >
-
     </div>
-
 
     <input
       type="text"
@@ -1801,107 +1256,119 @@ nav.tabbar{
       placeholder="Notitie (optioneel)"
     >
 
-
     <input
       type="date"
       class="text-input"
       id="savingDateInput"
     >
 
-
-    <button
-      class="primary-btn"
-      id="saveSavingBtn"
-    >
+    <button class="primary-btn" id="saveSavingBtn">
       Sparing opslaan
     </button>
 
-
-    <button
-      class="ghost-btn"
-      id="cancelSavingBtn"
-    >
+    <button class="ghost-btn" id="cancelSavingBtn">
       Annuleren
     </button>
 
   </div>
-
 </div>
 
+<!-- SPAARDOEL TOEVOEGEN -->
+<div class="sheet-backdrop" id="goalBackdrop">
+  <div class="sheet">
 
-<div
-  class="save-toast"
-  id="saveToast"
->
+    <div class="sheet-handle"></div>
+
+    <h2>Nieuw spaardoel</h2>
+
+    <input
+      type="text"
+      class="text-input"
+      id="goalNameInput"
+      placeholder="Bijvoorbeeld Auto"
+    >
+
+    <input
+      type="text"
+      class="text-input"
+      id="goalEmojiInput"
+      placeholder="Emoji bijvoorbeeld 🚗"
+      maxlength="2"
+    >
+
+    <input
+      type="number"
+      step="0.01"
+      class="text-input"
+      id="goalTargetInput"
+      placeholder="Doelbedrag bijvoorbeeld 5000"
+    >
+
+    <button class="primary-btn" id="saveGoalBtn">
+      Spaardoel toevoegen
+    </button>
+
+    <button class="ghost-btn" id="cancelGoalBtn">
+      Annuleren
+    </button>
+
+  </div>
+</div>
+
+<div class="save-toast" id="saveToast">
   Opgeslagen
 </div>
 
-
 <script>
-
 (function(){
 
-
 /* =====================================================
-   DEFAULTS
+   DEFAULT DATA
 ===================================================== */
 
 function defaultCycleStart(){
 
   const t = new Date();
-
   t.setHours(0,0,0,0);
 
   const d = t.getDate();
 
-  const start =
-    new Date(
-      t.getFullYear(),
-      t.getMonth(),
-      25
-    );
+  const start = new Date(
+    t.getFullYear(),
+    t.getMonth(),
+    25
+  );
 
   if(d < 25){
-
-    start.setMonth(
-      start.getMonth()-1
-    );
-
+    start.setMonth(start.getMonth()-1);
   }
 
   return isoDate(start);
-
 }
-
 
 function defaultData(){
 
   return {
 
     settings:{
-
       salary1:3500,
-
       salary2:1300,
-
       fixed1:1800,
-
       fixed2:550,
-
       invest:600,
 
+      /*
+        Dit blijft puur een
+        budgetberekening.
+        Dit is NIET je echte spaargeld.
+      */
       savingsGoal:500,
 
-      cycleStart:
-        defaultCycleStart(),
-
+      cycleStart:defaultCycleStart(),
       cycleLength:31
-
     },
 
-
     categories:[
-
       {
         id:'boodschappen',
         name:'Boodschappen',
@@ -1909,7 +1376,6 @@ function defaultData(){
         color:'#3FE0B0',
         emoji:'🛒'
       },
-
       {
         id:'vervoer',
         name:'Benzine / Vervoer',
@@ -1917,7 +1383,6 @@ function defaultData(){
         color:'#5CA8FF',
         emoji:'⛽'
       },
-
       {
         id:'extra',
         name:'Leuke dingen / Extra',
@@ -1925,92 +1390,77 @@ function defaultData(){
         color:'#FFB65C',
         emoji:'✨'
       }
-
     ],
-
 
     expenses:[],
 
+    /*
+      ECHTE SPAARDOELEN
+    */
+    savingsGoals:[
+      {
+        id:1,
+        name:'Auto',
+        emoji:'🚗',
+        target:5000,
+        saved:0
+      },
+      {
+        id:2,
+        name:'Vakantie',
+        emoji:'✈️',
+        target:2500,
+        saved:0
+      },
+      {
+        id:3,
+        name:'Extra',
+        emoji:'💰',
+        target:1000,
+        saved:0
+      }
+    ],
 
     /*
-      NIEUW:
-      echte spaartransacties
+      Geschiedenis van echte
+      stortingen per spaardoel.
     */
-
-    savings:[]
+    savingsTransactions:[]
 
   };
 
 }
 
-
 /* =====================================================
-   DATUM FUNCTIES
+   DATUM
 ===================================================== */
 
 function isoDate(d){
-
   return d.getFullYear()
     +'-'
-    +String(
-      d.getMonth()+1
-    ).padStart(2,'0')
+    +String(d.getMonth()+1).padStart(2,'0')
     +'-'
-    +String(
-      d.getDate()
-    ).padStart(2,'0');
-
+    +String(d.getDate()).padStart(2,'0');
 }
-
 
 function parseISO(s){
-
-  const [
-    y,
-    m,
-    d
-  ] =
-    s.split('-').map(Number);
-
-  return new Date(
-    y,
-    m-1,
-    d
-  );
-
+  const [y,m,d] = s.split('-').map(Number);
+  return new Date(y,m-1,d);
 }
-
 
 function addDays(d,n){
-
-  const r =
-    new Date(d);
-
-  r.setDate(
-    r.getDate()+n
-  );
-
+  const r = new Date(d);
+  r.setDate(r.getDate()+n);
   return r;
-
 }
-
 
 function todayDate(){
-
-  const t =
-    new Date();
-
-  t.setHours(
-    0,0,0,0
-  );
-
+  const t = new Date();
+  t.setHours(0,0,0,0);
   return t;
-
 }
 
-
 function fmtShort(d){
-
   return d.toLocaleDateString(
     'nl-NL',
     {
@@ -2018,12 +1468,9 @@ function fmtShort(d){
       month:'short'
     }
   );
-
 }
 
-
 function fmtLong(d){
-
   return d.toLocaleDateString(
     'nl-NL',
     {
@@ -2032,49 +1479,36 @@ function fmtLong(d){
       year:'numeric'
     }
   );
-
 }
-
 
 function euro(n){
 
-  const sign =
-    n < 0
-      ? '-'
-      : '';
+  const sign = n < 0 ? '-' : '';
 
   return sign
-    + '€'
-    + Math.abs(n).toLocaleString(
+    +'€'
+    +Math.abs(n).toLocaleString(
       'nl-NL',
       {
         minimumFractionDigits:2,
         maximumFractionDigits:2
       }
     );
-
 }
 
-
 /* =====================================================
-   DATA
+   STATE
 ===================================================== */
 
 let DATA = null;
 
-
 let ui = {
-
   tab:'vandaag',
-
   openWeek:null,
-
   chosenCat:null,
-
-  historyPeriod:'cycle'
-
+  historyPeriod:'cycle',
+  selectedGoalId:null
 };
-
 
 /* =====================================================
    DATA LADEN
@@ -2089,77 +1523,136 @@ async function loadData(){
         'budget-tracker-data'
       );
 
-
     if(raw){
 
-      const data =
-        JSON.parse(raw);
+      const data = JSON.parse(raw);
 
-
-      const defaults =
-        defaultData();
-
+      const defaults = defaultData();
 
       if(!data.settings){
-
-        data.settings =
-          defaults.settings;
-
+        data.settings = defaults.settings;
       }
 
-
       if(
-        typeof data.settings.savingsGoal
-        !== 'number'
+        typeof data.settings.savingsGoal !== 'number'
       ){
-
-        data.settings.savingsGoal =
-          500;
-
+        data.settings.savingsGoal = 500;
       }
 
-
-      if(
-        !Array.isArray(
-          data.categories
-        )
-      ){
-
-        data.categories =
-          defaults.categories;
-
+      if(!Array.isArray(data.categories)){
+        data.categories = defaults.categories;
       }
 
-
-      if(
-        !Array.isArray(
-          data.expenses
-        )
-      ){
-
+      if(!Array.isArray(data.expenses)){
         data.expenses = [];
-
       }
-
 
       /*
-        BELANGRIJK:
-        oude versie had nog geen savings-array.
+        NIEUW MODEL
+
+        Als je de vorige versie al gebruikte,
+        proberen we oude savings-data niet kwijt
+        te raken.
+
+        Oude savings worden indien aanwezig
+        omgezet naar het doel "Extra".
+      */
+
+      if(!Array.isArray(data.savingsGoals)){
+
+        data.savingsGoals =
+          defaults.savingsGoals;
+
+      }
+
+      if(!Array.isArray(data.savingsTransactions)){
+
+        data.savingsTransactions = [];
+
+      }
+
+      /*
+        Oude versie had mogelijk "savings".
       */
 
       if(
-        !Array.isArray(
-          data.savings
-        )
+        Array.isArray(data.savings) &&
+        data.savings.length > 0 &&
+        data.savingsTransactions.length === 0
       ){
 
-        data.savings = [];
+        let extraGoal =
+          data.savingsGoals.find(
+            g => g.name === 'Extra'
+          );
+
+        if(!extraGoal){
+
+          extraGoal = {
+            id:Date.now(),
+            name:'Extra',
+            emoji:'💰',
+            target:1000,
+            saved:0
+          };
+
+          data.savingsGoals.push(
+            extraGoal
+          );
+
+        }
+
+        data.savings.forEach(s=>{
+
+          const amount =
+            Number(s.amount || 0);
+
+          if(amount > 0){
+
+            data.savingsTransactions.push({
+
+              id:s.id || Date.now(),
+
+              goalId:extraGoal.id,
+
+              amount:amount,
+
+              date:s.date || isoDate(todayDate()),
+
+              note:s.note || 'Oude spaartransactie'
+
+            });
+
+          }
+
+        });
 
       }
 
+      /*
+        saved per doel opnieuw berekenen
+        vanuit de transacties.
+      */
+
+      data.savingsGoals.forEach(goal=>{
+
+        goal.saved =
+          data.savingsTransactions
+            .filter(
+              t =>
+                Number(t.goalId) ===
+                Number(goal.id)
+            )
+            .reduce(
+              (sum,t)=>
+                sum +
+                Number(t.amount || 0),
+              0
+            );
+
+      });
 
       return data;
-
     }
 
   }catch(e){
@@ -2171,11 +1664,8 @@ async function loadData(){
 
   }
 
-
   return defaultData();
-
 }
-
 
 /* =====================================================
    OPSLAAN
@@ -2190,9 +1680,7 @@ async function saveData(){
       JSON.stringify(DATA)
     );
 
-    showToast(
-      'Opgeslagen'
-    );
+    showToast('Opgeslagen');
 
   }catch(e){
 
@@ -2201,17 +1689,11 @@ async function saveData(){
       e
     );
 
-    showToast(
-      'Opslaan mislukt'
-    );
-
+    showToast('Opslaan mislukt');
   }
-
 }
 
-
 let toastTimer = null;
-
 
 function showToast(msg){
 
@@ -2220,62 +1702,70 @@ function showToast(msg){
       'saveToast'
     );
 
-  el.textContent =
-    msg;
+  el.textContent = msg;
 
-  el.classList.add(
-    'show'
-  );
+  el.classList.add('show');
 
-  clearTimeout(
-    toastTimer
-  );
+  clearTimeout(toastTimer);
 
   toastTimer =
     setTimeout(
       ()=>{
-        el.classList.remove(
-          'show'
-        );
+        el.classList.remove('show');
       },
       1600
     );
-
 }
-
 
 /* =====================================================
-   SPAAR BEDRAG VAN HUIDIGE CYCLUS
+   SPAARDOELEN HELPERS
 ===================================================== */
 
-function getSavingsForCycle(
-  cycleStart,
-  cycleEnd
-){
+function recalculateGoalSaved(){
 
-  return DATA.savings
-    .filter(s=>{
+  DATA.savingsGoals.forEach(goal=>{
 
-      const d =
-        parseISO(s.date);
+    goal.saved =
+      DATA.savingsTransactions
+        .filter(
+          t =>
+            Number(t.goalId) ===
+            Number(goal.id)
+        )
+        .reduce(
+          (sum,t)=>
+            sum +
+            Number(t.amount || 0),
+          0
+        );
 
-      return (
-        d >= cycleStart &&
-        d <= cycleEnd
-      );
-
-    })
-    .reduce(
-      (sum,s)=>
-        sum +
-        Number(
-          s.amount || 0
-        ),
-      0
-    );
-
+  });
 }
 
+function totalSaved(){
+
+  return DATA.savingsGoals.reduce(
+    (sum,goal)=>
+      sum +
+      Number(goal.saved || 0),
+    0
+  );
+}
+
+function goalProgress(goal){
+
+  if(!goal.target || goal.target <= 0){
+    return 0;
+  }
+
+  return Math.min(
+    100,
+    Math.max(
+      0,
+      (goal.saved / goal.target) * 100
+    )
+  );
+}
 
 /* =====================================================
    MODEL
@@ -2283,15 +1773,22 @@ function getSavingsForCycle(
 
 function computeModel(){
 
-  const s =
-    DATA.settings;
-
+  const s = DATA.settings;
 
   const income =
     Number(s.salary1 || 0)
     +
     Number(s.salary2 || 0);
 
+  /*
+    BELANGRIJK:
+
+    Extra spaardoel blijft hier
+    onderdeel van de budgetberekening.
+
+    Echte spaardoelen hieronder hebben
+    hier GEEN invloed op.
+  */
 
   const fixedTotal =
     Number(s.fixed1 || 0)
@@ -2302,77 +1799,51 @@ function computeModel(){
     +
     Number(s.savingsGoal || 0);
 
-
   const freeBudget =
-    income -
-    fixedTotal;
-
+    income - fixedTotal;
 
   const cycleLength =
     Math.max(
       1,
-      Number(
-        s.cycleLength || 31
-      )
+      Number(s.cycleLength || 31)
     );
-
 
   const dayBudgetBase =
-    freeBudget /
-    cycleLength;
-
+    freeBudget / cycleLength;
 
   const cycleStart =
-    parseISO(
-      s.cycleStart
-    );
-
+    parseISO(s.cycleStart);
 
   const fullWeeks =
     Math.floor(
-      cycleLength/7
+      cycleLength / 7
     );
-
 
   const remainder =
     cycleLength -
-    fullWeeks*7;
-
+    fullWeeks * 7;
 
   const weekLens = [];
-
 
   for(
     let i=0;
     i<fullWeeks;
     i++
   ){
-
     weekLens.push(7);
-
   }
-
 
   if(remainder > 0){
-
-    weekLens.push(
-      remainder
-    );
-
+    weekLens.push(remainder);
   }
 
-
-  let cursor =
-    cycleStart;
-
+  let cursor = cycleStart;
 
   const weeks =
     weekLens.map(
       (len,i)=>{
 
-        const start =
-          cursor;
-
+        const start = cursor;
 
         const end =
           addDays(
@@ -2380,43 +1851,29 @@ function computeModel(){
             len-1
           );
 
-
         cursor =
           addDays(
             end,
             1
           );
 
-
         const base =
-          dayBudgetBase *
-          len;
-
+          dayBudgetBase * len;
 
         return {
-
           index:i,
-
           start,
-
           end,
-
           days:len,
-
           base,
-
           dayBudgetBase:
-            base/len
-
+            base / len
         };
-
       }
     );
 
-
   const today =
     todayDate();
-
 
   weeks.forEach(w=>{
 
@@ -2425,9 +1882,7 @@ function computeModel(){
         .filter(e=>{
 
           const d =
-            parseISO(
-              e.date
-            );
+            parseISO(e.date);
 
           return (
             d >= w.start &&
@@ -2437,124 +1892,89 @@ function computeModel(){
         })
         .sort(
           (a,b)=>
-            b.date.localeCompare(
-              a.date
-            )
+            b.date.localeCompare(a.date)
         );
-
 
     w.spent =
       w.expenses.reduce(
         (sum,e)=>
           sum +
-          Number(
-            e.amount || 0
-          ),
+          Number(e.amount || 0),
         0
       );
 
   });
 
-
-  /* ROLLOVER */
-
   let rollIn = 0;
-
 
   weeks.forEach(w=>{
 
-    w.rolloverIn =
-      rollIn;
-
+    w.rolloverIn = rollIn;
 
     w.available =
-      w.base +
-      rollIn;
-
+      w.base + rollIn;
 
     w.remaining =
-      w.available -
-      w.spent;
-
+      w.available - w.spent;
 
     rollIn =
       w.remaining;
-
 
     w.rolloverOut =
       w.remaining;
 
   });
 
-
-  /* HUIDIGE WEEK */
-
   let currentWeekIdx =
     weeks.findIndex(
-      w=>
+      w =>
         today >= w.start &&
         today <= w.end
     );
 
-
-  if(
-    currentWeekIdx === -1
-  ){
+  if(currentWeekIdx === -1){
 
     currentWeekIdx =
       today < weeks[0].start
         ? 0
-        : weeks.length-1;
+        : weeks.length - 1;
 
   }
-
 
   const cw =
     weeks[currentWeekIdx];
 
-
   const spentBeforeToday =
     cw.expenses
       .filter(
-        e=>
-          parseISO(
-            e.date
-          ) < today
+        e =>
+          parseISO(e.date) < today
       )
       .reduce(
-        (s,e)=>
-          s +
-          Number(
-            e.amount || 0
-          ),
+        (sum,e)=>
+          sum +
+          Number(e.amount || 0),
         0
       );
-
 
   const spentToday =
     cw.expenses
       .filter(
-        e=>
-          parseISO(
-            e.date
-          ).getTime()
+        e =>
+          parseISO(e.date).getTime()
           ===
           today.getTime()
       )
       .reduce(
-        (s,e)=>
-          s +
-          Number(
-            e.amount || 0
-          ),
+        (sum,e)=>
+          sum +
+          Number(e.amount || 0),
         0
       );
-
 
   const remainingWeekBeforeToday =
     cw.available -
     spentBeforeToday;
-
 
   let daysLeftIncl =
     Math.round(
@@ -2562,159 +1982,70 @@ function computeModel(){
       86400000
     ) + 1;
 
-
   if(daysLeftIncl < 1){
-
     daysLeftIncl = 1;
-
   }
-
 
   const dayBudgetToday =
     remainingWeekBeforeToday /
     daysLeftIncl;
 
-
   const remainingToday =
     dayBudgetToday -
     spentToday;
 
-
-  /* CATEGORIEËN */
-
   const catStats =
-    DATA.categories.map(
-      c=>{
+    DATA.categories.map(c=>{
 
-        const budget =
-          cw.base *
-          (
-            Number(c.pct) /
-            100
+      const budget =
+        cw.base *
+        (
+          Number(c.pct) / 100
+        );
+
+      const spent =
+        cw.expenses
+          .filter(
+            e =>
+              e.catId === c.id
+          )
+          .reduce(
+            (sum,e)=>
+              sum +
+              Number(e.amount || 0),
+            0
           );
 
+      return {
+        ...c,
+        budget,
+        spent,
+        remaining:
+          budget - spent
+      };
 
-        const spent =
-          cw.expenses
-            .filter(
-              e=>
-                e.catId ===
-                c.id
-            )
-            .reduce(
-              (s,e)=>
-                s +
-                Number(
-                  e.amount || 0
-                ),
-              0
-            );
-
-
-        return {
-
-          ...c,
-
-          budget,
-
-          spent,
-
-          remaining:
-            budget-spent
-
-        };
-
-      }
-    );
-
-
-  /* SPAARSTATUS */
-
-  const cycleEnd =
-    weeks[
-      weeks.length-1
-    ].end;
-
-
-  const savingsGoal =
-    Number(
-      s.savingsGoal || 0
-    );
-
-
-  const savedThisCycle =
-    getSavingsForCycle(
-      cycleStart,
-      cycleEnd
-    );
-
-
-  const savingsRemaining =
-    Math.max(
-      0,
-      savingsGoal -
-      savedThisCycle
-    );
-
-
-  const savingsProgress =
-    savingsGoal > 0
-      ? Math.min(
-          100,
-          (
-            savedThisCycle /
-            savingsGoal
-          ) * 100
-        )
-      : 0;
-
+    });
 
   return {
-
     income,
-
     fixedTotal,
-
     freeBudget,
-
     dayBudgetBase,
-
     cycleStart,
-
     cycleLength,
-
     weeks,
-
     currentWeekIdx,
-
     cw,
-
     spentToday,
-
     dayBudgetToday,
-
     remainingToday,
-
     remainingWeekBeforeToday,
-
     catStats,
-
     today,
-
-    cycleEnd,
-
-    savingsGoal,
-
-    savedThisCycle,
-
-    savingsRemaining,
-
-    savingsProgress
-
+    cycleEnd:
+      weeks[weeks.length-1].end
   };
-
 }
-
 
 /* =====================================================
    HELPERS
@@ -2726,65 +2057,45 @@ function pctClamped(
 ){
 
   if(total <= 0){
-
-    return spent > 0
-      ? 100
-      : 0;
-
+    return spent > 0 ? 100 : 0;
   }
-
 
   return Math.max(
     0,
     Math.min(
       100,
-      (spent/total)*100
+      (spent / total) * 100
     )
   );
-
 }
 
-
-function ringColor(
-  usedPct
-){
+function ringColor(usedPct){
 
   if(usedPct > 100){
-
     return 'var(--coral)';
-
   }
-
 
   if(usedPct > 80){
-
     return 'var(--amber)';
-
   }
 
-
   return 'var(--mint)';
-
 }
-
 
 function escapeHtml(s){
 
   return String(s).replace(
     /[&<>"']/g,
     c=>({
-
       '&':'&amp;',
       '<':'&lt;',
       '>':'&gt;',
       '"':'&quot;',
       "'":'&#39;'
-
     }[c])
   );
 
 }
-
 
 /* =====================================================
    RING
@@ -2801,32 +2112,24 @@ function renderRing(
           0,
           Math.min(
             1,
-            (total-remaining) /
+            (total - remaining) /
             total
           )
         )
-      : (
-          remaining < 0
-            ? 1
-            : 0
-        );
-
+      : 0;
 
   const r = 77;
 
   const c =
-    2*Math.PI*r;
-
+    2 * Math.PI * r;
 
   const dash =
-    c*usedPct;
-
+    c * usedPct;
 
   const color =
     ringColor(
-      usedPct*100
+      usedPct * 100
     );
-
 
   return `
 
@@ -2860,7 +2163,6 @@ function renderRing(
 
       </svg>
 
-
       <div class="ring-center">
 
         <div class="label">
@@ -2889,9 +2191,7 @@ function renderRing(
     </div>
 
   `;
-
 }
-
 
 /* =====================================================
    VANDAAG
@@ -2905,25 +2205,15 @@ function renderVandaag(m){
       m.cw.available
     );
 
-
-  const weekColor =
-    ringColor(
-      weekPct
-    );
-
-
   const recent =
     [...DATA.expenses]
       .sort(
         (a,b)=>
-          b.date.localeCompare(
-            a.date
-          )
+          b.date.localeCompare(a.date)
           ||
           b.id-a.id
       )
       .slice(0,6);
-
 
   return `
 
@@ -2934,19 +2224,15 @@ function renderVandaag(m){
         m.dayBudgetToday
       )}
 
-
       <div class="week-highlight">
 
-        <div
-          class="week-highlight-top"
-        >
+        <div class="week-highlight-top">
 
           <div>
 
             <div class="week-highlight-label">
               Deze week over
             </div>
-
 
             <div
               class="week-highlight-value num"
@@ -2958,33 +2244,18 @@ function renderVandaag(m){
                 }
               "
             >
-              ${euro(
-                m.cw.remaining
-              )}
+              ${euro(m.cw.remaining)}
             </div>
 
-
             <div class="week-highlight-sub">
-
-              Week
-              ${m.currentWeekIdx+1}
-
+              Week ${m.currentWeekIdx+1}
               ·
-
-              ${fmtShort(
-                m.cw.start
-              )}
-
+              ${fmtShort(m.cw.start)}
               –
-
-              ${fmtShort(
-                m.cw.end
-              )}
-
+              ${fmtShort(m.cw.end)}
             </div>
 
           </div>
-
 
           <div
             style="
@@ -2993,11 +2264,8 @@ function renderVandaag(m){
               text-align:right;
             "
           >
-
             Uitgegeven
-
             <br>
-
             <strong
               class="num"
               style="
@@ -3005,34 +2273,27 @@ function renderVandaag(m){
                 font-size:13px;
               "
             >
-              ${euro(
-                m.cw.spent
-              )}
+              ${euro(m.cw.spent)}
             </strong>
-
           </div>
 
         </div>
 
-
-        <div class="week-progress">
-
+        <div
+          class="week-progress"
+        >
           <div class="bar-track">
-
             <div
               class="bar-fill"
               style="
                 width:${weekPct}%;
-                background:${weekColor};
+                background:${ringColor(weekPct)};
               "
             ></div>
-
           </div>
-
         </div>
 
       </div>
-
 
       <div class="daily-budget-small">
 
@@ -3041,13 +2302,10 @@ function renderVandaag(m){
         </div>
 
         <div class="value num">
-          ${euro(
-            m.dayBudgetToday
-          )}
+          ${euro(m.dayBudgetToday)}
         </div>
 
       </div>
-
 
       <div class="hero-stats">
 
@@ -3067,13 +2325,10 @@ function renderVandaag(m){
               };
             "
           >
-            ${euro(
-              m.spentToday
-            )}
+            ${euro(m.spentToday)}
           </div>
 
         </div>
-
 
         <div class="stat-chip">
 
@@ -3092,17 +2347,12 @@ function renderVandaag(m){
               num
             "
           >
-
             ${
               m.cw.rolloverIn >= 0
                 ? '+'
                 : ''
             }
-
-            ${euro(
-              m.cw.rolloverIn
-            )}
-
+            ${euro(m.cw.rolloverIn)}
           </div>
 
         </div>
@@ -3111,11 +2361,9 @@ function renderVandaag(m){
 
     </div>
 
-
     <div class="section-title">
       Laatste uitgaven
     </div>
-
 
     ${
       recent.length === 0
@@ -3124,116 +2372,83 @@ function renderVandaag(m){
 
         `
           <div class="empty">
-
             Nog geen uitgaven gelogd.
-
             <br>
-
             Tik op + om te beginnen.
-
           </div>
         `
 
         :
 
-        recent.map(
-          e=>{
+        recent.map(e=>{
 
-            const cat =
-              DATA.categories.find(
-                c=>
-                  c.id ===
-                  e.catId
-              );
+          const cat =
+            DATA.categories.find(
+              c=>c.id === e.catId
+            );
 
+          return `
 
-            return `
+            <div class="tx-item">
 
-              <div class="tx-item">
-
-                <div
-                  class="tx-icon"
-                  style="
-                    background:${
-                      cat
-                        ? cat.color+'22'
-                        : '#8891A622'
-                    };
-
-                    color:${
-                      cat
-                        ? cat.color
-                        : '#8891A6'
-                    };
-                  "
-                >
-                  ${
+              <div
+                class="tx-icon"
+                style="
+                  background:${
                     cat
-                      ? cat.emoji
-                      : '💸'
+                      ? cat.color+'22'
+                      : '#8891A622'
+                  };
+                  color:${
+                    cat
+                      ? cat.color
+                      : '#8891A6'
+                  };
+                "
+              >
+                ${cat ? cat.emoji : '💸'}
+              </div>
+
+              <div class="tx-body">
+
+                <div class="tx-cat">
+                  ${cat ? cat.name : 'Overig'}
+                </div>
+
+                <div class="tx-meta">
+
+                  ${fmtShort(parseISO(e.date))}
+
+                  ${
+                    e.note
+                      ? ' · '+escapeHtml(e.note)
+                      : ''
                   }
-                </div>
-
-
-                <div class="tx-body">
-
-                  <div class="tx-cat">
-                    ${
-                      cat
-                        ? cat.name
-                        : 'Overig'
-                    }
-                  </div>
-
-
-                  <div class="tx-meta">
-
-                    ${fmtShort(
-                      parseISO(
-                        e.date
-                      )
-                    )}
-
-                    ${
-                      e.note
-                        ? ' · ' +
-                          escapeHtml(
-                            e.note
-                          )
-                        : ''
-                    }
-
-                  </div>
 
                 </div>
-
-
-                <div class="tx-amt num">
-                  ${euro(
-                    e.amount
-                  )}
-                </div>
-
-
-                <button
-                  class="tx-del"
-                  data-del="${e.id}"
-                >
-                  ✕
-                </button>
 
               </div>
 
-            `;
+              <div class="tx-amt num">
+                ${euro(e.amount)}
+              </div>
 
-          }
-        ).join('')
+              <button
+                class="tx-del"
+                data-del="${e.id}"
+              >
+                ✕
+              </button>
+
+            </div>
+
+          `;
+
+        }).join('')
     }
 
   `;
-
 }
-
 
 /* =====================================================
    WEKEN
@@ -3247,407 +2462,284 @@ function renderWeken(m){
       Budgetweken
     </div>
 
-
     <div class="week-flow">
 
       ${
-        m.weeks.map(
-          (w,i)=>{
+        m.weeks.map((w,i)=>{
 
-            const isCurrent =
-              i ===
-              m.currentWeekIdx;
+          const isCurrent =
+            i === m.currentWeekIdx;
 
+          const isOpen =
+            ui.openWeek === i;
 
-            const isOpen =
-              ui.openWeek === i;
+          const pct =
+            pctClamped(
+              w.spent,
+              w.available
+            );
 
+          let html = `
 
-            const pct =
-              pctClamped(
-                w.spent,
-                w.available
-              );
-
-
-            let html = `
+            <div
+              class="
+                week-card
+                ${isCurrent ? 'current' : ''}
+              "
+              data-week="${i}"
+            >
 
               <div
-                class="
-                  week-card
-                  ${
-                    isCurrent
-                      ? 'current'
-                      : ''
-                  }
-                "
-                data-week="${i}"
+                class="week-top"
+                style="cursor:pointer"
               >
 
+                <div>
+
+                  <div class="week-name">
+                    Week ${i+1}
+                    ${isCurrent ? ' · nu' : ''}
+                  </div>
+
+                  <div class="week-period">
+
+                    ${fmtShort(w.start)}
+                    –
+                    ${fmtShort(w.end)}
+                    ·
+                    ${w.days} dagen
+
+                  </div>
+
+                </div>
+
                 <div
-                  class="week-top"
-                  style="cursor:pointer"
+                  style="
+                    display:flex;
+                    align-items:center;
+                    gap:8px;
+                  "
                 >
 
-                  <div>
+                  <div class="week-remaining">
 
-                    <div class="week-name">
+                    <div
+                      class="v num"
+                      style="
+                        color:${
+                          w.remaining < 0
+                            ? 'var(--coral)'
+                            : 'var(--text)'
+                        }
+                      "
+                    >
+                      ${euro(w.remaining)}
+                    </div>
 
-                      Week ${i+1}
+                    <div class="l">
+                      over
+                    </div>
+
+                  </div>
+
+                  <svg
+                    class="
+                      chev
+                      ${isOpen ? 'open' : ''}
+                    "
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="#8891A6"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+
+                </div>
+
+              </div>
+
+              <div class="bar-track">
+
+                <div
+                  class="bar-fill"
+                  style="
+                    width:${pct}%;
+                    background:${ringColor(pct)}
+                  "
+                ></div>
+
+              </div>
+
+              <div class="week-detail">
+
+                <span>
+                  Basis
+                  <b class="num">
+                    ${euro(w.base)}
+                  </b>
+                </span>
+
+                <span>
+                  Uitgegeven
+                  <b class="num">
+                    ${euro(w.spent)}
+                  </b>
+                </span>
+
+                <span>
+                  Per dag
+                  <b class="num">
+                    ${euro(w.dayBudgetBase)}
+                  </b>
+                </span>
+
+              </div>
+
+              ${
+                isOpen
+
+                  ?
+
+                  `
+                    <div class="expand-list">
 
                       ${
-                        isCurrent
-                          ? ' · nu'
-                          : ''
+                        w.expenses.length === 0
+
+                          ?
+
+                          `
+                            <div
+                              class="empty"
+                              style="padding:16px"
+                            >
+                              Geen uitgaven
+                              deze week.
+                            </div>
+                          `
+
+                          :
+
+                          w.expenses.map(e=>{
+
+                            const cat =
+                              DATA.categories.find(
+                                c =>
+                                  c.id === e.catId
+                              );
+
+                            return `
+
+                              <div class="tx-item">
+
+                                <div
+                                  class="tx-icon"
+                                  style="
+                                    background:${
+                                      cat
+                                        ? cat.color+'22'
+                                        : '#8891A622'
+                                    };
+                                    color:${
+                                      cat
+                                        ? cat.color
+                                        : '#8891A6'
+                                    };
+                                  "
+                                >
+                                  ${cat ? cat.emoji : '💸'}
+                                </div>
+
+                                <div class="tx-body">
+
+                                  <div class="tx-cat">
+                                    ${cat ? cat.name : 'Overig'}
+                                  </div>
+
+                                  <div class="tx-meta">
+                                    ${fmtShort(parseISO(e.date))}
+                                    ${
+                                      e.note
+                                        ? ' · '+escapeHtml(e.note)
+                                        : ''
+                                    }
+                                  </div>
+
+                                </div>
+
+                                <div class="tx-amt num">
+                                  ${euro(e.amount)}
+                                </div>
+
+                                <button
+                                  class="tx-del"
+                                  data-del="${e.id}"
+                                >
+                                  ✕
+                                </button>
+
+                              </div>
+
+                            `;
+
+                          }).join('')
                       }
 
                     </div>
+                  `
 
+                  :
 
-                    <div class="week-period">
+                  ''
+              }
 
-                      ${fmtShort(
-                        w.start
-                      )}
+            </div>
 
-                      –
+          `;
 
-                      ${fmtShort(
-                        w.end
-                      )}
+          if(i < m.weeks.length-1){
 
-                      ·
+            const flow =
+              w.rolloverOut;
 
-                      ${w.days}
-                      dagen
+            html += `
 
-                    </div>
+              <div class="flow-connector">
 
-                  </div>
+                <div class="flow-line"></div>
 
-
-                  <div
-                    style="
-                      display:flex;
-                      align-items:center;
-                      gap:8px;
-                    "
-                  >
-
-                    <div
-                      class="week-remaining"
-                    >
-
-                      <div
-                        class="v num"
-                        style="
-                          color:${
-                            w.remaining < 0
-                              ? 'var(--coral)'
-                              : 'var(--text)'
-                          }
-                        "
-                      >
-                        ${euro(
-                          w.remaining
-                        )}
-                      </div>
-
-                      <div class="l">
-                        over
-                      </div>
-
-                    </div>
-
-
-                    <svg
-                      class="
-                        chev
-                        ${
-                          isOpen
-                            ? 'open'
-                            : ''
-                        }
-                      "
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-
-                      <path
-                        d="M6 9l6 6 6-6"
-                        stroke="#8891A6"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                      />
-
-                    </svg>
-
-                  </div>
-
+                <div
+                  class="
+                    flow-badge
+                    ${flow < 0 ? 'neg' : 'pos'}
+                  "
+                >
+                  ${flow < 0 ? '↓' : '↑'}
+                  ${flow >= 0 ? '+' : ''}
+                  ${euro(flow)}
+                  naar week ${i+2}
                 </div>
-
-
-                <div class="bar-track">
-
-                  <div
-                    class="bar-fill"
-                    style="
-                      width:${pct}%;
-                      background:${ringColor(
-                        pct
-                      )}
-                    "
-                  ></div>
-
-                </div>
-
-
-                <div class="week-detail">
-
-                  <span>
-                    Basis
-
-                    <b class="num">
-                      ${euro(
-                        w.base
-                      )}
-                    </b>
-                  </span>
-
-
-                  <span>
-                    Uitgegeven
-
-                    <b class="num">
-                      ${euro(
-                        w.spent
-                      )}
-                    </b>
-                  </span>
-
-
-                  <span>
-                    Per dag
-
-                    <b class="num">
-                      ${euro(
-                        w.dayBudgetBase
-                      )}
-                    </b>
-                  </span>
-
-                </div>
-
-
-                ${
-                  isOpen
-
-                    ?
-
-                    `
-                      <div class="expand-list">
-
-                        ${
-                          w.expenses.length === 0
-
-                            ?
-
-                            `
-                              <div
-                                class="empty"
-                                style="
-                                  padding:16px;
-                                "
-                              >
-                                Geen uitgaven
-                                deze week.
-                              </div>
-                            `
-
-                            :
-
-                            w.expenses
-                              .map(
-                                e=>{
-
-                                  const cat =
-                                    DATA.categories.find(
-                                      c=>
-                                        c.id ===
-                                        e.catId
-                                    );
-
-
-                                  return `
-
-                                    <div class="tx-item">
-
-                                      <div
-                                        class="tx-icon"
-                                        style="
-                                          background:${
-                                            cat
-                                              ? cat.color+'22'
-                                              : '#8891A622'
-                                          };
-
-                                          color:${
-                                            cat
-                                              ? cat.color
-                                              : '#8891A6'
-                                          };
-                                        "
-                                      >
-                                        ${
-                                          cat
-                                            ? cat.emoji
-                                            : '💸'
-                                        }
-                                      </div>
-
-
-                                      <div class="tx-body">
-
-                                        <div class="tx-cat">
-                                          ${
-                                            cat
-                                              ? cat.name
-                                              : 'Overig'
-                                          }
-                                        </div>
-
-
-                                        <div class="tx-meta">
-
-                                          ${fmtShort(
-                                            parseISO(
-                                              e.date
-                                            )
-                                          )}
-
-                                          ${
-                                            e.note
-                                              ? ' · ' +
-                                                escapeHtml(
-                                                  e.note
-                                                )
-                                              : ''
-                                          }
-
-                                        </div>
-
-                                      </div>
-
-
-                                      <div class="tx-amt num">
-                                        ${euro(
-                                          e.amount
-                                        )}
-                                      </div>
-
-
-                                      <button
-                                        class="tx-del"
-                                        data-del="${e.id}"
-                                      >
-                                        ✕
-                                      </button>
-
-                                    </div>
-
-                                  `;
-
-                                }
-                              )
-                              .join('')
-                        }
-
-                      </div>
-                    `
-
-                    :
-
-                    ''
-                }
 
               </div>
 
             `;
-
-
-            if(
-              i <
-              m.weeks.length-1
-            ){
-
-              const flow =
-                w.rolloverOut;
-
-
-              html += `
-
-                <div
-                  class="flow-connector"
-                >
-
-                  <div
-                    class="flow-line"
-                  ></div>
-
-
-                  <div
-                    class="
-                      flow-badge
-                      ${
-                        flow < 0
-                          ? 'neg'
-                          : 'pos'
-                      }
-                    "
-                  >
-
-                    ${
-                      flow < 0
-                        ? '↓'
-                        : '↑'
-                    }
-
-                    ${
-                      flow >= 0
-                        ? '+'
-                        : ''
-                    }
-
-                    ${euro(
-                      flow
-                    )}
-
-                    naar week
-                    ${i+2}
-
-                  </div>
-
-                </div>
-
-              `;
-
-            }
-
-
-            return html;
-
           }
-        ).join('')
+
+          return html;
+
+        }).join('')
       }
 
     </div>
 
   `;
-
 }
-
 
 /* =====================================================
    CATEGORIEËN
@@ -3655,44 +2747,34 @@ function renderWeken(m){
 
 function renderCategorieen(m){
 
-  const monthTotals =
-    DATA.categories.map(
-      c=>{
+  const totals =
+    DATA.categories.map(c=>{
 
-        const spent =
-          DATA.expenses
-            .filter(
-              e=>
-                e.catId ===
-                c.id
-            )
-            .reduce(
-              (s,e)=>
-                s +
-                Number(
-                  e.amount || 0
-                ),
-              0
-            );
+      const spent =
+        DATA.expenses
+          .filter(
+            e=>e.catId === c.id
+          )
+          .reduce(
+            (s,e)=>
+              s + Number(e.amount || 0),
+            0
+          );
 
+      return {
+        ...c,
+        spent
+      };
 
-        return {
-          ...c,
-          spent
-        };
+    });
 
-      }
-    );
-
-
-  const maxMonth =
+  const max =
     Math.max(
       1,
-      ...monthTotals.map(
+      ...totals.map(
         c=>c.spent
       )
     );
-
 
   return `
 
@@ -3700,138 +2782,22 @@ function renderCategorieen(m){
       Deze week
     </div>
 
-
     ${
-      m.catStats.map(
-        c=>{
+      m.catStats.map(c=>{
 
-          const pct =
-            pctClamped(
-              c.spent,
-              c.budget
-            );
+        const pct =
+          pctClamped(
+            c.spent,
+            c.budget
+          );
 
+        return `
 
-          return `
+          <div class="cat-card">
 
-            <div class="cat-card">
+            <div class="cat-top">
 
-              <div class="cat-top">
-
-                <div class="cat-name">
-
-                  <span
-                    class="cat-dot"
-                    style="
-                      background:${c.color}
-                    "
-                  ></span>
-
-                  ${c.emoji}
-                  ${c.name}
-
-                </div>
-
-
-                <div class="cat-nums">
-                  ${c.pct}%
-                </div>
-
-              </div>
-
-
-              <div class="cat-nums">
-
-                Uitgegeven
-
-                <b>
-                  ${euro(
-                    c.spent
-                  )}
-                </b>
-
-                van
-
-                <b>
-                  ${euro(
-                    c.budget
-                  )}
-                </b>
-
-                · nog
-
-                <b
-                  style="
-                    color:${
-                      c.remaining < 0
-                        ? 'var(--coral)'
-                        : 'var(--mint)'
-                    }
-                  "
-                >
-                  ${euro(
-                    c.remaining
-                  )}
-                </b>
-
-              </div>
-
-
-              <div
-                class="bar-track"
-                style="
-                  margin-top:8px;
-                "
-              >
-
-                <div
-                  class="bar-fill"
-                  style="
-                    width:${pct}%;
-                    background:${c.color}
-                  "
-                ></div>
-
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      ).join('')
-    }
-
-
-    <div class="section-title">
-      Deze cyclus totaal
-    </div>
-
-
-    ${
-      monthTotals.map(
-        c=>`
-
-          <div
-            class="cat-card"
-            style="
-              padding:12px 16px;
-            "
-          >
-
-            <div
-              class="cat-top"
-              style="
-                margin-bottom:6px;
-              "
-            >
-
-              <div
-                class="cat-name"
-                style="
-                  font-size:13px;
-                "
-              >
+              <div class="cat-name">
 
                 <span
                   class="cat-dot"
@@ -3845,30 +2811,45 @@ function renderCategorieen(m){
 
               </div>
 
-
-              <div
-                class="cat-nums num"
-              >
-                ${euro(
-                  c.spent
-                )}
+              <div class="cat-nums">
+                ${c.pct}%
               </div>
 
             </div>
 
+            <div class="cat-nums">
 
-            <div class="bar-track">
+              Uitgegeven
+              <b>${euro(c.spent)}</b>
+
+              van
+              <b>${euro(c.budget)}</b>
+
+              · nog
+
+              <b
+                style="
+                  color:${
+                    c.remaining < 0
+                      ? 'var(--coral)'
+                      : 'var(--mint)'
+                  }
+                "
+              >
+                ${euro(c.remaining)}
+              </b>
+
+            </div>
+
+            <div
+              class="bar-track"
+              style="margin-top:8px"
+            >
 
               <div
                 class="bar-fill"
                 style="
-                  width:${
-                    (
-                      c.spent /
-                      maxMonth
-                    )*100
-                  }%;
-
+                  width:${pct}%;
                   background:${c.color}
                 "
               ></div>
@@ -3877,14 +2858,70 @@ function renderCategorieen(m){
 
           </div>
 
-        `
-      ).join('')
+        `;
+
+      }).join('')
+    }
+
+    <div class="section-title">
+      Deze cyclus totaal
+    </div>
+
+    ${
+      totals.map(c=>`
+
+        <div
+          class="cat-card"
+          style="padding:12px 16px"
+        >
+
+          <div
+            class="cat-top"
+            style="margin-bottom:6px"
+          >
+
+            <div
+              class="cat-name"
+              style="font-size:13px"
+            >
+
+              <span
+                class="cat-dot"
+                style="
+                  background:${c.color}
+                "
+              ></span>
+
+              ${c.emoji}
+              ${c.name}
+
+            </div>
+
+            <div class="cat-nums num">
+              ${euro(c.spent)}
+            </div>
+
+          </div>
+
+          <div class="bar-track">
+
+            <div
+              class="bar-fill"
+              style="
+                width:${(c.spent/max)*100}%;
+                background:${c.color}
+              "
+            ></div>
+
+          </div>
+
+        </div>
+
+      `).join('')
     }
 
   `;
-
 }
-
 
 /* =====================================================
    GESCHIEDENIS
@@ -3892,343 +2929,227 @@ function renderCategorieen(m){
 
 function renderGeschiedenis(m){
 
-  let expenses = [];
+  let expenses;
 
-
-  if(
-    ui.historyPeriod ===
-    'cycle'
-  ){
+  if(ui.historyPeriod === 'cycle'){
 
     expenses =
-      DATA.expenses.filter(
-        e=>{
+      DATA.expenses.filter(e=>{
 
-          const d =
-            parseISO(
-              e.date
-            );
+        const d =
+          parseISO(e.date);
 
+        return (
+          d >= m.cycleStart &&
+          d <= m.cycleEnd
+        );
 
-          return (
-            d >=
-            m.cycleStart
-            &&
-            d <=
-            m.cycleEnd
-          );
-
-        }
-      );
+      });
 
   }else{
 
-    expenses =
-      [
-        ...DATA.expenses
-      ];
+    expenses = [...DATA.expenses];
 
   }
 
-
-  const totalSpent =
+  const total =
     expenses.reduce(
-      (sum,e)=>
-        sum +
-        Number(
-          e.amount || 0
-        ),
+      (s,e)=>
+        s + Number(e.amount || 0),
       0
     );
 
+  const totals =
+    DATA.categories.map(c=>{
 
-  const categoryTotals =
-    DATA.categories.map(
-      c=>{
+      const spent =
+        expenses
+          .filter(
+            e=>e.catId === c.id
+          )
+          .reduce(
+            (s,e)=>
+              s + Number(e.amount || 0),
+            0
+          );
 
-        const spent =
-          expenses
-            .filter(
-              e=>
-                e.catId ===
-                c.id
-            )
-            .reduce(
-              (s,e)=>
-                s +
-                Number(
-                  e.amount || 0
-                ),
-              0
-            );
+      return {
+        ...c,
+        spent
+      };
 
+    });
 
-        return {
-          ...c,
-          spent
-        };
-
-      }
-    );
-
-
-  const otherSpent =
+  const other =
     expenses
-      .filter(
-        e=>
-          !e.catId
-      )
+      .filter(e=>!e.catId)
       .reduce(
         (s,e)=>
-          s +
-          Number(
-            e.amount || 0
-          ),
+          s + Number(e.amount || 0),
         0
       );
 
+  if(other > 0){
 
-  if(
-    otherSpent > 0
-  ){
-
-    categoryTotals.push({
-
-      id:'__other__',
-
+    totals.push({
+      id:'other',
       name:'Overig',
-
-      pct:0,
-
-      color:'#8891A6',
-
       emoji:'💸',
-
-      spent:otherSpent
-
+      color:'#8891A6',
+      spent:other
     });
 
   }
 
-
-  categoryTotals.sort(
+  totals.sort(
     (a,b)=>
-      b.spent -
-      a.spent
+      b.spent-a.spent
   );
 
-
-  const maxCategory =
+  const max =
     Math.max(
       1,
-      ...categoryTotals.map(
-        c=>
-          c.spent
+      ...totals.map(
+        c=>c.spent
       )
     );
 
-
-  const sortedExpenses =
-    [...expenses]
-      .sort(
-        (a,b)=>
-          b.date.localeCompare(
-            a.date
-          )
-          ||
-          b.id-a.id
-      );
-
+  const sorted =
+    [...expenses].sort(
+      (a,b)=>
+        b.date.localeCompare(a.date)
+        ||
+        b.id-a.id
+    );
 
   return `
 
     <div class="history-summary">
 
       <div class="history-summary-title">
-
         ${
-          ui.historyPeriod ===
-          'cycle'
-
+          ui.historyPeriod === 'cycle'
             ? 'Deze budgetcyclus'
-
             : 'Alle opgeslagen uitgaven'
-
         }
-
       </div>
 
-
       <div
-        class="
-          history-summary-total
-          num
-        "
+        class="history-summary-total num"
       >
-        ${euro(
-          totalSpent
-        )}
+        ${euro(total)}
       </div>
 
-
-      <div
-        class="history-summary-sub"
-      >
-
+      <div class="history-summary-sub">
         ${expenses.length}
-
         ${
           expenses.length === 1
             ? 'uitgave'
             : 'uitgaven'
         }
-
       </div>
 
     </div>
-
 
     <div class="section-title">
       Waar geef je het meeste aan uit?
     </div>
 
-
     ${
-      categoryTotals.length === 0
+      totals.length === 0
 
         ?
 
         `
           <div class="empty">
-
-            Nog geen uitgaven
-            om te analyseren.
-
+            Nog geen uitgaven om te analyseren.
           </div>
         `
 
         :
 
-        categoryTotals.map(
-          (c,i)=>{
+        totals.map((c,i)=>{
 
-            const percentage =
-              totalSpent > 0
-                ?
-                (
-                  c.spent /
-                  totalSpent
-                ) * 100
-                :
-                0;
+          const percentage =
+            total > 0
+              ? (c.spent/total)*100
+              : 0;
 
+          return `
 
-            return `
+            <div class="history-rank">
 
-              <div class="history-rank">
+              <div class="rank-number">
+                ${i+1}
+              </div>
 
-                <div class="rank-number">
-                  ${i+1}
-                </div>
+              <div class="rank-info">
 
+                <div class="rank-name">
 
-                <div class="rank-info">
-
-                  <div class="rank-name">
-
-                    <span
-                      style="
-                        color:${c.color};
-                        margin-right:5px;
-                      "
-                    >
-                      ${c.emoji}
-                    </span>
-
-                    ${c.name}
-
-                  </div>
-
-
-                  <div class="rank-bar">
-
-                    <div
-                      class="bar-fill"
-                      style="
-                        width:${
-                          (
-                            c.spent /
-                            maxCategory
-                          )*100
-                        }%;
-
-                        background:${c.color};
-                      "
-                    ></div>
-
-                  </div>
-
-                </div>
-
-
-                <div>
-
-                  <div
-                    class="
-                      rank-amount
-                      num
+                  <span
+                    style="
+                      color:${c.color};
+                      margin-right:5px
                     "
                   >
-                    ${euro(
-                      c.spent
-                    )}
-                  </div>
+                    ${c.emoji}
+                  </span>
 
+                  ${c.name}
+
+                </div>
+
+                <div class="rank-bar">
 
                   <div
-                    class="rank-percent"
-                  >
-                    ${percentage.toFixed(0)}%
-                  </div>
+                    class="bar-fill"
+                    style="
+                      width:${(c.spent/max)*100}%;
+                      background:${c.color}
+                    "
+                  ></div>
 
                 </div>
 
               </div>
 
-            `;
+              <div>
 
-          }
-        ).join('')
+                <div
+                  class="rank-amount num"
+                >
+                  ${euro(c.spent)}
+                </div>
+
+                <div class="rank-percent">
+                  ${percentage.toFixed(0)}%
+                </div>
+
+              </div>
+
+            </div>
+
+          `;
+
+        }).join('')
     }
-
 
     <div class="section-title">
       Alle uitgaven
     </div>
 
-
     <div class="history-filter">
 
       <button
-        class="${
-          ui.historyPeriod ===
-          'cycle'
-            ? 'active'
-            : ''
-        }"
+        class="${ui.historyPeriod === 'cycle' ? 'active' : ''}"
         data-history="cycle"
       >
         Deze cyclus
       </button>
 
-
       <button
-        class="${
-          ui.historyPeriod ===
-          'all'
-            ? 'active'
-            : ''
-        }"
+        class="${ui.historyPeriod === 'all' ? 'active' : ''}"
         data-history="all"
       >
         Alles
@@ -4236,9 +3157,8 @@ function renderGeschiedenis(m){
 
     </div>
 
-
     ${
-      sortedExpenses.length === 0
+      sorted.length === 0
 
         ?
 
@@ -4250,249 +3170,408 @@ function renderGeschiedenis(m){
 
         :
 
-        sortedExpenses.map(
-          e=>{
+        sorted.map(e=>{
 
-            const cat =
-              DATA.categories.find(
-                c=>
-                  c.id ===
-                  e.catId
-              );
+          const cat =
+            DATA.categories.find(
+              c=>c.id === e.catId
+            );
 
+          return `
 
-            return `
+            <div class="tx-item">
 
-              <div class="tx-item">
-
-                <div
-                  class="tx-icon"
-                  style="
-                    background:${
-                      cat
-                        ? cat.color+'22'
-                        : '#8891A622'
-                    };
-
-                    color:${
-                      cat
-                        ? cat.color
-                        : '#8891A6'
-                    };
-                  "
-                >
-                  ${
+              <div
+                class="tx-icon"
+                style="
+                  background:${
                     cat
-                      ? cat.emoji
-                      : '💸'
+                      ? cat.color+'22'
+                      : '#8891A622'
+                  };
+                  color:${
+                    cat
+                      ? cat.color
+                      : '#8891A6'
+                  };
+                "
+              >
+                ${cat ? cat.emoji : '💸'}
+              </div>
+
+              <div class="tx-body">
+
+                <div class="tx-cat">
+                  ${cat ? cat.name : 'Overig'}
+                </div>
+
+                <div class="tx-meta">
+                  ${fmtLong(parseISO(e.date))}
+                  ${
+                    e.note
+                      ? ' · '+escapeHtml(e.note)
+                      : ''
                   }
                 </div>
 
-
-                <div class="tx-body">
-
-                  <div class="tx-cat">
-
-                    ${
-                      cat
-                        ? cat.name
-                        : 'Overig'
-                    }
-
-                  </div>
-
-
-                  <div class="tx-meta">
-
-                    ${fmtLong(
-                      parseISO(
-                        e.date
-                      )
-                    )}
-
-                    ${
-                      e.note
-                        ? ' · ' +
-                          escapeHtml(
-                            e.note
-                          )
-                        : ''
-                    }
-
-                  </div>
-
-                </div>
-
-
-                <div
-                  class="
-                    tx-amt
-                    num
-                  "
-                >
-                  ${euro(
-                    e.amount
-                  )}
-                </div>
-
-
-                <button
-                  class="tx-del"
-                  data-del="${e.id}"
-                >
-                  ✕
-                </button>
-
               </div>
 
-            `;
-
-          }
-        ).join('')
-    }
-
-  `;
-
-}
-
-
-/* =====================================================
-   SPAAR HISTORIE
-===================================================== */
-
-function renderSavingsHistory(
-  m
-){
-
-  const currentSavings =
-    DATA.savings
-      .filter(s=>{
-
-        const d =
-          parseISO(
-            s.date
-          );
-
-        return (
-          d >= m.cycleStart &&
-          d <= m.cycleEnd
-        );
-
-      })
-      .sort(
-        (a,b)=>
-          b.date.localeCompare(
-            a.date
-          )
-          ||
-          b.id-a.id
-      );
-
-
-  if(
-    currentSavings.length === 0
-  ){
-
-    return `
-
-      <div
-        style="
-          font-size:11.5px;
-          color:var(--text-faint);
-          padding:7px 0;
-        "
-      >
-        Nog geen spaargeld toegevoegd
-        deze cyclus.
-      </div>
-
-    `;
-
-  }
-
-
-  return `
-
-    <div class="savings-history-title">
-      Spaargeld deze cyclus
-    </div>
-
-
-    ${
-      currentSavings.map(
-        s=>`
-
-          <div class="saving-row">
-
-            <div
-              class="saving-row-left"
-            >
-
-              <div
-                class="saving-row-date"
-              >
-                ${fmtLong(
-                  parseISO(
-                    s.date
-                  )
-                )}
+              <div class="tx-amt num">
+                ${euro(e.amount)}
               </div>
-
-
-              <div
-                class="saving-row-note"
-              >
-                ${
-                  s.note
-                    ? escapeHtml(
-                        s.note
-                      )
-                    : 'Spaardoel'
-                }
-              </div>
-
-            </div>
-
-
-            <div
-              style="
-                display:flex;
-                align-items:center;
-                gap:5px;
-              "
-            >
-
-              <div
-                class="
-                  saving-row-amount
-                  num
-                "
-              >
-                +${euro(
-                  s.amount
-                )}
-              </div>
-
 
               <button
-                class="saving-delete"
-                data-saving-del="${s.id}"
+                class="tx-del"
+                data-del="${e.id}"
               >
                 ✕
               </button>
 
             </div>
 
-          </div>
+          `;
 
-        `
-      ).join('')
+        }).join('')
     }
 
   `;
-
 }
 
+/* =====================================================
+   SPAARDOELEN TAB
+===================================================== */
+
+function renderSpaardoelen(){
+
+  recalculateGoalSaved();
+
+  const total =
+    totalSaved();
+
+  return `
+
+    <div class="savings-total">
+
+      <div class="savings-total-label">
+        Totaal daadwerkelijk gespaard
+      </div>
+
+      <div
+        class="
+          savings-total-value
+          num
+        "
+      >
+        ${euro(total)}
+      </div>
+
+      <div class="savings-total-sub">
+        Dit is het totaal van al je echte spaardoelen.
+      </div>
+
+    </div>
+
+    <div class="section-title">
+      Mijn spaardoelen
+    </div>
+
+    ${
+      DATA.savingsGoals.length === 0
+
+        ?
+
+        `
+          <div class="empty">
+            Nog geen spaardoelen toegevoegd.
+          </div>
+        `
+
+        :
+
+        DATA.savingsGoals.map(goal=>{
+
+          const progress =
+            goalProgress(goal);
+
+          const remaining =
+            Math.max(
+              0,
+              Number(goal.target || 0)
+              -
+              Number(goal.saved || 0)
+            );
+
+          return `
+
+            <div
+              class="savings-goal-card"
+            >
+
+              <div
+                class="savings-goal-top"
+              >
+
+                <div
+                  class="savings-goal-icon"
+                >
+                  ${goal.emoji || '💰'}
+                </div>
+
+                <div
+                  class="savings-goal-info"
+                >
+
+                  <div
+                    class="savings-goal-name"
+                  >
+                    ${escapeHtml(goal.name)}
+                  </div>
+
+                  <div
+                    class="savings-goal-target"
+                  >
+                    Doel:
+                    ${euro(goal.target)}
+                  </div>
+
+                </div>
+
+                <div
+                  class="savings-goal-saved"
+                >
+
+                  <div
+                    class="
+                      value
+                      num
+                    "
+                  >
+                    ${euro(goal.saved)}
+                  </div>
+
+                  <div class="label">
+                    gespaard
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div
+                class="savings-goal-progress"
+              >
+
+                <div
+                  class="savings-goal-progress-fill"
+                  style="
+                    width:${progress}%
+                  "
+                ></div>
+
+              </div>
+
+              <div
+                class="savings-goal-numbers"
+              >
+
+                <span>
+                  ${progress.toFixed(0)}% behaald
+                </span>
+
+                <span
+                  class="num"
+                  style="
+                    color:${
+                      remaining > 0
+                        ? 'var(--amber)'
+                        : 'var(--mint)'
+                    }
+                  "
+                >
+                  ${
+                    remaining > 0
+                      ? euro(remaining)+' nog nodig'
+                      : 'Doel behaald ✓'
+                  }
+                </span>
+
+              </div>
+
+              <div
+                class="savings-goal-actions"
+              >
+
+                <button
+                  class="
+                    small-action
+                    primary
+                  "
+                  data-add-goal="${goal.id}"
+                >
+                  + Sparen
+                </button>
+
+                <button
+                  class="small-action"
+                  data-edit-goal="${goal.id}"
+                >
+                  Aanpassen
+                </button>
+
+                <button
+                  class="
+                    small-action
+                    danger
+                  "
+                  data-delete-goal="${goal.id}"
+                >
+                  Verwijder
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+        }).join('')
+    }
+
+    <button
+      class="primary-btn"
+      id="addGoalBtn"
+      style="margin-top:6px"
+    >
+      + Nieuw spaardoel
+    </button>
+
+    <div class="section-title">
+      Wat betekent "Extra spaardoel"?
+    </div>
+
+    <div
+      class="field-group"
+      style="
+        color:var(--text-dim);
+        font-size:12px;
+        line-height:1.55;
+      "
+    >
+
+      Het <strong style="color:var(--text)">
+        Extra spaardoel
+      </strong>
+      bij Instellingen staat los van deze echte
+      spaardoelen.
+
+      <br><br>
+
+      Dat bedrag wordt alleen gebruikt om te
+      berekenen hoeveel budget je overhoudt als
+      je extra wilt sparen.
+
+      <br><br>
+
+      Geld dat je daadwerkelijk spaart, boek je
+      hierboven bij bijvoorbeeld Auto, Vakantie
+      of Extra.
+
+    </div>
+
+  `;
+}
+
+/* =====================================================
+   SPAARDOELEN TRANSACTIEGESCHIEDENIS
+===================================================== */
+
+function renderGoalHistory(goalId){
+
+  const transactions =
+    DATA.savingsTransactions
+      .filter(
+        t =>
+          Number(t.goalId) ===
+          Number(goalId)
+      )
+      .sort(
+        (a,b)=>
+          b.date.localeCompare(a.date)
+          ||
+          b.id-a.id
+      );
+
+  if(transactions.length === 0){
+
+    return `
+      <div class="empty">
+        Nog geen spaartransacties.
+      </div>
+    `;
+
+  }
+
+  return transactions.map(t=>`
+
+    <div
+      class="tx-item"
+    >
+
+      <div
+        class="tx-icon"
+        style="
+          background:var(--mint-dim);
+          color:var(--mint);
+        "
+      >
+        💰
+      </div>
+
+      <div class="tx-body">
+
+        <div class="tx-cat">
+          ${
+            t.note
+              ? escapeHtml(t.note)
+              : 'Sparen'
+          }
+        </div>
+
+        <div class="tx-meta">
+          ${fmtLong(parseISO(t.date))}
+        </div>
+
+      </div>
+
+      <div
+        class="tx-amt num"
+        style="
+          color:${
+            Number(t.amount) >= 0
+              ? 'var(--mint)'
+              : 'var(--coral)'
+          }
+        "
+      >
+        ${
+          Number(t.amount) >= 0
+            ? '+'
+            : ''
+        }
+        ${euro(Number(t.amount))}
+      </div>
+
+      <button
+        class="tx-del"
+        data-delete-saving="${t.id}"
+      >
+        ✕
+      </button>
+
+    </div>
+
+  `).join('');
+}
 
 /* =====================================================
    INSTELLINGEN
@@ -4503,17 +3582,12 @@ function renderInstellingen(m){
   const s =
     DATA.settings;
 
-
   const pctTotal =
     DATA.categories.reduce(
       (sum,c)=>
-        sum +
-        Number(
-          c.pct
-        ),
+        sum + Number(c.pct),
       0
     );
-
 
   return `
 
@@ -4523,12 +3597,8 @@ function renderInstellingen(m){
         Inkomen
       </h3>
 
-
       <div class="field-row">
-
-        <label>
-          Salaris partner 1
-        </label>
+        <label>Salaris partner 1</label>
 
         <input
           type="number"
@@ -4536,15 +3606,10 @@ function renderInstellingen(m){
           data-setting="salary1"
           value="${s.salary1}"
         >
-
       </div>
 
-
       <div class="field-row">
-
-        <label>
-          Salaris partner 2
-        </label>
+        <label>Salaris partner 2</label>
 
         <input
           type="number"
@@ -4552,44 +3617,29 @@ function renderInstellingen(m){
           data-setting="salary2"
           value="${s.salary2}"
         >
-
       </div>
 
-
       <div class="field-row">
-
-        <label>
-          Totaal inkomen
-        </label>
+        <label>Totaal inkomen</label>
 
         <span
           class="num"
-          style="
-            color:var(--text-dim)
-          "
+          style="color:var(--text-dim)"
         >
-          ${euro(
-            m.income
-          )}
+          ${euro(m.income)}
         </span>
-
       </div>
 
     </div>
 
-
     <div class="field-group">
 
       <h3>
-        Vaste lasten & sparen
+        Vaste lasten & budget
       </h3>
 
-
       <div class="field-row">
-
-        <label>
-          Vaste lasten 1
-        </label>
+        <label>Vaste lasten 1</label>
 
         <input
           type="number"
@@ -4597,15 +3647,10 @@ function renderInstellingen(m){
           data-setting="fixed1"
           value="${s.fixed1}"
         >
-
       </div>
 
-
       <div class="field-row">
-
-        <label>
-          Vaste lasten 2
-        </label>
+        <label>Vaste lasten 2</label>
 
         <input
           type="number"
@@ -4613,15 +3658,10 @@ function renderInstellingen(m){
           data-setting="fixed2"
           value="${s.fixed2}"
         >
-
       </div>
 
-
       <div class="field-row">
-
-        <label>
-          Beleggen
-        </label>
+        <label>Beleggen</label>
 
         <input
           type="number"
@@ -4629,9 +3669,7 @@ function renderInstellingen(m){
           data-setting="invest"
           value="${s.invest}"
         >
-
       </div>
-
 
       <div class="field-row">
 
@@ -4648,150 +3686,18 @@ function renderInstellingen(m){
 
       </div>
 
-
-      <!-- SPAAROVERZICHT -->
-
-      <div class="savings-box">
-
-        <div class="savings-box-top">
-
-          <div>
-
-            <div class="savings-box-label">
-              Spaardoel deze cyclus
-            </div>
-
-            <div class="savings-box-sub">
-              Echt overgemaakt naar sparen
-            </div>
-
-          </div>
-
-
-          <div
-            class="
-              savings-box-value
-              num
-            "
-          >
-            ${euro(
-              m.savedThisCycle
-            )}
-          </div>
-
-        </div>
-
-
-        <div
-          class="savings-progress"
-        >
-
-          <div
-            class="savings-progress-fill"
-            style="
-              width:${
-                m.savingsProgress
-              }%;
-            "
-          ></div>
-
-        </div>
-
-
-        <div class="savings-numbers">
-
-          <span>
-            Gespaard:
-            <strong
-              class="num"
-              style="color:var(--mint)"
-            >
-              ${euro(
-                m.savedThisCycle
-              )}
-            </strong>
-          </span>
-
-
-          <span>
-            Doel:
-            <strong
-              class="num"
-              style="color:var(--text)"
-            >
-              ${euro(
-                m.savingsGoal
-              )}
-            </strong>
-          </span>
-
-        </div>
-
-
-        <div class="savings-numbers">
-
-          <span>
-            Nog te sparen
-          </span>
-
-          <strong
-            class="num"
-            style="
-              color:${
-                m.savingsRemaining > 0
-                  ? 'var(--amber)'
-                  : 'var(--mint)'
-              }
-            "
-          >
-            ${
-              m.savingsRemaining > 0
-                ? euro(
-                    m.savingsRemaining
-                  )
-                : 'Doel behaald ✓'
-            }
-          </strong>
-
-        </div>
-
-
-        <div
-          class="savings-actions"
-        >
-
-          <button
-            class="
-              savings-action-btn
-              primary
-            "
-            id="addSavingBtn"
-          >
-            + Geld sparen
-          </button>
-
-
-          <button
-            class="
-              savings-action-btn
-              secondary
-            "
-            id="removeSavingBtn"
-          >
-            Correctie
-          </button>
-
-        </div>
-
-
-        <div class="savings-history">
-
-          ${renderSavingsHistory(m)}
-
-        </div>
-
+      <div
+        style="
+          font-size:11px;
+          color:var(--text-faint);
+          line-height:1.45;
+          padding:7px 0 3px;
+        "
+      >
+        Dit bedrag wordt alleen gebruikt om je
+        vrije budget te berekenen. Het staat los
+        van je echte spaardoelen.
       </div>
-
 
       <div class="field-row">
 
@@ -4806,22 +3712,18 @@ function renderInstellingen(m){
             font-weight:600;
           "
         >
-          ${euro(
-            m.freeBudget
-          )}
+          ${euro(m.freeBudget)}
         </span>
 
       </div>
 
     </div>
 
-
     <div class="field-group">
 
       <h3>
         Budgetcyclus
       </h3>
-
 
       <div class="field-row">
 
@@ -4837,7 +3739,6 @@ function renderInstellingen(m){
 
       </div>
 
-
       <div class="field-row">
 
         <label>
@@ -4852,7 +3753,6 @@ function renderInstellingen(m){
 
       </div>
 
-
       <div class="field-row">
 
         <label>
@@ -4865,31 +3765,24 @@ function renderInstellingen(m){
             font-size:13px;
           "
         >
-          ${fmtLong(
-            m.cycleEnd
-          )}
+          ${fmtLong(m.cycleEnd)}
         </span>
 
       </div>
 
     </div>
 
-
     <div class="field-group">
 
       <h3>
         Categorieën
-        (% van weekbudget)
       </h3>
-
 
       ${
         DATA.categories.map(
           (c,i)=>`
 
-            <div
-              class="field-row"
-            >
+            <div class="field-row">
 
               <label>
                 ${c.emoji}
@@ -4908,7 +3801,6 @@ function renderInstellingen(m){
         ).join('')
       }
 
-
       <div
         class="
           pct-warn
@@ -4919,27 +3811,22 @@ function renderInstellingen(m){
           }
         "
       >
-
         Totaal:
         ${pctTotal}%
-
         ${
           pctTotal === 100
             ? '✓'
             : '— moet 100% zijn'
         }
-
       </div>
 
     </div>
-
 
     <div class="field-group">
 
       <h3>
         Gegevens
       </h3>
-
 
       <div
         style="
@@ -4948,29 +3835,14 @@ function renderInstellingen(m){
           margin-bottom:10px;
         "
       >
-
         ${DATA.expenses.length}
-
         ${
           DATA.expenses.length === 1
             ? 'uitgave'
             : 'uitgaven'
         }
-
-        en
-
-        ${DATA.savings.length}
-
-        ${
-          DATA.savings.length === 1
-            ? 'spaartransactie'
-            : 'spaartransacties'
-        }
-
-        opgeslagen op dit toestel.
-
+        opgeslagen.
       </div>
-
 
       <button
         class="danger-btn"
@@ -4982,25 +3854,21 @@ function renderInstellingen(m){
     </div>
 
   `;
-
 }
 
-
 /* =====================================================
-   RENDER
+   MAIN RENDER
 ===================================================== */
 
 function render(){
 
+  recalculateGoalSaved();
+
   const m =
     computeModel();
 
-
   const app =
-    document.getElementById(
-      'app'
-    );
-
+    document.getElementById('app');
 
   app.innerHTML = `
 
@@ -5012,132 +3880,85 @@ function render(){
           Budget
         </div>
 
-
         <div class="cycle-label">
 
-          ${fmtShort(
-            m.cycleStart
-          )}
-
+          ${fmtShort(m.cycleStart)}
           –
-
-          ${fmtShort(
-            m.cycleEnd
-          )}
+          ${fmtShort(m.cycleEnd)}
 
         </div>
 
       </div>
 
-
       <div class="month-total">
 
         vrij budget
 
-        <span
-          class="
-            amt
-            num
-          "
-        >
-          ${euro(
-            m.freeBudget
-          )}
+        <span class="amt num">
+          ${euro(m.freeBudget)}
         </span>
 
       </div>
 
     </header>
 
-
     <main>
 
       <section
         class="
           tab
-          ${
-            ui.tab ===
-            'vandaag'
-              ? 'active'
-              : ''
-          }
+          ${ui.tab === 'vandaag' ? 'active' : ''}
         "
       >
-
         ${renderVandaag(m)}
-
       </section>
-
 
       <section
         class="
           tab
-          ${
-            ui.tab ===
-            'weken'
-              ? 'active'
-              : ''
-          }
+          ${ui.tab === 'weken' ? 'active' : ''}
         "
       >
-
         ${renderWeken(m)}
-
       </section>
-
 
       <section
         class="
           tab
-          ${
-            ui.tab ===
-            'categorieen'
-              ? 'active'
-              : ''
-          }
+          ${ui.tab === 'categorieen' ? 'active' : ''}
         "
       >
-
         ${renderCategorieen(m)}
-
       </section>
-
 
       <section
         class="
           tab
-          ${
-            ui.tab ===
-            'geschiedenis'
-              ? 'active'
-              : ''
-          }
+          ${ui.tab === 'geschiedenis' ? 'active' : ''}
         "
       >
-
         ${renderGeschiedenis(m)}
-
       </section>
-
 
       <section
         class="
           tab
-          ${
-            ui.tab ===
-            'instellingen'
-              ? 'active'
-              : ''
-          }
+          ${ui.tab === 'spaardoelen' ? 'active' : ''}
+      "
+      >
+        ${renderSpaardoelen()}
+      </section>
+
+      <section
+        class="
+          tab
+          ${ui.tab === 'instellingen' ? 'active' : ''}
         "
       >
-
         ${renderInstellingen(m)}
-
       </section>
 
     </main>
-
 
     <button
       class="fab"
@@ -5147,7 +3968,6 @@ function render(){
       +
     </button>
 
-
     <nav class="tabbar">
 
       ${tabBtn(
@@ -5156,13 +3976,11 @@ function render(){
         iconHome()
       )}
 
-
       ${tabBtn(
         'weken',
         'Weken',
         iconCalendar()
       )}
-
 
       ${tabBtn(
         'categorieen',
@@ -5170,13 +3988,17 @@ function render(){
         iconPie()
       )}
 
-
       ${tabBtn(
         'geschiedenis',
         'Geschiedenis',
         iconHistory()
       )}
 
+      ${tabBtn(
+        'spaardoelen',
+        'Sparen',
+        iconSavings()
+      )}
 
       ${tabBtn(
         'instellingen',
@@ -5188,11 +4010,8 @@ function render(){
 
   `;
 
-
   attachEvents(m);
-
 }
-
 
 /* =====================================================
    TAB BUTTON
@@ -5209,11 +4028,7 @@ function tabBtn(
     <button
       class="
         tab-btn
-        ${
-          ui.tab === key
-            ? 'active'
-            : ''
-        }
+        ${ui.tab === key ? 'active' : ''}
       "
       data-tab="${key}"
     >
@@ -5227,9 +4042,7 @@ function tabBtn(
     </button>
 
   `;
-
 }
-
 
 /* =====================================================
    ICONS
@@ -5238,12 +4051,7 @@ function tabBtn(
 function iconHome(){
 
   return `
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-
+    <svg viewBox="0 0 24 24" fill="none">
       <path
         d="M4 11.5L12 5l8 6.5"
         stroke="currentColor"
@@ -5251,30 +4059,20 @@ function iconHome(){
         stroke-linecap="round"
         stroke-linejoin="round"
       />
-
       <path
         d="M6 10v9h12v-9"
         stroke="currentColor"
         stroke-width="1.8"
         stroke-linejoin="round"
       />
-
     </svg>
-
   `;
-
 }
-
 
 function iconCalendar(){
 
   return `
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-
+    <svg viewBox="0 0 24 24" fill="none">
       <rect
         x="4"
         y="5"
@@ -5284,41 +4082,26 @@ function iconCalendar(){
         stroke="currentColor"
         stroke-width="1.8"
       />
-
       <path
-        d="
-          M4 9.5h16
-          M8 3v4
-          M16 3v4
-        "
+        d="M4 9.5h16M8 3v4M16 3v4"
         stroke="currentColor"
         stroke-width="1.8"
         stroke-linecap="round"
       />
-
     </svg>
-
   `;
-
 }
-
 
 function iconPie(){
 
   return `
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-
+    <svg viewBox="0 0 24 24" fill="none">
       <path
         d="M12 3v9l7.5 4.3"
         stroke="currentColor"
         stroke-width="1.8"
         stroke-linecap="round"
       />
-
       <circle
         cx="12"
         cy="12"
@@ -5326,30 +4109,20 @@ function iconPie(){
         stroke="currentColor"
         stroke-width="1.8"
       />
-
     </svg>
-
   `;
-
 }
-
 
 function iconHistory(){
 
   return `
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-
+    <svg viewBox="0 0 24 24" fill="none">
       <path
         d="M4 12a8 8 0 108-8"
         stroke="currentColor"
         stroke-width="1.8"
         stroke-linecap="round"
       />
-
       <path
         d="M4 5v7h7"
         stroke="currentColor"
@@ -5357,7 +4130,6 @@ function iconHistory(){
         stroke-linecap="round"
         stroke-linejoin="round"
       />
-
       <path
         d="M12 7v5l3 2"
         stroke="currentColor"
@@ -5365,23 +4137,39 @@ function iconHistory(){
         stroke-linecap="round"
         stroke-linejoin="round"
       />
-
     </svg>
-
   `;
-
 }
 
+function iconSavings(){
+
+  return `
+    <svg viewBox="0 0 24 24" fill="none">
+      <path
+        d="M5 10h14a2 2 0 012 2v5a2 2 0 01-2 2H5a3 3 0 01-3-3v-3a3 3 0 013-3z"
+        stroke="currentColor"
+        stroke-width="1.7"
+      />
+      <path
+        d="M5 10V7a2 2 0 012-2h9l2 5"
+        stroke="currentColor"
+        stroke-width="1.7"
+      />
+      <circle
+        cx="17"
+        cy="14"
+        r="1.5"
+        stroke="currentColor"
+        stroke-width="1.5"
+      />
+    </svg>
+  `;
+}
 
 function iconGear(){
 
   return `
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-
+    <svg viewBox="0 0 24 24" fill="none">
       <circle
         cx="12"
         cy="12"
@@ -5389,7 +4177,6 @@ function iconGear(){
         stroke="currentColor"
         stroke-width="1.8"
       />
-
       <path
         d="
           M19 12
@@ -5424,13 +4211,9 @@ function iconGear(){
         stroke-width="1.5"
         stroke-linejoin="round"
       />
-
     </svg>
-
   `;
-
 }
-
 
 /* =====================================================
    EVENTS
@@ -5438,13 +4221,10 @@ function iconGear(){
 
 function attachEvents(m){
 
-
   /* TABS */
 
   document
-    .querySelectorAll(
-      '.tab-btn'
-    )
+    .querySelectorAll('.tab-btn')
     .forEach(btn=>{
 
       btn.onclick = ()=>{
@@ -5453,24 +4233,17 @@ function attachEvents(m){
           document.activeElement &&
           document.activeElement.blur
         ){
-
-          document
-            .activeElement
-            .blur();
-
+          document.activeElement.blur();
         }
-
 
         ui.tab =
           btn.dataset.tab;
-
 
         render();
 
       };
 
     });
-
 
   /* FAB */
 
@@ -5479,77 +4252,56 @@ function attachEvents(m){
       'fabAdd'
     );
 
-
   if(fab){
-
     fab.onclick =
       openAddSheet;
-
   }
 
-
-  /* VERWIJDER UITGAVING */
+  /* UITGAVEN VERWIJDEREN */
 
   document
-    .querySelectorAll(
-      '[data-del]'
-    )
+    .querySelectorAll('[data-del]')
     .forEach(btn=>{
 
       btn.onclick = e=>{
 
         e.stopPropagation();
 
-
         const id =
-          Number(
-            btn.dataset.del
-          );
-
+          Number(btn.dataset.del);
 
         DATA.expenses =
           DATA.expenses.filter(
-            x=>
-              x.id !== id
+            x=>x.id !== id
           );
 
-
         saveData();
-
         render();
 
       };
 
     });
 
-
   /* WEKEN */
 
   document
-    .querySelectorAll(
-      '.week-top'
-    )
+    .querySelectorAll('.week-top')
     .forEach(top=>{
 
       top.onclick = ()=>{
 
         const card =
-          top.closest(
-            '.week-card'
-          );
-
+          top.closest('.week-card');
 
         const idx =
           Number(
             card.dataset.week
           );
 
-
         ui.openWeek =
           ui.openWeek === idx
             ? null
             : idx;
-
 
         render();
 
@@ -5557,13 +4309,10 @@ function attachEvents(m){
 
     });
 
-
-  /* HISTORY FILTER */
+  /* HISTORY */
 
   document
-    .querySelectorAll(
-      '[data-history]'
-    )
+    .querySelectorAll('[data-history]')
     .forEach(btn=>{
 
       btn.onclick = ()=>{
@@ -5571,20 +4320,16 @@ function attachEvents(m){
         ui.historyPeriod =
           btn.dataset.history;
 
-
         render();
 
       };
 
     });
 
-
   /* SETTINGS */
 
   document
-    .querySelectorAll(
-      '[data-setting]'
-    )
+    .querySelectorAll('[data-setting]')
     .forEach(inp=>{
 
       const commit = ()=>{
@@ -5592,69 +4337,46 @@ function attachEvents(m){
         const key =
           inp.dataset.setting;
 
-
         const val =
           inp.type === 'date'
             ? inp.value
-            : Number(
-                inp.value
-              );
-
+            : Number(inp.value);
 
         if(
           inp.type === 'date' &&
           !val
         ){
-
           return;
-
         }
-
 
         if(
-          DATA.settings[key]
-          ===
-          val
+          DATA.settings[key] === val
         ){
-
           return;
-
         }
-
 
         DATA.settings[key] =
           val;
 
-
         saveData();
-
         render();
 
       };
 
-
       inp.onchange =
         commit;
 
-
-      if(
-        inp.type === 'date'
-      ){
-
+      if(inp.type === 'date'){
         inp.oninput =
           commit;
-
       }
 
     });
 
-
-  /* CATEGORIE PERCENTAGES */
+  /* CATEGORY */
 
   document
-    .querySelectorAll(
-      '[data-cat-pct]'
-    )
+    .querySelectorAll('[data-cat-pct]')
     .forEach(inp=>{
 
       inp.onchange = ()=>{
@@ -5664,29 +4386,22 @@ function attachEvents(m){
             inp.dataset.catPct
           );
 
-
         DATA.categories[idx].pct =
-          Number(
-            inp.value
-          );
-
+          Number(inp.value);
 
         saveData();
-
         render();
 
       };
 
     });
 
-
-  /* RESET */
+  /* RESET UITGAVEN */
 
   const resetBtn =
     document.getElementById(
       'resetBtn'
     );
-
 
   if(resetBtn){
 
@@ -5701,7 +4416,6 @@ function attachEvents(m){
         DATA.expenses = [];
 
         saveData();
-
         render();
 
       }
@@ -5710,67 +4424,104 @@ function attachEvents(m){
 
   }
 
+  /* NIEUW SPAARDOEL */
 
-  /* SPAARTRANSACTIES TOEVOEGEN */
-
-  const addSavingBtn =
+  const addGoalBtn =
     document.getElementById(
-      'addSavingBtn'
+      'addGoalBtn'
     );
 
+  if(addGoalBtn){
 
-  if(addSavingBtn){
-
-    addSavingBtn.onclick =
-      openSavingSheet;
+    addGoalBtn.onclick =
+      openGoalSheet;
 
   }
 
-
-  /* SPAAR CORRECTIE */
-
-  const removeSavingBtn =
-    document.getElementById(
-      'removeSavingBtn'
-    );
-
-
-  if(removeSavingBtn){
-
-    removeSavingBtn.onclick =
-      openSavingCorrection;
-
-  }
-
-
-  /* SPAARTRANSACTIES VERWIJDEREN */
+  /* GELD TOEVOEGEN AAN DOEL */
 
   document
-    .querySelectorAll(
-      '[data-saving-del]'
-    )
+    .querySelectorAll('[data-add-goal]')
     .forEach(btn=>{
 
-      btn.onclick = e=>{
+      btn.onclick = ()=>{
 
-        e.stopPropagation();
+        ui.selectedGoalId =
+          Number(
+            btn.dataset.addGoal
+          );
 
+        openSavingSheet();
+
+      };
+
+    });
+
+  /* DOEL AANPASSEN */
+
+  document
+    .querySelectorAll('[data-edit-goal]')
+    .forEach(btn=>{
+
+      btn.onclick = ()=>{
+
+        editGoal(
+          Number(
+            btn.dataset.editGoal
+          )
+        );
+
+      };
+
+    });
+
+  /* DOEL VERWIJDEREN */
+
+  document
+    .querySelectorAll('[data-delete-goal]')
+    .forEach(btn=>{
+
+      btn.onclick = ()=>{
+
+        deleteGoal(
+          Number(
+            btn.dataset.deleteGoal
+          )
+        );
+
+      };
+
+    });
+
+  /* SPAARTRANSACTIE VERWIJDEREN */
+
+  document
+    .querySelectorAll('[data-delete-saving]')
+    .forEach(btn=>{
+
+      btn.onclick = ()=>{
 
         const id =
           Number(
-            btn.dataset.savingDel
+            btn.dataset.deleteSaving
           );
 
+        if(
+          !confirm(
+            'Deze spaartransactie verwijderen?'
+          )
+        ){
+          return;
+        }
 
-        DATA.savings =
-          DATA.savings.filter(
-            x=>
-              x.id !== id
+        DATA.savingsTransactions =
+          DATA.savingsTransactions.filter(
+            t=>t.id !== id
           );
 
+        recalculateGoalSaved();
 
         saveData();
-
         render();
 
       };
@@ -5778,7 +4529,6 @@ function attachEvents(m){
     });
 
 }
-
 
 /* =====================================================
    UITGAVE MODAL
@@ -5789,85 +4539,64 @@ function openAddSheet(){
   ui.chosenCat =
     DATA.categories[0].id;
 
-
   const backdrop =
     document.getElementById(
       'addBackdrop'
     );
-
 
   const chipRow =
     document.getElementById(
       'catChipRow'
     );
 
-
   chipRow.innerHTML =
 
     DATA.categories
-      .map(
-        c=>`
+      .map(c=>`
 
-          <div
-            class="
-              chip
-              ${
-                c.id ===
-                ui.chosenCat
-                  ? 'active'
-                  : ''
-              }
-            "
-            data-cat="${c.id}"
-          >
+        <div
+          class="
+            chip
+            ${
+              c.id === ui.chosenCat
+                ? 'active'
+                : ''
+            }
+          "
+          data-cat="${c.id}"
+        >
+          ${c.emoji}
+          ${c.name}
+        </div>
 
-            ${c.emoji}
-            ${c.name}
-
-          </div>
-
-        `
-      )
+      `)
       .join('')
 
     +
 
     `
-
       <div
         class="chip"
         data-cat="__other__"
       >
         💸 Overig
       </div>
-
     `;
 
-
   chipRow
-    .querySelectorAll(
-      '.chip'
-    )
+    .querySelectorAll('.chip')
     .forEach(chip=>{
 
       chip.onclick = ()=>{
 
         chipRow
-          .querySelectorAll(
-            '.chip'
-          )
+          .querySelectorAll('.chip')
           .forEach(
             c=>
-              c.classList.remove(
-                'active'
-              )
+              c.classList.remove('active')
           );
 
-
-        chip.classList.add(
-          'active'
-        );
-
+        chip.classList.add('active');
 
         ui.chosenCat =
           chip.dataset.cat;
@@ -5876,347 +4605,488 @@ function openAddSheet(){
 
     });
 
+  document.getElementById(
+    'amountInput'
+  ).value = '';
 
-  document
-    .getElementById(
-      'amountInput'
-    )
-    .value='';
+  document.getElementById(
+    'noteInput'
+  ).value = '';
 
+  document.getElementById(
+    'dateInput'
+  ).value =
+    isoDate(todayDate());
 
-  document
-    .getElementById(
-      'noteInput'
-    )
-    .value='';
-
-
-  document
-    .getElementById(
-      'dateInput'
-    )
-    .value =
-      isoDate(
-        todayDate()
-      );
-
-
-  backdrop.classList.add(
-    'show'
-  );
-
+  backdrop.classList.add('show');
 
   setTimeout(
     ()=>{
-
-      document
-        .getElementById(
-          'amountInput'
-        )
-        .focus();
-
+      document.getElementById(
+        'amountInput'
+      ).focus();
     },
     300
   );
 
-
-  document
-    .getElementById(
-      'cancelExpenseBtn'
-    )
-    .onclick =
-      closeAddSheet;
-
+  document.getElementById(
+    'cancelExpenseBtn'
+  ).onclick =
+    closeAddSheet;
 
   backdrop.onclick = e=>{
 
-    if(
-      e.target ===
-      backdrop
-    ){
-
+    if(e.target === backdrop){
       closeAddSheet();
-
     }
 
   };
 
-
-  document
-    .getElementById(
-      'saveExpenseBtn'
-    )
-    .onclick =
-      submitExpense;
+  document.getElementById(
+    'saveExpenseBtn'
+  ).onclick =
+    submitExpense;
 
 }
-
 
 function closeAddSheet(){
 
   document
-    .getElementById(
-      'addBackdrop'
-    )
-    .classList.remove(
-      'show'
-    );
+    .getElementById('addBackdrop')
+    .classList.remove('show');
 
 }
-
 
 function submitExpense(){
 
   const raw =
-    document
-      .getElementById(
-        'amountInput'
-      )
-      .value
-      .replace(
-        ',',
-        '.'
-      );
-
+    document.getElementById(
+      'amountInput'
+    )
+    .value
+    .replace(',','.');
 
   const amount =
-    parseFloat(
-      raw
-    );
-
+    parseFloat(raw);
 
   if(
     !amount ||
     amount <= 0
   ){
 
-    document
-      .getElementById(
-        'amountInput'
-      )
-      .focus();
+    document.getElementById(
+      'amountInput'
+    ).focus();
 
     return;
 
   }
 
-
   const date =
-    document
-      .getElementById(
-        'dateInput'
-      )
-      .value
-      ||
-      isoDate(
-        todayDate()
-      );
-
+    document.getElementById(
+      'dateInput'
+    ).value
+    ||
+    isoDate(todayDate());
 
   const note =
-    document
-      .getElementById(
-        'noteInput'
-      )
-      .value
-      .trim();
-
+    document.getElementById(
+      'noteInput'
+    )
+    .value
+    .trim();
 
   const catId =
-    ui.chosenCat ===
-    '__other__'
+    ui.chosenCat === '__other__'
       ? null
       : ui.chosenCat;
-
 
   DATA.expenses.push({
 
     id:Date.now(),
-
     amount,
-
     date,
-
     note,
-
     catId
 
   });
 
-
   closeAddSheet();
 
   saveData();
-
   render();
 
 }
 
+/* =====================================================
+   NIEUW SPAARDOEL
+===================================================== */
+
+function openGoalSheet(){
+
+  document.getElementById(
+    'goalNameInput'
+  ).value = '';
+
+  document.getElementById(
+    'goalEmojiInput'
+  ).value = '💰';
+
+  document.getElementById(
+    'goalTargetInput'
+  ).value = '';
+
+  const backdrop =
+    document.getElementById(
+      'goalBackdrop'
+    );
+
+  backdrop.classList.add('show');
+
+  setTimeout(
+    ()=>{
+      document.getElementById(
+        'goalNameInput'
+      ).focus();
+    },
+    300
+  );
+
+  document.getElementById(
+    'cancelGoalBtn'
+  ).onclick =
+    closeGoalSheet;
+
+  backdrop.onclick = e=>{
+
+    if(e.target === backdrop){
+      closeGoalSheet();
+    }
+
+  };
+
+  document.getElementById(
+    'saveGoalBtn'
+  ).onclick =
+    submitGoal;
+
+}
+
+function closeGoalSheet(){
+
+  document
+    .getElementById('goalBackdrop')
+    .classList.remove('show');
+
+}
+
+function submitGoal(){
+
+  const name =
+    document.getElementById(
+      'goalNameInput'
+    )
+    .value
+    .trim();
+
+  const emoji =
+    document.getElementById(
+      'goalEmojiInput'
+    )
+    .value
+    .trim()
+    || '💰';
+
+  const target =
+    parseFloat(
+      document.getElementById(
+        'goalTargetInput'
+      ).value
+    );
+
+  if(!name){
+
+    alert(
+      'Vul een naam voor je spaardoel in.'
+    );
+
+    return;
+  }
+
+  if(!target || target <= 0){
+
+    alert(
+      'Vul een geldig doelbedrag in.'
+    );
+
+    return;
+  }
+
+  DATA.savingsGoals.push({
+
+    id:Date.now(),
+
+    name,
+
+    emoji,
+
+    target,
+
+    saved:0
+
+  });
+
+  closeGoalSheet();
+
+  saveData();
+  render();
+
+}
 
 /* =====================================================
-   SPAAR MODAL
+   SPAARDOEL AANPASSEN
+===================================================== */
+
+function editGoal(id){
+
+  const goal =
+    DATA.savingsGoals.find(
+      g =>
+        Number(g.id) ===
+        Number(id)
+    );
+
+  if(!goal){
+    return;
+  }
+
+  const newName =
+    prompt(
+      'Naam van spaardoel:',
+      goal.name
+    );
+
+  if(newName === null){
+    return;
+  }
+
+  const newTarget =
+    prompt(
+      'Nieuw doelbedrag:',
+      goal.target
+    );
+
+  if(newTarget === null){
+    return;
+  }
+
+  const target =
+    parseFloat(
+      newTarget.replace(',','.')
+    );
+
+  if(
+    !target ||
+    target <= 0
+  ){
+
+    alert(
+      'Vul een geldig doelbedrag in.'
+    );
+
+    return;
+  }
+
+  goal.name =
+    newName.trim() || goal.name;
+
+  goal.target =
+    target;
+
+  saveData();
+  render();
+
+}
+
+/* =====================================================
+   SPAARDOEL VERWIJDEREN
+===================================================== */
+
+function deleteGoal(id){
+
+  const goal =
+    DATA.savingsGoals.find(
+      g =>
+        Number(g.id) ===
+        Number(id)
+    );
+
+  if(!goal){
+    return;
+  }
+
+  if(
+    !confirm(
+      'Spaardoel "'+
+      goal.name+
+      '" verwijderen? De spaartransacties worden ook verwijderd.'
+    )
+  ){
+    return;
+  }
+
+  DATA.savingsGoals =
+    DATA.savingsGoals.filter(
+      g =>
+        Number(g.id) !==
+        Number(id)
+    );
+
+  DATA.savingsTransactions =
+    DATA.savingsTransactions.filter(
+      t =>
+        Number(t.goalId) !==
+        Number(id)
+    );
+
+  saveData();
+  render();
+
+}
+
+/* =====================================================
+   GELD NAAR SPAARDOEL
 ===================================================== */
 
 function openSavingSheet(){
+
+  const goal =
+    DATA.savingsGoals.find(
+      g =>
+        Number(g.id) ===
+        Number(ui.selectedGoalId)
+    );
+
+  if(!goal){
+    return;
+  }
+
+  document.getElementById(
+    'savingGoalModalName'
+  ).textContent =
+    goal.emoji+' '+goal.name;
+
+  document.getElementById(
+    'savingAmountInput'
+  ).value = '';
+
+  document.getElementById(
+    'savingNoteInput'
+  ).value = '';
+
+  document.getElementById(
+    'savingDateInput'
+  ).value =
+    isoDate(todayDate());
 
   const backdrop =
     document.getElementById(
       'savingBackdrop'
     );
 
-
-  document
-    .getElementById(
-      'savingAmountInput'
-    )
-    .value='';
-
-
-  document
-    .getElementById(
-      'savingNoteInput'
-    )
-    .value='';
-
-
-  document
-    .getElementById(
-      'savingDateInput'
-    )
-    .value =
-      isoDate(
-        todayDate()
-      );
-
-
-  backdrop.classList.add(
-    'show'
-  );
-
+  backdrop.classList.add('show');
 
   setTimeout(
     ()=>{
-
-      document
-        .getElementById(
-          'savingAmountInput'
-        )
-        .focus();
-
+      document.getElementById(
+        'savingAmountInput'
+      ).focus();
     },
     300
   );
 
-
-  document
-    .getElementById(
-      'cancelSavingBtn'
-    )
-    .onclick =
-      closeSavingSheet;
-
+  document.getElementById(
+    'cancelSavingBtn'
+  ).onclick =
+    closeSavingSheet;
 
   backdrop.onclick = e=>{
 
-    if(
-      e.target ===
-      backdrop
-    ){
-
+    if(e.target === backdrop){
       closeSavingSheet();
-
     }
 
   };
 
-
-  document
-    .getElementById(
-      'saveSavingBtn'
-    )
-    .onclick =
-      submitSaving;
+  document.getElementById(
+    'saveSavingBtn'
+  ).onclick =
+    submitSaving;
 
 }
-
 
 function closeSavingSheet(){
 
   document
-    .getElementById(
-      'savingBackdrop'
-    )
-    .classList.remove(
-      'show'
-    );
+    .getElementById('savingBackdrop')
+    .classList.remove('show');
 
 }
 
-
-/* =====================================================
-   SPAARBEDRAG OPSLAAN
-===================================================== */
-
 function submitSaving(){
 
-  const raw =
-    document
-      .getElementById(
-        'savingAmountInput'
-      )
-      .value
-      .replace(
-        ',',
-        '.'
-      );
-
-
-  const amount =
-    parseFloat(
-      raw
+  const goal =
+    DATA.savingsGoals.find(
+      g =>
+        Number(g.id) ===
+        Number(ui.selectedGoalId)
     );
 
+  if(!goal){
+    return;
+  }
+
+  const raw =
+    document.getElementById(
+      'savingAmountInput'
+    )
+    .value
+    .replace(',','.');
+
+  const amount =
+    parseFloat(raw);
 
   if(
     !amount ||
     amount <= 0
   ){
 
-    document
-      .getElementById(
-        'savingAmountInput'
-      )
-      .focus();
+    document.getElementById(
+      'savingAmountInput'
+    ).focus();
 
     return;
-
   }
 
-
   const date =
-    document
-      .getElementById(
-        'savingDateInput'
-      )
-      .value
-      ||
-      isoDate(
-        todayDate()
-      );
-
+    document.getElementById(
+      'savingDateInput'
+    ).value
+    ||
+    isoDate(todayDate());
 
   const note =
-    document
-      .getElementById(
-        'savingNoteInput'
-      )
-      .value
-      .trim();
+    document.getElementById(
+      'savingNoteInput'
+    )
+    .value
+    .trim();
 
-
-  DATA.savings.push({
+  DATA.savingsTransactions.push({
 
     id:Date.now(),
+
+    goalId:goal.id,
 
     amount,
 
@@ -6226,105 +5096,14 @@ function submitSaving(){
 
   });
 
+  recalculateGoalSaved();
 
   closeSavingSheet();
 
   saveData();
-
   render();
 
 }
-
-
-/* =====================================================
-   SPAARCORRECTIE
-===================================================== */
-
-function openSavingCorrection(){
-
-  const amount =
-    prompt(
-      'Hoeveel wil je van je daadwerkelijk gespaarde bedrag afhalen?'
-    );
-
-
-  if(
-    amount === null
-  ){
-
-    return;
-
-  }
-
-
-  const value =
-    parseFloat(
-      amount.replace(
-        ',',
-        '.'
-      )
-    );
-
-
-  if(
-    !value ||
-    value <= 0
-  ){
-
-    alert(
-      'Vul een geldig bedrag in.'
-    );
-
-    return;
-
-  }
-
-
-  const m =
-    computeModel();
-
-
-  if(
-    value >
-    m.savedThisCycle
-  ){
-
-    alert(
-      'Je kunt niet meer corrigeren dan je deze cyclus hebt gespaard.'
-    );
-
-    return;
-
-  }
-
-
-  /*
-    We slaan een negatieve spaartransactie op.
-    Daardoor blijft de volledige geschiedenis
-    behouden.
-  */
-
-  DATA.savings.push({
-
-    id:Date.now(),
-
-    amount:-value,
-
-    date:isoDate(
-      todayDate()
-    ),
-
-    note:'Correctie'
-
-  });
-
-
-  saveData();
-
-  render();
-
-}
-
 
 /* =====================================================
    INIT
@@ -6335,14 +5114,13 @@ function openSavingCorrection(){
   DATA =
     await loadData();
 
+  recalculateGoalSaved();
 
   render();
 
 })();
 
-
 })();
-
 </script>
 
 </body>
